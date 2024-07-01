@@ -1,0 +1,27 @@
+.nav_container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.131);
+    padding: 0 100px 0 100px;
+    height: 60px;    
+}
+.nav_section h1{
+    color: black;
+    cursor: pointer;
+}
+.nav_section span{
+    color: rgb(2, 202, 2);
+}
+.nav_buttons{
+    display: flex;
+    gap: 10px;
+}
+.nav_buttons button{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    height: 35px;
+    width: 100px;
+    border-radius: 25px;
+    border: 1px solid rgb(115, 115, 115);
+    cursor: pointer;
+}
