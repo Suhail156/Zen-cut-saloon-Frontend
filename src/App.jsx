@@ -5,6 +5,8 @@ import Navbar from './Navbar'
 import './App.css'
 import Login from './User/Login'
 import Signup from './User/Signup'
+import ShopHome from '../../Shop/ShopHome'
+import AddShop from '../../Shop/AddShop'
 
 const App = () => {
   return (
@@ -14,6 +16,8 @@ const App = () => {
         <Route path='/' element={<Home/>}/>
         <Route path='/userlogin' element={<Login/>}/>
         <Route path='/usersignup'element={<Signup/>}/>
+        <Route path='/shophome' element={<ShopHome/>}/>
+        <Route path='/addshop' element={<AddShop/>}/>
       </Routes>
       
     </div>

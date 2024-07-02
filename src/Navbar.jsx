@@ -10,7 +10,7 @@ const Navbar = () => {
         <h1 onClick={() => navigate('/')}>Zen<span>Cut</span></h1>
       </div>
       <div className='nav_buttons'>
-        <button>For bussiness</button>
+        <button onClick={()=>navigate('/shophome')}>For bussiness</button>
         <button onClick={()=>navigate('/userlogin')} >Login</button>
       </div>
     </div>
