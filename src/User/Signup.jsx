@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -25,8 +26,8 @@ const Signup = () => {
           }
         );
         console.log(response);
-        if (response.status === 201) {
-          console.log(response.data.data);
+        if (response.status === 200) {
+          console.log("OTP Sent:", response.data.message);
           setIsOtpSent(true); // Show OTP input field and button
         }
       } catch (error) {
@@ -43,11 +44,13 @@ const Signup = () => {
           }
         );
         console.log(response);
-        if (response.status === 200) {
-          console.log(response.data.data);
+        if (response.status === 201) {
+          console.log("User Registered:", response.data.message);
+          toast.success("successfull")
           nav("/userlogin");
         }
       } catch (error) {
+        console.log(error.response.data);
         alert(error.response.data.message);
       }
     }
@@ -59,11 +62,14 @@ const Signup = () => {
       justifyContent: "center",
       alignItems: "center",
       height: "100vh",
-      backgroundColor: "#f0f0f0",
+      backgroundImage:`url('https://img.freepik.com/premium-photo/spray-bottle-hair-dryer_23-2148352946.jpg?w=740')`,
+            backgroundSize:'cover',
+            backgroundPosition:'center',
+            backgroundRepeat:'no-repeat'
     },
     signupBox: {
       width: "65vh",
-      height: "65vh",
+      height: "auto",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -71,9 +77,10 @@ const Signup = () => {
       backgroundColor: "white",
       borderRadius: "8px",
       boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+      opacity :'0.7'
     },
     input: {
-      width: "100%",
+      width: "93%",
       padding: "0.75rem",
       margin: "0.5rem 0",
       borderRadius: "4px",

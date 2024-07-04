@@ -2,6 +2,7 @@
 import saloons from './assets/saloons'
 import Card from 'react-bootstrap/Card';
 
+
 const Home = () => {
   return (
      <div>

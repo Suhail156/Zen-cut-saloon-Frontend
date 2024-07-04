@@ -1,6 +1,7 @@
 import  { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -17,6 +18,7 @@ const Login = () => {
             console.log(response.data.data);
             if (response.status === 200) {
                 console.log(response.status);
+                toast.success(response.data.data.message || "successfull registration navigate to login")
                 const token = response.data.data.token;
                 const name = response.data.data.username;
 
@@ -35,10 +37,13 @@ const Login = () => {
             justifyContent: 'center',
             alignItems: 'center',
             height: '100vh',
-            backgroundColor: '#f0f0f0',
+            backgroundImage:`url('https://img.freepik.com/free-photo/scissors-hair-trimmer-copy-space_23-2148352943.jpg?w=740&t=st=1719986026~exp=1719986626~hmac=55a2e1d048b87a8356ae4af7282f22d038509ea2aa9ec83e33696424244252cf')`,
+            backgroundSize:'cover',
+            backgroundPosition:'center',
+            backgroundRepeat:'no-repeat'
         },
         loginBox: {
-            width: "60vh",
+            width: "65vh",
             height: "60vh",
             display: 'flex',
             flexDirection: 'column',
@@ -47,9 +52,10 @@ const Login = () => {
             backgroundColor: 'white',
             borderRadius: '8px',
             boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+            opacity :'0.7'
         },
         input: {
-            width: '100%',
+            width: '93%',
             padding: '0.75rem',
             margin: '0.5rem 0',
             borderRadius: '4px',
@@ -69,17 +75,19 @@ const Login = () => {
     };
 
     return (
+        <div  >
         <div style={styles.container}>
             <div style={styles.loginBox}>
                 <h2>Login</h2>
                 <form onSubmit={submitHandler} >
-                    <input type="text" placeholder="Username" onChange={(e) => setEmail(e.target.value)} style={styles.input} />
+                    <input type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} style={styles.input} />
                     <input type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} style={styles.input} />
                     <button type="submit" style={styles.button}>Login</button>
                 </form>
                 <h3> Dont you have any account?</h3>
                 <Link to={'/usersignup'}>Create a New account</Link>
             </div>
+        </div>
         </div>
     );
 };
