@@ -9,6 +9,7 @@ import Signup from './User/Signup'
 import ShopHome from '../../Shop/ShopHome'
 import AddShop from '../../Shop/AddShop'
 import ShopSignup from '../../Shop/ShopSignup'
+import ShopLogin from '../../Shop/ShopLogin'
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
         <Route path='/shophome' element={<ShopHome/>}/>
         <Route path='/addshop' element={<AddShop/>}/>
         <Route path='/shopsignup' element={<ShopSignup/>}/>
+        <Route path='/shoplogin' element={<ShopLogin/>}/>
       </Routes>
       
     </div>
