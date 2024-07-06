@@ -14,9 +14,9 @@ const Navbar = () => {
   };
 
   return (
-    <div className='nav_container' style={{}}>
+    <div className='nav_container'>
       <div className='nav_section'>
-        <h1  onClick={() => navigate('/')}>Zen<span>Cut</span></h1>
+        <h1 onClick={() => navigate('/')}>Zen<span>Cut</span></h1>
       </div>
       <div className='nav_buttons'>
         {!name && !ownername ? (
@@ -27,13 +27,9 @@ const Navbar = () => {
         ) : (
           <>
             {ownername ? (
-          
-                 <button style={{ backgroundColor: 'black', color: 'white' }}>{ownername}</button>
-             
+              <button style={{ backgroundColor: 'black', color: 'white' }}>{ownername}</button>
             ) : (
-              <div style={{width:'1356px',height:'70px', backgroundColor:'black',zIndex:'-1',position:'absolute',marginLeft:'-1155px',marginTop:'-20px'}}>
-                  <div style={{float:'left',width:'150px',height:'50px',backgroundColor:'black',marginLeft:'105px'}}><h1 style={{float:'left',color:'white',marginTop:'20px'}} onClick={() => navigate('/')}>Zen<span>Cut</span></h1></div>
-              <button style={{ backgroundColor: 'black', color: 'white', marginLeft:'790px',marginTop:'20px'}}>{name}</button></div>
+              <button style={{ backgroundColor: 'black', color: 'white' }}>{name}</button>
             )}
             <button onClick={logout}>Logout</button>
           </>
