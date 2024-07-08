@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Home = () => {
   const [shop, setShop] = useState([]);
+   const{id}=useParams()
+  const nav=useNavigate()
 
   useEffect(() => {
     const fetchShops = async () => {
@@ -43,10 +46,10 @@ const Home = () => {
           {shop.map((item) => (
             <div key={item.id} className="col-md-4 mb-4">
               <Card style={{marginLeft:'50px'}}>
-                <Card.Img variant="top" src={item.image} style={{ height: '250px' }} />
+                <Card.Img variant="top" src={item.image} style={{ height: '250px' }} onClick={()=>nav(`/singlepage/${item._id}`)} />
                 <Card.Body>
                   <Card.Title style={{fontSize:'larger', fontWeight:'bolder'}}>{item.shopname}</Card.Title>
-                  <Card.Text style={{fontSize:'larger'}} >{item.category.category}</Card.Text>
+                  {/* <Card.Text style={{fontSize:'larger'}} >{item.category.category}</Card.Text> */}
                 </Card.Body>
               </Card>
             </div>

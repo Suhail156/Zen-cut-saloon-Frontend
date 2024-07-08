@@ -10,6 +10,7 @@ import ShopHome from '../../Shop/ShopHome'
 import AddShop from '../../Shop/AddShop'
 import ShopSignup from '../../Shop/ShopSignup'
 import ShopLogin from '../../Shop/ShopLogin'
+import SinglePage from './User/SinglePage'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/addshop' element={<AddShop/>}/>
         <Route path='/shopsignup' element={<ShopSignup/>}/>
         <Route path='/shoplogin' element={<ShopLogin/>}/>
+        <Route path='/singlepage/:id' element={<SinglePage/>}/>
       </Routes>
       
     </div>
