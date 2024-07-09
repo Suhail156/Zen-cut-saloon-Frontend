@@ -56,60 +56,17 @@ const Signup = () => {
     }
   };
 
-  const styles = {
-    container: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      height: "100vh",
-      backgroundImage:`url('https://img.freepik.com/premium-photo/spray-bottle-hair-dryer_23-2148352946.jpg?w=740')`,
-            backgroundSize:'cover',
-            backgroundPosition:'center',
-            backgroundRepeat:'no-repeat'
-    },
-    signupBox: {
-      width: "65vh",
-      height: "auto",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      padding: "2rem",
-      backgroundColor: "white",
-      borderRadius: "8px",
-      boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
-      opacity :'0.7'
-    },
-    input: {
-      width: "93%",
-      padding: "0.75rem",
-      margin: "0.5rem 0",
-      borderRadius: "4px",
-      border: "1px solid #ccc",
-    },
-    button: {
-      width: "100%",
-      padding: "0.75rem",
-      margin: "1rem 0",
-      borderRadius: "4px",
-      border: "none",
-      backgroundColor: "black",
-      color: "white",
-      fontSize: "1rem",
-      cursor: "pointer",
-    },
-  };
-
   return (
-    <div style={styles.container}>
-      <div style={styles.signupBox}>
-        <h2>Sign Up</h2>
+    <div className="flex justify-center items-center min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('https://img.freepik.com/premium-photo/spray-bottle-hair-dryer_23-2148352946.jpg?w=740')` }}>
+      <div className="w-1/2 lg:w-1/3 bg-white p-8 rounded-lg shadow-lg opacity-70">
+        <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
         <form onSubmit={submitHandler}>
           <input
             type="text"
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            style={styles.input}
+            className="w-full p-3 mb-4 border border-gray-300 rounded-lg"
             disabled={isOtpSent}
           />
           <input
@@ -117,7 +74,7 @@ const Signup = () => {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            style={styles.input}
+            className="w-full p-3 mb-4 border border-gray-300 rounded-lg"
             disabled={isOtpSent}
           />
           {!isOtpSent ? (
@@ -127,14 +84,14 @@ const Signup = () => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                style={styles.input}
+                className="w-full p-3 mb-4 border border-gray-300 rounded-lg"
               />
               <input
                 type="text"
                 placeholder="Phone Number"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                style={styles.input}
+                className="w-full p-3 mb-4 border border-gray-300 rounded-lg"
               />
             </>
           ) : (
@@ -143,10 +100,13 @@ const Signup = () => {
               placeholder="Enter OTP"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
-              style={styles.input}
+              className="w-full p-3 mb-4 border border-gray-300 rounded-lg"
             />
           )}
-          <button type="submit" style={styles.button}>
+          <button
+            type="submit"
+            className="w-full p-3 bg-black text-white rounded-lg font-semibold"
+          >
             {isOtpSent ? "Verify OTP" : "Sign Up"}
           </button>
         </form>
@@ -156,3 +116,4 @@ const Signup = () => {
 };
 
 export default Signup;
+
