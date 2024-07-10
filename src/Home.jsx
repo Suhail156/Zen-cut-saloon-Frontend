@@ -50,10 +50,10 @@ const Home = () => {
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold mb-8 text-center">Shops</h2>
         {chunkedShops.map((row, rowIndex) => (
-          <div key={rowIndex} className="flex flex-wrap justify-center">
+          <div key={rowIndex} className="flex flex-wrap justify-center ">
             {row.map((item) => (
               <div key={item.id} className="w-full sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-4 px-2">
-                <div className="border rounded-lg overflow-hidden shadow-lg bg-white transform transition-transform hover:scale-105">
+                <div className="border rounded-lg overflow-hidden shadow-lg bg-white transform transition-transform hover:scale-105 opacity-90 hover:opacity-100">
                   <img
                     src={item.image}
                     className="w-full h-50 object-cover cursor-pointer"
@@ -84,3 +84,4 @@ const Home = () => {
 };
 
 export default Home;
+
