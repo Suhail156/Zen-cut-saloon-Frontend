@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,7 +29,7 @@ const Navbar = () => {
             className="px-4 py-2 text-gray-700 border border-gray-700 rounded-full hover:bg-gray-200 hover:text-gray-900 transition duration-300"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <FontAwesomeIcon icon={faBars} />
+            <FontAwesomeIcon icon={faUser} />
           </button>
         </div>
         <div className={`flex-col md:flex md:flex-row gap-4 ${isMenuOpen ? 'flex' : 'hidden'} md:flex`}>
@@ -65,7 +65,7 @@ const Navbar = () => {
                     aria-haspopup="true"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                   >
-                    <FontAwesomeIcon icon={faBars} />
+                    <FontAwesomeIcon icon={faUser} />
                   </button>
                 </div>
                 {isMenuOpen && (
@@ -108,4 +108,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

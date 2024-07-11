@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FaSearch, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa'; // Import icons
+import { userConfig } from './Token/Config';
 
 const Home = () => {
   const [shop, setShop] = useState([]);
@@ -10,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     const fetchShops = async () => {
       try {
-        const response = await axios.get('http://localhost:3205/api/shop/viewshops');
+        const response = await axios.get(' http://localhost:3205/api/usershop/usershopview',userConfig);
         setShop(response.data.data);
       } catch (error) {
         console.log('error', error);
