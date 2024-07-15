@@ -1,106 +1,141 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { TextField } from "@mui/material";
+import { useParams } from "react-router-dom";
 
 const SinglePage = () => {
-    const [shop, setShop] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const { id } = useParams();
+  const [shop, setShop] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { id } = useParams();
 
-    useEffect(() => {
-        const fetchShop = async () => {
-            try {
-                const response = await axios.get(`http://localhost:3205/api/usershop/usershopid/${id}`);
-                setShop(response.data.data);
-                setLoading(false);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        fetchShop();
-    }, [id]);
-
-    if (loading) {
-        return (
-            <div className="flex justify-center items-center min-h-screen bg-black text-white">
-                <div className="text-2xl">Loading...</div>
-            </div>
+  useEffect(() => {
+    const fetchShop = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3205/api/usershop/usershopid/${id}`
         );
-    }
+        setShop(response.data.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchShop();
+  }, [id]);
 
+  if (loading) {
     return (
-        <div className="bg-gradient-to-r from-gray-700 via-gray-900 to-black min-h-screen py-10">
-            <div className="container mx-auto flex flex-col items-center justify-center gap-8 p-4">
-                {/* Combined Card */}
-                <div className="flex flex-col md:flex-row items-center max-w-5xl rounded-lg overflow-hidden shadow-lg bg-white transform hover:scale-105 transition duration-500">
-                    <div className="relative flex-1 h-[500px]">
-                        <img src={shop.image} alt={shop.shopname} className="w-full h-full object-cover" />
-                        <div className="absolute bottom-0 w-full bg-white bg-opacity-75 p-4">
-                            <h2 className="text-3xl font-bold text-gray-800">{shop.shopname}</h2>
-                            <h3 className="text-xl font-semibold text-gray-600">{shop.location}</h3>
-                            <p className="text-lg text-gray-700">{shop.phone}</p>
-                        </div>
-                    </div>
-                    <div className="flex-1 h-[500px] p-6 bg-white">
-                        <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">Book an Appointment</h2>
-                        <form className="space-y-6">
-                            <div className="relative">
-                                <input
-                                    type="text"
-                                    id="name"
-                                    name="name"
-                                    placeholder="Name"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300"
-                                />
-                            </div>
-                            <div className="relative">
-                                <input
-                                    type="text"
-                                    id="address"
-                                    name="address"
-                                    placeholder="Address"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300"
-                                />
-                            </div>
-                            <div className="relative">
-                                <input
-                                    type="tel"
-                                    id="number"
-                                    name="number"
-                                    placeholder="Phone Number"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300"
-                                />
-                            </div>
-                            <div className="relative">
-                                <input
-                                    type="date"
-                                    id="date"
-                                    name="date"
-                                    placeholder="Date"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300"
-                                />
-                            </div>
-                            <div className="relative">
-                                <input
-                                    type="time"
-                                    id="time"
-                                    name="time"
-                                    placeholder="Time"
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300"
-                                />
-                            </div>
-                            <button
-                                type="submit"
-                                className="w-full px-4 py-2 bg-gradient-to-r from-indigo-600 to-blue-500 text-white rounded-lg hover:bg-indigo-500 transition duration-300"
-                            >
-                                Confirm Booking
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <div className="flex justify-center items-center min-h-screen bg-black text-white">
+        <div className="text-2xl">Loading...</div>
+      </div>
     );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-r from-white-200 to-purple-200">
+      <div className="container mx-auto flex flex-col md:flex-row gap-8 p-4">
+        {/* Combined Layout: Image, Shop Details, and Booking Form */}
+        <div className="w-full max-w-5xl mx-auto flex flex-col md:flex-row gap-8 p-4 bw-full max-w-5xl mx-auto flex flex-col md:flex-row gap-8 p-4 bg-gray-200 to-purple-200 rounded-lg shadow-lg">
+          {/* Left Side: Image and Shop Details */}
+          <div className="w-full md:w-1/2">
+            <div className="max-w-full h-[500px] mb-8 relative mt-[40px] ml-[20px] ">
+              <img
+                src={shop.image}
+                alt={shop.shopname}
+                className="w-full h-full object-cover rounded-lg shadow-lg"
+              />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-white text-center">
+                  <h2 className="text-4xl font-bold">{shop.shopname}</h2>
+                  <p className="text-lg">{shop.location}</p>
+                  <p className="text-lg">{shop.phone}</p>
+                  {/* Additional Details if needed */}
+                  {shop.additionalDetails && (
+                    <div>
+                      <div className="text-xl font-semibold text-gray-600 mt-4 mb-2">
+                        Additional Details:
+                      </div>
+                      <p className="text-lg text-gray-700">
+                        {shop.additionalDetails}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side: Booking Form */}
+          <div className="w-full md:w-1/2">
+            <div className="p-6">
+              <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
+                Book an Appointment
+              </h2>
+              <form className="space-y-6">
+                <div className="relative">
+                  <TextField
+                    className="w-full"
+                    type="text"
+                    id="name"
+                    name="name"
+                    label="Name"
+                    variant="outlined"
+                    InputProps={{ style: { background: "white" } }}
+                  />
+                </div>
+                <div className="relative">
+                  <TextField
+                    className="w-full"
+                    id="address"
+                    name="address"
+                    label="Address"
+                    variant="outlined"
+                    InputProps={{ style: { background: "white" } }}
+                  />
+                </div>
+                <div className="relative">
+                  <TextField
+                    className="w-full"
+                    type="tel"
+                    id="number"
+                    name="number"
+                    label="Number"
+                    variant="outlined"
+                    InputProps={{ style: { background: "white" } }}
+                  />
+                </div>
+
+                <div className="relative">
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    placeholder="Date"
+                    className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300"
+                  />
+                </div>
+                <div className="relative">
+                  <input
+                    type="time"
+                    id="time"
+                    name="time"
+                    placeholder="Time"
+                    className="w-full px-4 py-4 border border-gray-300 rounded-lg focus:outline-none focus:border-indigo-500 transition duration-300"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  className="w-full px-4 py-3 bg-gradient-to-r from-black via-gray-800 to-gray-900 text-white rounded-lg hover:bg-gray-800 transition duration-300"
+                >
+                  Confirm Booking
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default SinglePage;

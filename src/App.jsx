@@ -11,6 +11,7 @@ import AddShop from '../../Shop/AddShop'
 import ShopSignup from '../../Shop/ShopSignup'
 import ShopLogin from '../../Shop/ShopLogin'
 import SinglePage from './User/SinglePage'
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const App = () => {
   return (
@@ -27,7 +28,7 @@ const App = () => {
         <Route path='/shoplogin' element={<ShopLogin/>}/>
         <Route path='/singlepage/:id' element={<SinglePage/>}/>
       </Routes>
-      
+    
     </div>
   )
 }
