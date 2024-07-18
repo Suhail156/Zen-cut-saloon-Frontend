@@ -13,7 +13,7 @@ import ShopSignup from '../../Shop/ShopSignup'
 import ShopLogin from '../../Shop/ShopLogin'
 import SinglePage from './User/SinglePage'
 import UserProfile from './User/UserProfile'
-
+import ProtectedRoute from '../../Shop/ProtectedRoute';
 const App = () => {
   return (
     <div>
@@ -24,8 +24,8 @@ const App = () => {
         <Route path='/userlogin' element={<Login/>}/>
         <Route path='/usersignup'element={<Signup/>}/>
         <Route path='/profile/:id' element={<UserProfile/>}/>
-        <Route path='/shophome' element={<ShopHome/>}/>
-        <Route path='/addshop' element={<AddShop/>}/>
+        <Route path='/shophome' element={<ProtectedRoute><ShopHome/></ProtectedRoute>}/>
+        <Route path='/addshop' element={<ProtectedRoute> <AddShop/></ProtectedRoute>}/>
         <Route path='/shopsignup' element={<ShopSignup/>}/>
         <Route path='/shoplogin' element={<ShopLogin/>}/>
         <Route path='/singlepage/:id' element={<SinglePage/>}/>

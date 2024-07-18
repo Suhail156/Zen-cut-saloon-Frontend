@@ -9,7 +9,8 @@ const Navbar = () => {
 
   const name = localStorage.getItem("name");
   const ownername = localStorage.getItem("ownername");
-
+  const id= localStorage.getItem("id"); // Assuming you store the profile ID in localStorage
+     console.log(id);
   const logout = () => {
     localStorage.clear();
     navigate("/");
@@ -19,7 +20,7 @@ const Navbar = () => {
     <div className={`nav_container ${ownername ? "owner_logged_in" : ""}`}>
       <div className="flex flex-col md:flex-row items-center justify-between px-6 py-4">
         <h1
-          className="text-3xl font-bold cursor-pointer text-black hover:text-black transition duration-300 mb-4 md:mb-0"
+          className="text-xl font-bold cursor-pointer text-black hover:text-black transition duration-300 mb-4 md:mb-0"
           onClick={() => navigate("/")}
         >
           <span className="font-semibold">Zen</span>
@@ -85,7 +86,7 @@ const Navbar = () => {
                         className="text-gray-700 block px-4 py-2 text-sm"
                         role="menuitem"
                         tabIndex="-1"
-                        onClick={() => navigate("/profile")}
+                        onClick={() => navigate(`/profile/${id}`)} // Navigate to profile with stored id
                       >
                         <FontAwesomeIcon icon={faUser} className="mr-2" />
                         Profile

@@ -32,10 +32,10 @@ const SinglePage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-white-200 to-purple-200">
+    <div className="min-h-screen bg-gray-200 to-purple-200 ">
       <div className="container mx-auto flex flex-col md:flex-row gap-8 p-4">
         {/* Combined Layout: Image, Shop Details, and Booking Form */}
-        <div className="w-full max-w-5xl mx-auto flex flex-col md:flex-row gap-8 p-4 bw-full max-w-5xl mx-auto flex flex-col md:flex-row gap-8 p-4 bg-gray-200 to-purple-200 rounded-lg shadow-lg">
+        <div className="w-full max-w-5xl mx-auto flex flex-col md:flex-row gap-8 p-4 bw-full max-w-5xl mx-auto flex flex-col md:flex-row gap-8 p-4 bg-gray-200 to-purple-200 rounded-lg ">
           {/* Left Side: Image and Shop Details */}
           <div className="w-full md:w-1/2">
             <div className="max-w-full h-[500px] mb-8 relative mt-[40px] ml-[20px] ">

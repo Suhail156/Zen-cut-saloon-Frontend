@@ -26,9 +26,10 @@ const Login = () => {
         );
         const token = response.data.data.token;
         const name = response.data.data.username;
-
+        const id=response.data.data._id
         localStorage.setItem("token", token);
         localStorage.setItem("name", name);
+        localStorage.setItem('id',id)
         nav("/");
       }
     } catch (error) {
