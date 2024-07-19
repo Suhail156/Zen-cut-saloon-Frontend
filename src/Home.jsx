@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { FaSearch, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa'; // Import icons
+import { FaSearch, FaPhoneAlt, FaMapMarkerAlt } from 'react-icons/fa'; 
 import Footer from './Footer';
 import { FaCut, FaBath, FaMagic, FaBrush, FaUserTie } from 'react-icons/fa';
+import Navbar from '../src/Navbar'
 
 const Home = () => {
   const [shop, setShop] = useState([]);
@@ -21,7 +22,7 @@ const Home = () => {
     fetchShops();
   }, []); 
 
-  // Function to chunk the array into smaller arrays with 4 items each
+
   const chunkArray = (arr, chunkSize) => {
     return Array.from({ length: Math.ceil(arr.length / chunkSize) }, (_, index) =>
       arr.slice(index * chunkSize, index * chunkSize + chunkSize)
@@ -30,15 +31,16 @@ const Home = () => {
 
   const chunkedShops = chunkArray(shop, 4);
   const services = [
-    { icon: <FaCut size={40} className="text-orange-500" />, title: 'Shave & Haircut', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Corrupti, assumenda rem nulla odio iure animi repellat voluptates ullam omnis enim?' },
-    { icon: <FaBath size={40} className="text-orange-500" />, title: 'Cream & Shampoo', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Corrupti, assumenda rem nulla odio iure animi repellat voluptates ullam omnis enim?' },
-    { icon: <FaMagic size={40} className="text-orange-500" />, title: 'Mustache Expert', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Corrupti, assumenda rem nulla odio iure animi repellat voluptates ullam omnis enim?' },
-    { icon: <FaUserTie size={40} className="text-orange-500" />, title: 'Haircut Styler', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Corrupti, assumenda rem nulla odio iure animi repellat voluptates ullam omnis enim?' },
-    { icon: <FaSearch size={40} className="text-orange-500" />, title: 'Razor For Beards', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Corrupti, assumenda rem nulla odio iure animi repellat voluptates ullam omnis enim?' },
-    { icon: <FaBrush size={40} className="text-orange-500" />, title: 'Haircomb', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Corrupti, assumenda rem nulla odio iure animi repellat voluptates ullam omnis enim?' },
+    { icon: <FaCut size={40} className="text-blue-500" />, title: 'Shave & Haircut', description: 'High-quality scissors designed for precision and comfort, ensuring a clean and sharp cut every time.' },
+    { icon: <FaBath size={40} className="text-blue-500" />, title: 'Cream & Shampoo', description: 'Durable and flexible combs for easy detangling and styling of hair, perfect for all hair types.' },
+    { icon: <FaMagic size={40} className="text-blue-500" />, title: 'Mustache Expert', description: 'Classic straight razor for a close and smooth shave, providing a traditional barbershop experience.' },
+    { icon: <FaUserTie size={40} className="text-blue-500" />, title: 'Haircut Styler', description: 'Professional-grade hair spray for holding styles in place, adding volume and shine to hair.' },
+    { icon: <FaSearch size={40} className="text-blue-500" />, title: 'Razor For Beards', description: 'Comfortable and adjustable barber chair designed for both barber and client convenience during grooming sessions.' },
+    { icon: <FaBrush size={40} className="text-blue-500" />, title: 'Haircomb', description: 'Powerful and precise hair clippers for quick and efficient haircuts, featuring multiple length settings.' },
   ];
-
   return (
+      <div>
+        <Navbar/>
     <div className="min-h-screen bg-gradient-to-r from-blue-200 to-purple-200 mt-[-200px]">
       <div className="w-3/4 mx-auto text-center pt-[190px]">
         <h1 className="text-6xl font-bold italic text-black mt-32">
@@ -51,7 +53,7 @@ const Home = () => {
       <div className="w-1/2 mx-auto mt-5 mb-56 relative">
         <input
           type="text"
-          className="w-full h-12 rounded-lg border border-solid px-4 pl-10" // Adjust height for better UI
+          className="w-full h-12 rounded-lg border border-solid px-4 pl-10" 
           placeholder="Search for shops..."
         />
         <FaSearch className='absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400' />
@@ -112,6 +114,7 @@ const Home = () => {
       </div>
 
       <Footer/>
+    </div>
     </div>
   );
 };

@@ -135,9 +135,6 @@ const UserProfile = () => {
                     </CardContent>
                 </Card>
             </Box>
-            <div style={{marginTop:'50px'}} >
-            <Footer />
-            </div>
            
         </div>
     );
