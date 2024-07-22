@@ -166,7 +166,7 @@ const AdminHome = () => {
               </Paper>
             </Grid>
             {/* Welcome Message */}
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <Paper elevation={3} style={{ padding: '16px' }}>
                 <Typography variant="h6">Welcome to Admin Dashboard</Typography>
                 <Typography variant="body1">
@@ -175,7 +175,7 @@ const AdminHome = () => {
                   mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
                 </Typography>
               </Paper>
-            </Grid>
+            </Grid> */}
           </Grid>
         </Container>
       </Box>

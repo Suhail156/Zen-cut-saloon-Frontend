@@ -3,8 +3,7 @@ import { Box, Drawer, Typography, IconButton, AppBar, Toolbar } from '@mui/mater
 import { Menu as MenuIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
-const drawerWidth = 240; // Define drawerWidth here
-
+const drawerWidth = 240; 
 const Sidebar = ({ drawerContent }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();

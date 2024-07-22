@@ -11,27 +11,22 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:3205/api/users/login",
-        {
-          email,
-          password,
-        }
-      );
-      console.log(response.data.data);
-      if (response.status === 200) {
-        console.log(response.status);
-        toast.success(
-          response.data.data.message || "Successful login, redirecting..."
-        );
-        const token = response.data.data.token;
-        const name = response.data.data.username;
-        const id=response.data.data._id
-        localStorage.setItem("token", token);
-        localStorage.setItem("name", name);
-        localStorage.setItem('id',id)
-        nav("/");
-      }
+      await axios
+        .post("http://localhost:3205/api/users/login", { email, password })
+        .then((response) => {
+          const token = response.data.data.token;
+          const name = response.data.data.username;
+          const id = response.data.data._id;
+          localStorage.setItem("token", token);
+          localStorage.setItem("name", name);
+          localStorage.setItem("id", id);
+          toast.success(response.data.message);
+          nav("/");
+        })
+        .catch((error) => {
+          console.log(error);
+          toast.error(error.response.data.message )
+        });
     } catch (error) {
       console.log(error);
     }

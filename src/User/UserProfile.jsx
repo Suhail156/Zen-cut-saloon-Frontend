@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Footer from "../Footer";
 
 const UserProfile = () => {
     const [user, setUser] = useState(null);
@@ -46,14 +45,13 @@ const UserProfile = () => {
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={4} textAlign="center">
                                 <Avatar
-                                    // src={user.profilePicture}
                                     alt="Profile"
                                     sx={{ width: 120, height: 120, mb: 2, boxShadow: 2 }}
                                 />
-                                <Typography variant="h5" component="h2" style={{marginRight:'85px'}} >
+                                <Typography variant="h5" component="h2" style={{marginRight:'285px'}} >
                                     {user.username}
                                 </Typography>
-                                <Typography variant="body1" color="textSecondary" style={{marginRight:'85px'}}>
+                                <Typography variant="body1" color="textSecondary" style={{marginRight:'2    85px'}}>
                                     Edit basic info
                                 </Typography>
                             </Grid>
