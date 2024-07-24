@@ -31,8 +31,6 @@ const Sidebar = ({ drawerContent }) => {
           </Typography>
         </Toolbar>
       </AppBar>
-
-      {/* Sidebar */}
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
@@ -43,7 +41,7 @@ const Sidebar = ({ drawerContent }) => {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true, 
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },

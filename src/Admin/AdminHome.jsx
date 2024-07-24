@@ -46,7 +46,7 @@ const AdminHome = () => {
       <Button
         startIcon={<ShoppingCartIcon />}
         onClick={() => {
-          navigate('/sales');
+          navigate('/owners');
           handleDrawerToggle();
         }}
         fullWidth
@@ -59,7 +59,7 @@ const AdminHome = () => {
           },
         }}
       >
-        Sales
+        Owners
       </Button>
       <Button
         startIcon={<PeopleIcon />}

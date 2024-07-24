@@ -12,25 +12,25 @@ import {
   Paper,
   IconButton,
   Button,
-  Tooltip, // Added Tooltip
+  Tooltip,
 } from "@mui/material";
-import { Block, Done } from "@mui/icons-material"; // Removed CheckCircle
+import { CheckCircle, Close } from "@mui/icons-material";
 import Sidebar from "./Sidebar";
 import axios from "axios";
-import toast from "react-hot-toast";
 
 const drawerWidth = 240;
 
-const User = () => {
+const Owner = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3205/api/admin/adminuserview"
+          "http://localhost:3205/api/admin/adminownerview"
         );
         setUsers(response.data.data);
+        console.log(response.data.data);
       } catch (error) {
         console.log(error);
       }
@@ -38,18 +38,19 @@ const User = () => {
     fetchUsers();
   }, []);
 
-  const toggleBlockUser = async (id) => {
+  const handleApprove = async (userId) => {
     try {
-      const response = await axios.patch(
-        `http://localhost:3205/api/admin/adminblock/${id}`
-      );
-      toast.success(response.data.message);
+      await axios.post(`http://localhost:3205/api/admin/approve/${userId}`);
+      // Update users state or refetch users
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-      setUsers(
-        users.map((user) =>
-          user._id === id ? { ...user, blocked: !user.blocked } : user
-        )
-      );
+  const handleReject = async (userId) => {
+    try {
+      await axios.post(`http://localhost:3205/api/admin/reject/${userId}`);
+      // Update users state or refetch users
     } catch (error) {
       console.log(error);
     }
@@ -124,7 +125,9 @@ const User = () => {
                   <TableCell>Serial Number</TableCell>
                   <TableCell>Username</TableCell>
                   <TableCell>Email</TableCell>
+                  <TableCell>Shopname</TableCell>
                   <TableCell>Phone Number</TableCell>
+                  <TableCell>Category</TableCell>
                   <TableCell>Action</TableCell>
                 </TableRow>
               </TableHead>
@@ -134,31 +137,37 @@ const User = () => {
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{user.username}</TableCell>
                     <TableCell>{user.email}</TableCell>
+                    <TableCell>{user.shopname}</TableCell>
                     <TableCell>{user.phone}</TableCell>
+                    <TableCell>{user.category}</TableCell>
                     <TableCell>
-                      <Tooltip title={user.blocked ? "Unblock User" : "Block User"}>
+                      <Tooltip title="Approve">
                         <IconButton
-                          color={user.blocked ? "error" : "success"}
-                          onClick={() => toggleBlockUser(user._id)}
+                          color="success"
+                          onClick={() => handleApprove(user._id)}
                           sx={{
-                            borderRadius: "50%",
-                            width: "36px",
-                            height: "36px",
-                            bgcolor: user.blocked ? "error.main" : "success.main",
-                            "&:hover": {
-                              bgcolor: user.blocked
-                                ? "error.dark"
-                                : "success.dark",
-                            },
-                            color: "#fff",
-                            boxShadow: 3,
+                            marginRight: 1,
                             transition: "transform 0.2s",
                             "&:hover": {
-                              transform: "scale(1.1)",
+                              transform: "scale(1.2)",
                             },
                           }}
                         >
-                          {user.blocked ? <Done /> : <Block />}
+                          <CheckCircle />
+                        </IconButton>
+                      </Tooltip>
+                      <Tooltip title="Reject">
+                        <IconButton
+                          color="error"
+                          onClick={() => handleReject(user._id)}
+                          sx={{
+                            transition: "transform 0.2s",
+                            "&:hover": {
+                              transform: "scale(1.2)",
+                            },
+                          }}
+                        >
+                          <Close />
                         </IconButton>
                       </Tooltip>
                     </TableCell>
@@ -173,4 +182,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default Owner;

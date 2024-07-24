@@ -51,7 +51,7 @@ const UserProfile = () => {
                                 <Typography variant="h5" component="h2" style={{marginRight:'285px'}} >
                                     {user.username}
                                 </Typography>
-                                <Typography variant="body1" color="textSecondary" style={{marginRight:'2    85px'}}>
+                                <Typography variant="body1" color="textSecondary" style={{marginRight:'285px'}}>
                                     Edit basic info
                                 </Typography>
                             </Grid>

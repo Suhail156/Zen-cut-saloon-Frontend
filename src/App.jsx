@@ -16,6 +16,7 @@ import ProtectedRoute from '../../Shop/ProtectedRoute';
 import AdminLogin from './Admin/AdminLogin';
 import AdminHome from './Admin/AdminHome';
 import User from './Admin/User';
+import Owner from './Admin/Owner';
 const App = () => {
   const adminToken = localStorage.getItem('token');
   console.log(adminToken);
@@ -38,6 +39,7 @@ const App = () => {
         <Route path='/adminlogin' element={<AdminLogin/>} />
         <Route path='/adminhome' element={<AdminHome/>}/>
         <Route path="/users" element={<User />} />
+        <Route path='/owners' element={<Owner/>}/>
 
       </Routes>
     
