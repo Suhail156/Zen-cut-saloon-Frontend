@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Container,
@@ -11,10 +11,16 @@ import {
   TableRow,
   Paper,
   IconButton,
-  Button,
   Tooltip,
+  Popover,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  Button, // <-- Import Button here
 } from "@mui/material";
-import { CheckCircle, Close } from "@mui/icons-material";
+import { CheckCircle, Close, Menu, Info, Edit } from "@mui/icons-material";
 import Sidebar from "./Sidebar";
 import axios from "axios";
 
@@ -22,6 +28,8 @@ const drawerWidth = 240;
 
 const Owner = () => {
   const [users, setUsers] = useState([]);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -38,23 +46,30 @@ const Owner = () => {
     fetchUsers();
   }, []);
 
-  const handleApprove = async (userId) => {
-    try {
-      await axios.post(`http://localhost:3205/api/admin/approve/${userId}`);
-      // Update users state or refetch users
-    } catch (error) {
-      console.log(error);
-    }
+     
+
+    
+  const handleDetails = (user) => {
+    // Add logic to handle user details view
+    console.log("User details:", user);
   };
 
-  const handleReject = async (userId) => {
-    try {
-      await axios.post(`http://localhost:3205/api/admin/reject/${userId}`);
-      // Update users state or refetch users
-    } catch (error) {
-      console.log(error);
-    }
+  const handleEdit = (user) => {
+    // Add logic to handle user edit
+    console.log("Edit user:", user);
   };
+
+  const handlePopoverOpen = (event, user) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedUser(user);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+    setSelectedUser(null);
+  };
+
+  const open = Boolean(anchorEl);
 
   const drawerContent = (handleDrawerToggle, navigate) => (
     <div>
@@ -141,25 +156,10 @@ const Owner = () => {
                     <TableCell>{user.phone}</TableCell>
                     <TableCell>{user.category}</TableCell>
                     <TableCell>
-                      <Tooltip title="Approve">
+                      <Tooltip title="Actions">
                         <IconButton
-                          color="success"
-                          onClick={() => handleApprove(user._id)}
-                          sx={{
-                            marginRight: 1,
-                            transition: "transform 0.2s",
-                            "&:hover": {
-                              transform: "scale(1.2)",
-                            },
-                          }}
-                        >
-                          <CheckCircle />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Reject">
-                        <IconButton
-                          color="error"
-                          onClick={() => handleReject(user._id)}
+                          color="primary"
+                          onClick={(event) => handlePopoverOpen(event, user)}
                           sx={{
                             transition: "transform 0.2s",
                             "&:hover": {
@@ -167,9 +167,52 @@ const Owner = () => {
                             },
                           }}
                         >
-                          <Close />
+                          <Menu />
                         </IconButton>
                       </Tooltip>
+                      <Popover
+                        open={open}
+                        anchorEl={anchorEl}
+                        onClose={handlePopoverClose}
+                        anchorOrigin={{
+                          vertical: "bottom",
+                          horizontal: "left",
+                        }}
+                      >
+                        <Box sx={{ p: 2, width: 200 }}>
+                          <Typography variant="h6" gutterBottom>
+                            Actions
+                          </Typography>
+                          <Divider />
+                          <List>
+                            <ListItem button onClick={() => handleApprove(selectedUser._id)}>
+                              <ListItemIcon>
+                                <CheckCircle color="success" />
+                              </ListItemIcon>
+                              <ListItemText primary="Approve" />
+                            </ListItem>
+                            <ListItem button onClick={() => handleReject(selectedUser._id)}>
+                              <ListItemIcon>
+                                <Close color="error" />
+                              </ListItemIcon>
+                              <ListItemText primary="Reject" />
+                            </ListItem>
+                            <Divider />
+                            <ListItem button onClick={() => handleDetails(selectedUser)}>
+                              <ListItemIcon>
+                                <Info color="primary" />
+                              </ListItemIcon>
+                              <ListItemText primary="Details" />
+                            </ListItem>
+                            <ListItem button onClick={() => handleEdit(selectedUser)}>
+                              <ListItemIcon>
+                                <Edit color="primary" />
+                              </ListItemIcon>
+                              <ListItemText primary="Edit" />
+                            </ListItem>
+                          </List>
+                        </Box>
+                      </Popover>
                     </TableCell>
                   </TableRow>
                 ))}
