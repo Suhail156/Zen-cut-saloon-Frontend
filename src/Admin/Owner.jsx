@@ -1,28 +1,11 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import {
-  Box,
-  Container,
-  Typography,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  IconButton,
-  Tooltip,
-  Popover,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Divider,
-  Button, // <-- Import Button here
+  Box,Container,Typography,Table,TableBody,TableCell,TableContainer,TableHead,TableRow, Paper,IconButton,Tooltip,Popover,List, ListItem,ListItemIcon,ListItemText, Divider, Button, // <-- Import Button here
 } from "@mui/material";
 import { CheckCircle, Close, Menu, Info, Edit } from "@mui/icons-material";
 import Sidebar from "./Sidebar";
 import axios from "axios";
+import { useNavigate} from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -30,6 +13,8 @@ const Owner = () => {
   const [users, setUsers] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
+    const nav=useNavigate()
+  
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -44,21 +29,9 @@ const Owner = () => {
       }
     };
     fetchUsers();
-  }, []);
+  }, [])
 
-     
-
-    
-  const handleDetails = (user) => {
-    // Add logic to handle user details view
-    console.log("User details:", user);
-  };
-
-  const handleEdit = (user) => {
-    // Add logic to handle user edit
-    console.log("Edit user:", user);
-  };
-
+  
   const handlePopoverOpen = (event, user) => {
     setAnchorEl(event.currentTarget);
     setSelectedUser(user);
@@ -143,7 +116,7 @@ const Owner = () => {
                   <TableCell>Shopname</TableCell>
                   <TableCell>Phone Number</TableCell>
                   <TableCell>Category</TableCell>
-                  <TableCell>Action</TableCell>
+                  {/* <TableCell>Action</TableCell> */}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -156,8 +129,8 @@ const Owner = () => {
                     <TableCell>{user.phone}</TableCell>
                     <TableCell>{user.category}</TableCell>
                     <TableCell>
-                      <Tooltip title="Actions">
-                        <IconButton
+                      {/* <Tooltip title="Actions"> */}
+                        {/* <IconButton
                           color="primary"
                           onClick={(event) => handlePopoverOpen(event, user)}
                           sx={{
@@ -167,10 +140,10 @@ const Owner = () => {
                             },
                           }}
                         >
-                          <Menu />
-                        </IconButton>
-                      </Tooltip>
-                      <Popover
+                          <Menu /> */}
+                        {/* </IconButton> */}
+                      {/* </Tooltip> */}
+                      {/* <Popover
                         open={open}
                         anchorEl={anchorEl}
                         onClose={handlePopoverClose}
@@ -198,13 +171,13 @@ const Owner = () => {
                               <ListItemText primary="Reject" />
                             </ListItem>
                             <Divider />
-                            <ListItem button onClick={() => handleDetails(selectedUser)}>
+                            <ListItem button onClick={() => handleDetails(user._id)}>
                               <ListItemIcon>
                                 <Info color="primary" />
                               </ListItemIcon>
                               <ListItemText primary="Details" />
                             </ListItem>
-                            <ListItem button onClick={() => handleEdit(selectedUser)}>
+                            <ListItem button onClick={() => nav(`/admineditorowners/${id}`)}>
                               <ListItemIcon>
                                 <Edit color="primary" />
                               </ListItemIcon>
@@ -212,7 +185,7 @@ const Owner = () => {
                             </ListItem>
                           </List>
                         </Box>
-                      </Popover>
+                      </Popover> */}
                     </TableCell>
                   </TableRow>
                 ))}

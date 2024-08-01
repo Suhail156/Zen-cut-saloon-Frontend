@@ -17,18 +17,23 @@ import AdminLogin from './Admin/AdminLogin';
 import AdminHome from './Admin/AdminHome';
 import User from './Admin/User';
 import Owner from './Admin/Owner';
+import BookingPage from './User/BookingPage';
+import AdminEditOwners from './Admin/AdminEditOwners';
+import BookingDeatiles from '../../Shop/BookingDeatiles';
+
 const App = () => {
   const adminToken = localStorage.getItem('token');
   console.log(adminToken);
   return (
     <div>
-      <Toaster/>
+      <Toaster/>  
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/userlogin' element={<Login/>}/>
         <Route path='/usersignup'element={<Signup/>}/>
         <Route path='/singlepage/:id' element={<SinglePage/>}/>
         <Route path='/profile/:id' element={<UserProfile/>}/>
+        <Route path='/bookingpage' element={<BookingPage/>}/>
         
         <Route path='/shophome' element={<ProtectedRoute><ShopHome/></ProtectedRoute>}/>
         <Route path='/addshop' element={<ProtectedRoute> <AddShop/></ProtectedRoute>}/>
@@ -40,7 +45,8 @@ const App = () => {
         <Route path='/adminhome' element={<AdminHome/>}/>
         <Route path="/users" element={<User />} />
         <Route path='/owners' element={<Owner/>}/>
-
+        <Route path='/admineditowners/:id' element={<AdminEditOwners/>}/>
+        <Route path='/bookingdeatiles' element={<BookingDeatiles/>}/>
       </Routes>
     
     </div>
