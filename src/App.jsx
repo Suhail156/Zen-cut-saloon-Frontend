@@ -20,6 +20,7 @@ import Owner from './Admin/Owner';
 import BookingPage from './User/BookingPage';
 import AdminEditOwners from './Admin/AdminEditOwners';
 import BookingDeatiles from '../../Shop/BookingDeatiles';
+import ShopDetailes from '../../Shop/ShopDetailes';
 
 const App = () => {
   const adminToken = localStorage.getItem('token');
@@ -47,6 +48,7 @@ const App = () => {
         <Route path='/owners' element={<Owner/>}/>
         <Route path='/admineditowners/:id' element={<AdminEditOwners/>}/>
         <Route path='/bookingdeatiles' element={<BookingDeatiles/>}/>
+        <Route path='/viewshops' element={<ShopDetailes/>}/>
       </Routes>
     
     </div>
