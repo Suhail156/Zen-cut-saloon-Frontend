@@ -89,21 +89,21 @@ const Home = () => {
     },
   ];
 
-  const parseCategories = (categoryString) => {
-    try {
-      // Ensure categoryString is not empty and is a valid JSON
-      if (categoryString && typeof categoryString === 'string') {
-        // Remove extra quotes or any non-JSON characters
-        const trimmedString = categoryString.trim().replace(/^\[|\]$/g, '');
-        // Parse the cleaned-up string
-        return JSON.parse(`[${trimmedString}]`);
-      }
-      return [];
-    } catch (error) {
-      console.error("Failed to parse category data:", error);
-      return [];
-    }
-  };
+  // const parseCategories = (categoryString) => {
+  //   try {
+  //     // Ensure categoryString is not empty and is a valid JSON
+  //     if (categoryString && typeof categoryString === 'string') {
+  //       // Remove extra quotes or any non-JSON characters
+  //       const trimmedString = categoryString.trim().replace(/^\[|\]$/g, '');
+  //       // Parse the cleaned-up string
+  //       return JSON.parse(`[${trimmedString}]`);
+  //     }
+  //     return [];
+  //   } catch (error) {
+  //     console.error("Failed to parse category data:", error);
+  //     return [];
+  //   }
+  // };
 
   return (
     <div>
