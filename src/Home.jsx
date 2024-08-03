@@ -89,6 +89,22 @@ const Home = () => {
     },
   ];
 
+  const parseCategories = (categoryString) => {
+    try {
+      // Ensure categoryString is not empty and is a valid JSON
+      if (categoryString && typeof categoryString === 'string') {
+        // Remove extra quotes or any non-JSON characters
+        const trimmedString = categoryString.trim().replace(/^\[|\]$/g, '');
+        // Parse the cleaned-up string
+        return JSON.parse(`[${trimmedString}]`);
+      }
+      return [];
+    } catch (error) {
+      console.error("Failed to parse category data:", error);
+      return [];
+    }
+  };
+
   return (
     <div>
       <Navbar />
@@ -150,11 +166,15 @@ const Home = () => {
                           <FaMapMarkerAlt className="mr-2" /> {item.location}
                         </p>
                       )}
-                      {item.category && (
-                        <p className="text-sm text-gray-600 flex items-center">
-                          <FaMapMarkerAlt className="mr-2" /> gd{item.category}
-                        </p>
-                      )}
+                      {/* {item.category && item.category.length > 0 ? (
+                        parseCategories(item.category[0]).map((category, index) => (
+                          <p key={index} className="text-sm text-gray-600 flex items-center">
+                            <FaMapMarkerAlt className="mr-2" /> {category.name}
+                          </p>
+                        ))
+                      ) : (
+                        <span>No categories available</span>
+                      )} */}
                     </div>
                   </div>
                 </div>

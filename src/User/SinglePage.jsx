@@ -70,6 +70,14 @@ const SinglePage = () => {
 
   const dates = Array.from({ length: 7 }, (_, i) => addDays(startOfToday(), i));
 
+  // Parse the category data
+  let categories = [];
+  try {
+    categories = shop.category ? JSON.parse(shop.category) : [];
+  } catch (error) {
+    console.error("Error parsing categories:", error);
+  }
+
   return (
     <>
       <Navbar />
@@ -99,6 +107,26 @@ const SinglePage = () => {
                 <h2 className="text-4xl font-bold mb-2">{shop.shopname}</h2>
                 <p className="text-lg text-gray-700 mb-1">{shop.location}</p>
                 <p className="text-lg text-gray-700 mb-4">{shop.phone}</p>
+                
+                {/* Render categories as buttons */}
+                <div className="mb-4">
+                  <h3 className="text-xl font-semibold">Categories:</h3>
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {categories.length > 0 ? (
+                      categories.map((category, index) => (
+                        <button
+                          key={index}
+                          className="px-4 py-2 bg-gray-200 text-gray-800 rounded-full text-sm hover:bg-gray-300"
+                        >
+                          {category.name}
+                        </button>
+                      ))
+                    ) : (
+                      <span>No categories available</span>
+                    )}
+                  </div>
+                </div>
+
                 {shop.additionalDetails && (
                   <div>
                     <div className="text-xl font-semibold mt-4 mb-2">
