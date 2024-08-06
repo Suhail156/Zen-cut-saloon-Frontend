@@ -33,7 +33,6 @@ const Home = () => {
           `http://localhost:3205/api/usershop/usershopsearch?locations=${search}`
         );
         setShop(response.data.shops);
-        // console.log(response.data.shops);
       } catch (error) {
         console.log(error);
       }

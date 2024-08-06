@@ -28,7 +28,7 @@ const Signup = () => {
         console.log(response);
         if (response.status === 200) {
           console.log("OTP Sent:", response.data.message);
-          setIsOtpSent(true); // Show OTP input field and button
+          setIsOtpSent(true); 
         }
       } catch (error) {
         console.log(error.response.data);

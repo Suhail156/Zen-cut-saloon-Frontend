@@ -1,5 +1,5 @@
 import { Box, Container, Grid, Paper, Typography, Card, CardContent, CardMedia, Button } from '@mui/material';
-import { AttachMoney as AttachMoneyIcon, ShoppingCart as ShoppingCartIcon, People as PeopleIcon, Home as HomeIcon } from '@mui/icons-material';
+import { AttachMoney as AttachMoneyIcon, ShoppingCart as ShoppingCartIcon, People as PeopleIcon, Home as HomeIcon, Logout as LogoutIcon, Event as EventIcon, Store as StoreIcon, Person as PersonIcon } from '@mui/icons-material';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import Sidebar from './Sidebar';
@@ -80,9 +80,9 @@ const AdminHome = () => {
         Users
       </Button>
       <Button
-        startIcon={<AttachMoneyIcon />}
+        startIcon={<LogoutIcon />}
         onClick={() => {
-          navigate('/revenue');
+          navigate('/adminlogin');
           handleDrawerToggle();
         }}
         fullWidth
@@ -95,7 +95,7 @@ const AdminHome = () => {
           },
         }}
       >
-        Revenue
+        Logout
       </Button>
     </div>
   );
@@ -117,44 +117,44 @@ const AdminHome = () => {
               <Card>
                 <CardContent>
                   <Typography color="textSecondary" gutterBottom>
-                    Total Revenue
-                  </Typography>
-                  <Typography variant="h5" component="div">
-                    $34,245
-                  </Typography>
-                </CardContent>
-                <CardMedia>
-                  <AttachMoneyIcon style={{ fontSize: 40, color: '#4caf50' }} />
-                </CardMedia>
-              </Card>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <Card>
-                <CardContent>
-                  <Typography color="textSecondary" gutterBottom>
-                    Total Sales
-                  </Typography>
-                  <Typography variant="h5" component="div">
-                    1,245
-                  </Typography>
-                </CardContent>
-                <CardMedia>
-                  <ShoppingCartIcon style={{ fontSize: 40, color: '#f50057' }} />
-                </CardMedia>
-              </Card>
-            </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <Card>
-                <CardContent>
-                  <Typography color="textSecondary" gutterBottom>
-                    Total Customers
+                    Total Users
                   </Typography>
                   <Typography variant="h5" component="div">
                     3,567
                   </Typography>
                 </CardContent>
                 <CardMedia>
-                  <PeopleIcon style={{ fontSize: 40, color: '#3f51b5' }} />
+                  <PersonIcon style={{ fontSize: 40, color: '#3f51b5' }} />
+                </CardMedia>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={6} lg={3}>
+              <Card>
+                <CardContent>
+                  <Typography color="textSecondary" gutterBottom>
+                    Total Shop Owners
+                  </Typography>
+                  <Typography variant="h5" component="div">
+                    123
+                  </Typography>
+                </CardContent>
+                <CardMedia>
+                  <StoreIcon style={{ fontSize: 40, color: '#f50057' }} />
+                </CardMedia>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={6} lg={3}>
+              <Card>
+                <CardContent>
+                  <Typography color="textSecondary" gutterBottom>
+                    Total Bookings
+                  </Typography>
+                  <Typography variant="h5" component="div">
+                    789
+                  </Typography>
+                </CardContent>
+                <CardMedia>
+                  <EventIcon style={{ fontSize: 40, color: '#4caf50' }} />
                 </CardMedia>
               </Card>
             </Grid>

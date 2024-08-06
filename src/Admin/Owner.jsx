@@ -1,11 +1,11 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
-  Box,Container,Typography,Table,TableBody,TableCell,TableContainer,TableHead,TableRow, Paper,IconButton,Tooltip,Popover,List, ListItem,ListItemIcon,ListItemText, Divider, Button, // <-- Import Button here
+  Box, Container,Typography,Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper, IconButton, Tooltip, Popover, List, ListItem,ListItemIcon, ListItemText,  Divider, Button,
 } from "@mui/material";
-import { CheckCircle, Close, Menu, Info, Edit } from "@mui/icons-material";
+import { Menu, Info, Edit, Event } from "@mui/icons-material"
 import Sidebar from "./Sidebar";
 import axios from "axios";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -13,8 +13,7 @@ const Owner = () => {
   const [users, setUsers] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
-    const nav=useNavigate()
-  
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -23,15 +22,13 @@ const Owner = () => {
           "http://localhost:3205/api/admin/adminownerview"
         );
         setUsers(response.data.data);
-        console.log(response.data.data);
       } catch (error) {
         console.log(error);
       }
     };
     fetchUsers();
-  }, [])
+  }, []);
 
-  
   const handlePopoverOpen = (event, user) => {
     setAnchorEl(event.currentTarget);
     setSelectedUser(user);
@@ -43,6 +40,21 @@ const Owner = () => {
   };
 
   const open = Boolean(anchorEl);
+
+  const handleDetails = (userId) => {
+    navigate(`/adminownerdetails/${userId}`);
+    handlePopoverClose();
+  };
+
+  const handleEdit = (userId) => {
+    navigate(`/admineditorowners/${userId}`);
+    handlePopoverClose();
+  };
+
+  const handleBookingDetails = (userId) => {
+    navigate(`/bookingdetails/${userId}`);
+    handlePopoverClose();
+  };
 
   const drawerContent = (handleDrawerToggle, navigate) => (
     <div>
@@ -113,24 +125,24 @@ const Owner = () => {
                   <TableCell>Serial Number</TableCell>
                   <TableCell>Username</TableCell>
                   <TableCell>Email</TableCell>
-                  <TableCell>Shopname</TableCell>
+                  <TableCell>Shop Name</TableCell>
                   <TableCell>Phone Number</TableCell>
                   <TableCell>Category</TableCell>
-                  {/* <TableCell>Action</TableCell> */}
+                  <TableCell>Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {users.map((user, index) => (
                   <TableRow key={user._id}>
                     <TableCell>{index + 1}</TableCell>
-                    <TableCell>{user.username}</TableCell>
+                    <TableCell>{user.username }</TableCell>
                     <TableCell>{user.email}</TableCell>
                     <TableCell>{user.shopname}</TableCell>
                     <TableCell>{user.phone}</TableCell>
                     <TableCell>{user.category}</TableCell>
                     <TableCell>
-                      {/* <Tooltip title="Actions"> */}
-                        {/* <IconButton
+                      <Tooltip title="Actions">
+                        <IconButton
                           color="primary"
                           onClick={(event) => handlePopoverOpen(event, user)}
                           sx={{
@@ -140,10 +152,10 @@ const Owner = () => {
                             },
                           }}
                         >
-                          <Menu /> */}
-                        {/* </IconButton> */}
-                      {/* </Tooltip> */}
-                      {/* <Popover
+                          <Menu />
+                        </IconButton>
+                      </Tooltip>
+                      <Popover
                         open={open}
                         anchorEl={anchorEl}
                         onClose={handlePopoverClose}
@@ -158,34 +170,27 @@ const Owner = () => {
                           </Typography>
                           <Divider />
                           <List>
-                            <ListItem button onClick={() => handleApprove(selectedUser._id)}>
-                              <ListItemIcon>
-                                <CheckCircle color="success" />
-                              </ListItemIcon>
-                              <ListItemText primary="Approve" />
-                            </ListItem>
-                            <ListItem button onClick={() => handleReject(selectedUser._id)}>
-                              <ListItemIcon>
-                                <Close color="error" />
-                              </ListItemIcon>
-                              <ListItemText primary="Reject" />
-                            </ListItem>
-                            <Divider />
-                            <ListItem button onClick={() => handleDetails(user._id)}>
+                            <ListItem button onClick={() => handleDetails(selectedUser._id)}>
                               <ListItemIcon>
                                 <Info color="primary" />
                               </ListItemIcon>
-                              <ListItemText primary="Details" />
+                              <ListItemText primary="Shop" />
                             </ListItem>
-                            <ListItem button onClick={() => nav(`/admineditorowners/${id}`)}>
+                            <ListItem button onClick={() => handleEdit(selectedUser._id)}>
                               <ListItemIcon>
                                 <Edit color="primary" />
                               </ListItemIcon>
                               <ListItemText primary="Edit" />
                             </ListItem>
+                            <ListItem button onClick={() => handleBookingDetails(selectedUser._id)}>
+                              <ListItemIcon>
+                                <Event color="primary" />
+                              </ListItemIcon>
+                              <ListItemText primary="Booking Details" />
+                            </ListItem>
                           </List>
                         </Box>
-                      </Popover> */}
+                      </Popover>
                     </TableCell>
                   </TableRow>
                 ))}
