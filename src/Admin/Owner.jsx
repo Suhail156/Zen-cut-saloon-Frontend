@@ -42,17 +42,17 @@ const Owner = () => {
   const open = Boolean(anchorEl);
 
   const handleDetails = (userId) => {
-    navigate(`/adminownerdetails/${userId}`);
+    navigate(`/shopdetails/${userId}`);
     handlePopoverClose();
   };
 
   const handleEdit = (userId) => {
-    navigate(`/admineditorowners/${userId}`);
+    navigate(`/admineditowners/${userId}`);
     handlePopoverClose();
   };
 
   const handleBookingDetails = (userId) => {
-    navigate(`/bookingdetails/${userId}`);
+    navigate(`/bookingdetailes/${userId}`);
     handlePopoverClose();
   };
 

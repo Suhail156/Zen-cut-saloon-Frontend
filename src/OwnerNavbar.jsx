@@ -9,7 +9,7 @@ const ShopOwnerNavbar = () => {
     <div className="nav_container owner_logged_in">
       <div className="flex flex-col md:flex-row items-center justify-between px-6 py-4">
         <h1
-          className="text-4xl font-extrabold cursor-pointer text-black hover:text-blue-500 transition duration-300 mb-4 md:mb-0"
+          className="text-4xl font-extrabold cursor-pointer text-black hover:text-blue-500 transition duration-300 mb-4 md:mb-0 ml-10"
           onClick={() => navigate("/shophome")}
         >
           <span className="font-semibold">Zen</span>

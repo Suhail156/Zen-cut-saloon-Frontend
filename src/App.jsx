@@ -6,23 +6,25 @@ import './App.css'
 import Home from './Home'
 import Login from './User/Login'
 import Signup from './User/Signup'
-import ShopHome from '../../Shop/ShopHome'
-import AddShop from '../../Shop/AddShop'
-import ShopSignup from '../../Shop/ShopSignup'
-import ShopLogin from '../../Shop/ShopLogin'
+import ShopHome from '../src/Shop/ShopHome'
+import AddShop from '../src/Shop/AddShop'
+import ShopSignup from '../src/Shop/ShopSignup'
+import ShopLogin from '../src/Shop/ShopLogin'
 import SinglePage from './User/SinglePage'
 import UserProfile from './User/UserProfile'
-import ProtectedRoute from '../../Shop/ProtectedRoute';
+import ProtectedRoute from './ProtectedRoute';
+import BookingDetailses from '../src/Shop/BookingDeatiles';
 import AdminLogin from './Admin/AdminLogin';
 import AdminHome from './Admin/AdminHome';
 import User from './Admin/User';
 import Owner from './Admin/Owner';
 import BookingPage from './User/BookingPage';
 import AdminEditOwners from './Admin/AdminEditOwners';
-import BookingDeatiles from '../../Shop/BookingDeatiles';
-import ShopDetailes from '../../Shop/ShopDetailes';
-import ShopEdit from '../../Shop/ShopEdit';
-import ShopOwnerProfile from '../../Shop/ShopOwnerProfile';
+import ShopDetailes from '../src/Shop/ShopDetailes';
+import ShopEdit from '../src/Shop/ShopEdit';
+import ShopOwnerProfile from '../src/Shop/ShopOwnerProfile';
+import BookingDetailes from './Admin/BookingDetailes';
+import Shop from './Admin/Shop';
 
 const App = () => {
   const adminToken = localStorage.getItem('token');
@@ -42,9 +44,9 @@ const App = () => {
         <Route path='/addshop' element={<ProtectedRoute> <AddShop/></ProtectedRoute>}/>
         <Route path='/shopsignup' element={<ShopSignup/>}/>
         <Route path='/shoplogin' element={<ShopLogin/>}/>
-        <Route path='/bookingdeatiles' element={<BookingDeatiles/>}/>
+        <Route path='/bookingdetails' element={<BookingDetailses/>}/>
         <Route path='/viewshops' element={<ShopDetailes/>}/>
-        <Route path='/editshop'   element={<ShopEdit/>}/>
+        <Route path='/editshop/:id'   element={<ShopEdit/>}/>
         <Route path='/ownerprofile/:id' element={<ShopOwnerProfile/>}/>
 
         
@@ -53,6 +55,8 @@ const App = () => {
         <Route path="/users" element={<User />} />
         <Route path='/owners' element={<Owner/>}/>
         <Route path='/admineditowners/:id' element={<AdminEditOwners/>}/>
+        <Route path='/bookingdetailes/:id' element={<BookingDetailes/>}/>
+        <Route path='/shopdetails/:id' element={<Shop/>}/>
       </Routes>
     
     </div>

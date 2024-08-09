@@ -153,9 +153,6 @@ const User = () => {
                             color: "#fff",
                             boxShadow: 3,
                             transition: "transform 0.2s",
-                            "&:hover": {
-                              transform: "scale(1.1)",
-                            },
                           }}
                         >
                           {user.blocked ? <Done /> : <Block />}
