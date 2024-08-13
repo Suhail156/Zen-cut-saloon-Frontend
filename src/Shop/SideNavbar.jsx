@@ -29,7 +29,6 @@ const SideNavbar = () => {
 
       {/* Sidebar */}
       <div className={`fixed top-0 left-0 h-full bg-gradient-to-br from white-500 to-cyan-600 text-black flex flex-col items-start py-6 mt-[72px] shadow-lg rounded-r-lg transition-transform duration-300 ${menuOpen ? 'translate-x-0' : '-translate-x-16'} ${menuOpen ? 'w-64' : 'w-16'}`}>
-        {/* Optional: You can add a logo or title here */}
         <div className={`flex items-center mb-6 px-4 ${menuOpen ? 'block' : 'hidden'}`}>
           <h1 className="text-2xl font-bold">Shop Panel</h1>
         </div>
@@ -82,10 +81,7 @@ const SideNavbar = () => {
           <span className={`ml-2 text-lg ${menuOpen ? 'block' : 'hidden'}`}>Logout</span>
         </button>
       </div>
-
-      {/* Main Content */}
       <div className={`flex-1 p-4 transition-all duration-300 ${menuOpen ? 'ml-64' : 'ml-16'}`}>
-        {/* Add your main content here */}
       </div>
     </div>
   );

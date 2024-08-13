@@ -13,7 +13,20 @@ const ShopDetails = () => {
     const fetchShops = async () => {
       try {
         const response = await axios.get(`http://localhost:3205/api/shopowner/ownerviewshop/${id}`);
-        setShops(response.data.data.shopId);
+        // Parse category safely
+        const shopData = response.data.data.shopId.map(shop => {
+          let categories = [];
+          try {
+            categories = shop.category ? JSON.parse(shop.category) : [];
+          } catch (error) {
+            console.error("Error parsing categories:", error);
+          }
+          return {
+            ...shop,
+            category: categories
+          };
+        });
+        setShops(shopData);
       } catch (error) {
         console.error(error);
       }
@@ -67,7 +80,8 @@ const ShopDetails = () => {
                 <strong>Category:</strong>
                 {Array.isArray(shop.category) && shop.category.length > 0 ? (
                   shop.category.map((category, index) => (
-                    <Chip key={index} label={category} sx={{ ml: 1 }} />
+                    // Ensure `category.name` is a string and render it
+                    <Chip key={index} label={category.name || 'Unknown'} sx={{ ml: 1 }} />
                   ))
                 ) : (
                   <span>No categories available</span>

@@ -16,7 +16,7 @@ import SideNavbar from "./SideNavbar";
 const BookingDetailses = () => {
   const [users, setUsers] = useState([]);
   const ownerId = localStorage.getItem("ownerId");
-  console.log(ownerId);
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -30,6 +30,7 @@ const BookingDetailses = () => {
     };
     fetchUsers();
   }, [ownerId]);
+
   return (
     <Box
       sx={{
@@ -69,22 +70,30 @@ const BookingDetailses = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.map((user, index) => {
-                const dates = new Date(user.date).toLocaleDateString("en-US", {
-                  weekday: "short",
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                });
-                return (
-                  <TableRow key={index}>
-                    <TableCell>{user.username}</TableCell>
-                    <TableCell>{user.phone}</TableCell>
-                    <TableCell>{dates}</TableCell>
-                    <TableCell>{user.startTime}</TableCell>
-                  </TableRow>
-                );
-              })}
+              {users.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={4} align="center">
+                    <Typography variant="h6">No booking information</Typography>
+                  </TableCell>
+                </TableRow>
+              ) : (
+                users.map((user, index) => {
+                  const dates = new Date(user.date).toLocaleDateString("en-US", {
+                    weekday: "short",
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  });
+                  return (
+                    <TableRow key={index}>
+                      <TableCell>{user.username}</TableCell>
+                      <TableCell>{user.phone}</TableCell>
+                      <TableCell>{dates}</TableCell>
+                      <TableCell>{user.startTime}</TableCell>
+                    </TableRow>
+                  );
+                })
+              )}
             </TableBody>
           </Table>
         </TableContainer>

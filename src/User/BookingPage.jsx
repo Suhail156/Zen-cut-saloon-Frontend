@@ -11,9 +11,9 @@ const BookingPage = () => {
   const nav = useNavigate();
   const [username, setUsername] = useState('');
   const [phone, setPhone] = useState('');
-  // const [owner,setOwner] = useState('')
 
-  const ownerId = shops.ownerId
+  const ownerId = shops.ownerId;
+
   const booking = async (e) => {
     e.preventDefault();
     try {
@@ -23,11 +23,17 @@ const BookingPage = () => {
         startTime: slot,
         date: date
       });
-      toast.success(response.data.message)
+      toast.success(response.data.message);
       nav('/');
-      console.log(response, 'sdfghj');
     } catch (error) {
       console.error('Error booking appointment:', error);
+      if (error.response && error.response.status === 400) {
+        // Handle specific error for duplicate booking
+        toast.error('Booking already exists for this time and date.');
+      } else {
+        // Handle other errors
+        toast.error('Failed to book appointment. Please try again.');
+      }
     }
   };
 
@@ -38,7 +44,7 @@ const BookingPage = () => {
         <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl flex">
           {/* Image Section */}
           <div className="w-1/2 relative rounded-lg overflow-hidden">
-            <div >
+            <div>
               <img
                 src={shops.image}
                 alt={shops.shopname}

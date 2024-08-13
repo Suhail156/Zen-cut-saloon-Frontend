@@ -27,8 +27,6 @@ import BookingDetailes from './Admin/BookingDetailes';
 import Shop from './Admin/Shop';
 
 const App = () => {
-  const adminToken = localStorage.getItem('token');
-  console.log(adminToken);
   return (
     <div>
       <Toaster/>  

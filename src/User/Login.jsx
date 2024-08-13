@@ -20,6 +20,7 @@ const Login = () => {
           localStorage.setItem("token", token);
           localStorage.setItem("name", name);
           localStorage.setItem("id", id);
+          
           toast.success(response.data.message);
           nav("/");
         })

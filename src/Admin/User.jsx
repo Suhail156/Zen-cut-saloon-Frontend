@@ -82,7 +82,7 @@ const User = () => {
       </Button>
       <Button
         onClick={() => {
-          navigate("/users");
+          navigate("/owners");
           handleDrawerToggle();
         }}
         fullWidth
@@ -95,7 +95,7 @@ const User = () => {
           },
         }}
       >
-        Users
+        Owners
       </Button>
     </div>
   );

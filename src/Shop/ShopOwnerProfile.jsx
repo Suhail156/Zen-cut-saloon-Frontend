@@ -11,13 +11,14 @@ const ShopOwnerProfile = () => {
     const { id } = useParams();
 
     useEffect(() => {
+        console.log("Effect run, fetching data for id:", id);
         const fetchOwner = async () => {
             try {
                 const response = await axios.get(
                     `http://localhost:3205/api/shopowner/ownerviewbyid/${id}`
                 );
                 setOwner(response.data.data);
-                console.log(response.data.data, "res");
+                console.log(response.data.data, "Owner data fetched");
             } catch (error) {
                 console.error("Error fetching shop owner data:", error);
             }
@@ -25,104 +26,119 @@ const ShopOwnerProfile = () => {
         fetchOwner();
     }, [id]);
 
+    console.log("Rendering ShopOwnerProfile");
+
     if (!owner) {
         return <div>Loading...</div>;
     }
 
     return (
-        <Box sx={{ display: 'flex', height: '100vh' }}>
+        <Box sx={{ display: 'flex', height: '100vh', backgroundColor: '#F5F5F5' }}>
             <SideNavbar />
-            <Box sx={{ flexGrow: 1, p: 2 }}>
-                <Card sx={{ maxWidth: 1200, margin: 'auto', background: 'linear-gradient(to right, #F0F2F5, #BDC6D7)' }}>
+            <Box sx={{ flexGrow: 1, p: 4, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Card sx={{ width: '80%', maxWidth: 1400, borderRadius: 8, boxShadow: 12, backgroundColor: '#FFFFFF', overflow: 'hidden' }}>
                     <CardContent>
-                        <Grid container spacing={3}>
+                        <Grid container spacing={4} justifyContent="center" alignItems="center">
                             <Grid item xs={12} sm={4} textAlign="center">
                                 <Avatar
                                     alt="Profile"
                                     src={owner.profilePicture}
-                                    sx={{ width: 120, height: 120, mb: 2, boxShadow: 2 }}
+                                    sx={{
+                                        width: 180,
+                                        height: 180,
+                                        mb: 2,
+                                        ml:3,
+                                        border: '4px solid #BDC6D7',
+                                        boxShadow: 6,
+                                        transition: 'transform 0.3s ease',
+                                        '&:hover': {
+                                            transform: 'scale(1.1)',
+                                        },
+                                    }}
                                 />
-                                <Typography variant="h5" component="h2"sx={{marginRight:25}}>
+                                <Typography variant="h4" component="h2" gutterBottom >
                                     {owner.username}
-                                </Typography>
-                                <Typography variant="body1" color="textSecondary"sx={{marginRight:24}}>
-                                    Edit basic info
                                 </Typography>
                             </Grid>
                             <Grid item xs={12} sm={8}>
                                 <Box textAlign="left">
-                                    <Typography variant="h6" gutterBottom>
+                                    <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', color: '#333' }}>
                                         Basic Information
                                     </Typography>
-                                    <Divider sx={{ mb: 2 }} />
-                                    <Typography variant="subtitle1" color="textPrimary">
+                                    <Divider sx={{ mb: 2, borderColor: '#BDC6D7' }} />
+                                    <Typography variant="subtitle1" color="textPrimary" sx={{ fontWeight: 'bold' }}>
                                         Shop Name:
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary" gutterBottom>
+                                    <Typography variant="body1" color="textSecondary" gutterBottom>
                                         {owner.shopname || 'N/A'}
                                     </Typography>
-                                    <Typography variant="subtitle1" color="textPrimary">
+                                    <Typography variant="subtitle1" color="textPrimary" sx={{ fontWeight: 'bold' }}>
                                         Mobile Number:
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary" gutterBottom>
-                                        {owner.phone || (
-                                            <Button variant="outlined" size="small">
-                                                + Add
-                                            </Button>
-                                        )}
+                                    <Typography variant="body1" color="textSecondary" gutterBottom>
+                                        {owner.phone || 'N/A'}
                                     </Typography>
-                                    <Typography variant="subtitle1" color="textPrimary">
+                                    <Typography variant="subtitle1" color="textPrimary" sx={{ fontWeight: 'bold' }}>
                                         Email Address:
                                     </Typography>
-                                    <Typography variant="body2" color="textSecondary" gutterBottom>
+                                    <Typography variant="body1" color="textSecondary" gutterBottom>
                                         {owner.email}
                                     </Typography>
                                 </Box>
                             </Grid>
                         </Grid>
-                        <Divider sx={{ my: 3 }} />
-                        <Box textAlign="left">
-                            <Typography variant="h6" gutterBottom>
-                                Shop Address
-                            </Typography>
-                            <Divider sx={{ mb: 2 }} />
-                            <Typography variant="body2" color="textSecondary">
-                                {owner.address || (
-                                    <Button variant="outlined" size="small">
-                                        + Add new address
-                                    </Button>
-                                )}
-                            </Typography>
-                        </Box>
-                        <Divider sx={{ my: 3 }} />
-                        <Box textAlign="left">
-                            <Typography variant="h6" gutterBottom>
-                                Payment Methods
-                            </Typography>
-                            <Divider sx={{ mb: 2 }} />
-                            <Button variant="outlined" size="small">
-                                + Add payment method
-                            </Button>
-                        </Box>
-                        <Divider sx={{ my: 3 }} />
+                        <Divider sx={{ my: 3, borderColor: '#BDC6D7' }} />
                         <Box textAlign="center">
-                            <Typography variant="h6" gutterBottom>
+                            <Typography variant="h5" gutterBottom sx={{ fontWeight: 'bold', color: '#333' }}>
                                 Social Logins
                             </Typography>
-                            <Divider sx={{ mb: 2 }} />
+                            <Divider sx={{ mb: 2, borderColor: '#BDC6D7' }} />
                             <Grid container spacing={2} justifyContent="center">
                                 <Grid item>
-                                    <Button variant="outlined" startIcon={<FontAwesomeIcon icon={faFacebook} />}>
+                                    <Button
+                                        variant="outlined"
+                                        startIcon={<FontAwesomeIcon icon={faFacebook} />}
+                                        sx={{
+                                            borderColor: '#3b5998',
+                                            color: '#3b5998',
+                                            '&:hover': {
+                                                borderColor: '#2d4373',
+                                                backgroundColor: '#e9eff1',
+                                            },
+                                        }}
+                                    >
                                         Facebook
                                     </Button>
                                 </Grid>
                                 <Grid item>
-                                    <Button variant="outlined" startIcon={<FontAwesomeIcon icon={faTwitter} />}>
+                                    <Button
+                                        variant="outlined"
+                                        startIcon={<FontAwesomeIcon icon={faTwitter} />}
+                                        sx={{
+                                            borderColor: '#1da1f2',
+                                            color: '#1da1f2',
+                                            '&:hover': {
+                                                borderColor: '#1a91da',
+                                                backgroundColor: '#e6f4f6',
+                                            },
+                                        }}
+                                    >
                                         Twitter
                                     </Button>
                                 </Grid>
                                 <Grid item>
-                                    <Button variant="outlined" startIcon={<FontAwesomeIcon icon={faInstagram} />}>
+                                    <Button
+                                        variant="outlined"
+                                        startIcon={<FontAwesomeIcon icon={faInstagram} />}
+                                        sx={{
+                                            borderColor: '#e4405f',
+                                            color: '#e4405f',
+                                            '&:hover': {
+                                                borderColor: '#d93e5b',
+                                                backgroundColor: '#fbeef0',
+                                            },
+                                        }}
+                                    >
                                         Instagram
                                     </Button>
                                 </Grid>

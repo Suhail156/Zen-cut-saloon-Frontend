@@ -3,22 +3,76 @@ import { AttachMoney as AttachMoneyIcon, ShoppingCart as ShoppingCartIcon, Peopl
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import Sidebar from './Sidebar';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const drawerWidth = 240;
 
 const AdminHome = () => {
-  const chartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  const [data, setData] = useState({ totalBookings: 0, totalUsers: 0, totalOwners: 0 });
+  const [chartData, setChartData] = useState({
+    labels: [],
     datasets: [
       {
         label: 'Sales',
-        data: [65, 59, 80, 81, 56, 55, 40],
+        data: [],
         fill: false,
         backgroundColor: 'rgba(75,192,192,1)',
         borderColor: 'rgba(75,192,192,1)',
       },
     ],
-  };
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [bookingResponse, userResponse, ownerResponse, chartsResponse] = await Promise.all([
+          axios.get('http://localhost:3205/api/admin/adminviewdetailes'),
+          axios.get('http://localhost:3205/api/admin/adminviewallusers'),
+          axios.get('http://localhost:3205/api/admin/adminviewallowners'),
+          axios.get('http://localhost:3205/api/admin/adminviewchart'),
+        ]);
+  
+        console.log('Chart Response:', chartsResponse);
+  
+        const chartDataArray = chartsResponse.data.data;
+        if (!Array.isArray(chartDataArray) || chartDataArray.length === 0) {
+          throw new Error('Chart data is missing or not an array');
+        }
+  
+        // Transform the data into labels and data points
+        const labels = chartDataArray.map(item => `Month ${item.month}`);
+        const dataPoints = chartDataArray.map(item => item.totalBookings);
+  
+        setData({
+          totalBookings: bookingResponse.data.data.totalBookings,
+          totalUsers: userResponse.data.data.totalusers,
+          totalOwners: ownerResponse.data.data.totalowners,
+        });
+  
+        setChartData({
+          labels: labels,
+          datasets: [
+            {
+              label: 'Total Bookings',
+              data: dataPoints,
+              fill: false,
+              backgroundColor: 'rgba(75,192,192,1)',
+              borderColor: 'rgba(75,192,192,1)',
+            },
+          ],
+        });
+  
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+        console.log('Error details:', error);
+      }
+    };
+  
+    fetchData();
+  }, []);
+  
+  
 
   const drawerContent = (handleDrawerToggle, navigate) => (
     <div>
@@ -120,7 +174,7 @@ const AdminHome = () => {
                     Total Users
                   </Typography>
                   <Typography variant="h5" component="div">
-                    3,567
+                    {data.totalUsers}
                   </Typography>
                 </CardContent>
                 <CardMedia>
@@ -135,7 +189,7 @@ const AdminHome = () => {
                     Total Shop Owners
                   </Typography>
                   <Typography variant="h5" component="div">
-                    123
+                    {data.totalOwners}
                   </Typography>
                 </CardContent>
                 <CardMedia>
@@ -150,7 +204,7 @@ const AdminHome = () => {
                     Total Bookings
                   </Typography>
                   <Typography variant="h5" component="div">
-                    789
+                    {data.totalBookings}
                   </Typography>
                 </CardContent>
                 <CardMedia>
@@ -160,22 +214,11 @@ const AdminHome = () => {
             </Grid>
             {/* Sales Chart */}
             <Grid item xs={12} lg={9}>
-              <Paper elevation={3} style={{ padding: '16px', height: '100%' }}>
+              <Paper elevation={3} style={{ padding: '16px', height: '400px' }}> {/* Ensure height is set */}
                 <Typography variant="h6">Sales Over Time</Typography>
                 <Line data={chartData} />
               </Paper>
             </Grid>
-            {/* Welcome Message */}
-            {/* <Grid item xs={12}>
-              <Paper elevation={3} style={{ padding: '16px' }}>
-                <Typography variant="h6">Welcome to Admin Dashboard</Typography>
-                <Typography variant="body1">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus
-                  ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent
-                  mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
-                </Typography>
-              </Paper>
-            </Grid> */}
           </Grid>
         </Container>
       </Box>

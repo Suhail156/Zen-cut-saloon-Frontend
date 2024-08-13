@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStore, faPhoneAlt, faEnvelope, faUpload, faMapMarkerAlt, faClock } from '@fortawesome/free-solid-svg-icons';
-import SideNavbar from './SideNavbar';
-import { Box,Button,Drawer,Grid,IconButton,InputAdornment,Paper,TextField,Typography,Checkbox,FormControlLabel,FormGroup} from '@mui/material';
+import { Box, Button, Grid, InputAdornment, Paper, TextField, Typography, Checkbox, FormControlLabel, FormGroup } from '@mui/material';
+import SideNavbar from './SideNavbar'
 
 const AddShop = () => {
   const navigate = useNavigate();
@@ -26,7 +26,8 @@ const AddShop = () => {
     { id: 'beard', name: 'Beard' },
   ];
 
-  const ownerId = localStorage.getItem('ownerId')
+  const ownerId = localStorage.getItem('ownerId');
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setShopDetails({
@@ -36,9 +37,14 @@ const AddShop = () => {
   };
 
   const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.size > 2 * 1024 * 1024) { // 2MB limit
+      toast.error("File size exceeds 2MB.");
+      return;
+    }
     setShopDetails({
       ...shopDetails,
-      image: e.target.files[0],
+      image: file,
     });
   };
 
@@ -61,6 +67,11 @@ const AddShop = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (new Date(`1970-01-01T${shopDetails.startTime}:00`) >= new Date(`1970-01-01T${shopDetails.endTime}:00`)) {
+      toast.error("End time must be after start time.");
+      return;
+    }
+
     const formData = new FormData();
     formData.append('shopname', shopDetails.shopname);
     formData.append('phone', shopDetails.phone);
@@ -88,14 +99,11 @@ const AddShop = () => {
   };
 
   return (
-    <Box sx={{
-      display: 'flex',
-      height: '100vh',  
-    }}>
+    <Box sx={{ display: 'flex', height: '100vh' }}>
       <SideNavbar />
       <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', p: 4 }}>
         <Paper elevation={4} sx={{ p: 4, maxWidth: 600, width: '100%' }}>
-        <Typography variant="h4" component="h2" gutterBottom align="center" color="primary">
+          <Typography variant="h4" component="h2" gutterBottom align="center" color="primary">
             Add Shop Details
           </Typography>
           <form onSubmit={handleSubmit}>
@@ -227,7 +235,7 @@ const AddShop = () => {
                       <InputAdornment position="start">
                         <FontAwesomeIcon icon={faClock} />
                       </InputAdornment>
-                    ),  
+                    ),
                   }}
                 />
               </Grid>

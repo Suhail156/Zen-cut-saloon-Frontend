@@ -18,7 +18,6 @@ const Home = () => {
           "http://localhost:3205/api/usershop/usershopview"
         );
         setShop(response.data.data);
-        console.log(response.data.data);
       } catch (error) {
         console.log("error", error);
       }
@@ -88,28 +87,12 @@ const Home = () => {
     },
   ];
 
-  // const parseCategories = (categoryString) => {
-  //   try {
-  //     // Ensure categoryString is not empty and is a valid JSON
-  //     if (categoryString && typeof categoryString === 'string') {
-  //       // Remove extra quotes or any non-JSON characters
-  //       const trimmedString = categoryString.trim().replace(/^\[|\]$/g, '');
-  //       // Parse the cleaned-up string
-  //       return JSON.parse(`[${trimmedString}]`);
-  //     }
-  //     return [];
-  //   } catch (error) {
-  //     console.error("Failed to parse category data:", error);
-  //     return [];
-  //   }
-  // };
-
   return (
     <div>
       <Navbar />
       <div className="min-h-screen bg-gradient-to-r from-blue-200 to-purple-200 mt-[-220px]">
-        <div className="w-3/4 mx-auto text-center pt-[230px]">
-          <h1 className="text-6xl font-bold italic text-black mt-32">
+        <div className="w-3/4 mx-auto text-center pt-[120px]">
+          <h1 className="text-5xl font-bold italic text-black mt-32">
             Transform yourself with the <br />
             <span className="font-bold italic">best local beauty experts.</span>
             <br />
@@ -117,69 +100,62 @@ const Home = () => {
           </h1>
         </div>
 
-        <div className="w-1/2 mx-auto mt-5 mb-56 relative flex items-center">
-          <div className="relative flex w-full">
-            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-              <FaSearch className="text-gray-400" />
-            </span>
-            <input
-              type="text"
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full h-12 pl-10 pr-4 border border-solid rounded-l-lg"
-              placeholder="Search for shops..."
-            />
-            <button className="bg-black text-white h-12 px-4 rounded-r-lg flex items-center justify-center">
-              Search
-            </button>
+        <div className="relative">
+          <div className="w-2/4 mx-auto  mt-5 mb-56 relative flex items-center z-10">
+            <div className="relative flex w-full  ">
+              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+                <FaSearch className="text-gray-400 mt-8" />
+              </span>
+              <input
+                type="text"
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full h-10 pl-10 pr-4 border border-solid rounded-l-lg mt-8"
+                placeholder="Search for shops..."
+              />
+              <button className="bg-black text-white h-10 px-4 rounded-r-lg flex items-center justify-center mt-8">
+                Search
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div className="container mx-auto">
-          {chunkedShops.map((row, rowIndex) => (
-            <div key={rowIndex} className="flex flex-wrap justify-center">
-              {row.map((item) => (
-                <div
-                  key={item.id}
-                  className="w-full sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-4 px-2 mt-[40px]"
-                >
-                  <div className="border rounded-lg overflow-hidden shadow-lg bg-white transform transition-transform hover:scale-105 opacity-90 hover:opacity-100">
-                    <div className="w-full h-40 overflow-hidden">
-                      <img
-                        src={item.image}
-                        className="w-full h-full object-cover cursor-pointer"
-                        alt={item.shopname}
-                        onClick={() => nav(`/singlepage/${item._id}`)}
-                      />
-                    </div>
-                    <div className="p-4 bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 shadow-lg">
-                      <h2 className="text-lg font-bold mb-2">
-                        {item.shopname}
-                      </h2>
-                      {item.phone && (
-                        <p className="text-sm text-gray-600 flex items-center">
-                          <FaPhoneAlt className="mr-2" /> {item.phone}
-                        </p>
-                      )}
-                      {item.location && (
-                        <p className="text-sm text-gray-600 flex items-center">
-                          <FaMapMarkerAlt className="mr-2" /> {item.location}
-                        </p>
-                      )}
-                      {/* {item.category && item.category.length > 0 ? (
-                        parseCategories(item.category[0]).map((category, index) => (
-                          <p key={index} className="text-sm text-gray-600 flex items-center">
-                            <FaMapMarkerAlt className="mr-2" /> {category.name}
+          <div className="container mx-auto -mt-20"> 
+            {chunkedShops.map((row, rowIndex) => (
+              <div key={rowIndex} className="flex flex-wrap justify-center">
+                {row.map((item) => (
+                  <div
+                    key={item.id}
+                    className="w-full sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-4 px-2 mt-[40px]"
+                  >
+                    <div className="border rounded-lg overflow-hidden shadow-lg bg-white transform transition-transform hover:scale-105 opacity-90 hover:opacity-100">
+                      <div className="w-full h-40 overflow-hidden">
+                        <img
+                          src={item.image}
+                          className="w-full h-full object-cover cursor-pointer"
+                          alt={item.shopname}
+                          onClick={() => nav(`/singlepage/${item._id}`)}
+                        />
+                      </div>
+                      <div className="p-4 bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 shadow-lg">
+                        <h2 className="text-lg font-bold mb-2">
+                          {item.shopname}
+                        </h2>
+                        {item.phone && (
+                          <p className="text-sm text-gray-600 flex items-center">
+                            <FaPhoneAlt className="mr-2" /> {item.phone}
                           </p>
-                        ))
-                      ) : (
-                        <span>No categories available</span>
-                      )} */}
+                        )}
+                        {item.location && (
+                          <p className="text-sm text-gray-600 flex items-center">
+                            <FaMapMarkerAlt className="mr-2" /> {item.location}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          ))}
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="min-h-screen bg-gray-100 py-10 mb-[50px] mt-[100px]">

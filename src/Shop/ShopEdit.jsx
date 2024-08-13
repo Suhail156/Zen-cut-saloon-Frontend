@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Box, TextField, Button, Input, Typography, Grid, Paper, MenuItem } from '@mui/material';
+import axios from 'axios';
+import { Box, TextField, Button, Input, Typography, Grid, Paper } from '@mui/material';
 import toast from 'react-hot-toast';
 import SideNavbar from './SideNavbar';
 
@@ -15,7 +15,6 @@ const ShopEdit = () => {
     phone: '',
     startTime: '',
     endTime: '',
-    category: [],
     image: null
   });
 
@@ -26,19 +25,12 @@ const ShopEdit = () => {
         console.log('Fetched Data:', response.data); // Debugging: Check API response
         const shopData = response.data.data.shopId[0];
         if (shopData) {
-          const category = Array.isArray(shopData.category)
-            ? shopData.category
-            : typeof shopData.category === 'string'
-              ? shopData.category.split(',')
-              : [];
-          
           setFormData({
             shopname: shopData.shopname || '',
             location: shopData.location || '',
             phone: shopData.phone || '',
             startTime: shopData.startTime || '',
             endTime: shopData.endTime || '',
-            category,
             image: shopData.image || null
           });
         } else {
@@ -60,10 +52,6 @@ const ShopEdit = () => {
     }
   };
 
-  const handleCategoryChange = (event) => {
-    setFormData({ ...formData, category: event.target.value });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -73,7 +61,6 @@ const ShopEdit = () => {
       updatedFormData.append('phone', formData.phone);
       updatedFormData.append('startTime', formData.startTime);
       updatedFormData.append('endTime', formData.endTime);
-      updatedFormData.append('category', formData.category.join(',')); // Convert array to comma-separated string
       if (formData.image) {
         updatedFormData.append('image', formData.image);
       }
@@ -155,26 +142,6 @@ const ShopEdit = () => {
                 value={formData.endTime}
                 onChange={handleChange}
               />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                select
-                fullWidth
-                variant="outlined"
-                label="Category"
-                name="category"
-                value={formData.category}
-                onChange={handleCategoryChange}
-                SelectProps={{
-                  multiple: true,
-                  renderValue: (selected) => selected.join(', '),
-                }}
-              >
-                <MenuItem value="haircut">Haircut</MenuItem>
-                <MenuItem value="facial">Facial</MenuItem>
-                <MenuItem value="beard">Beard</MenuItem>
-                {/* Add more categories as needed */}
-              </TextField>
             </Grid>
             <Grid item xs={12}>
               <Input

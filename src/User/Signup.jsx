@@ -27,7 +27,6 @@ const Signup = () => {
         );
         console.log(response);
         if (response.status === 200) {
-          console.log("OTP Sent:", response.data.message);
           setIsOtpSent(true); 
         }
       } catch (error) {
@@ -43,9 +42,7 @@ const Signup = () => {
             otp,
           }
         );
-        console.log(response);
         if (response.status === 201) {
-          console.log("User Registered:", response.data.message);
           toast.success("successfull")
           nav("/userlogin");
         }
