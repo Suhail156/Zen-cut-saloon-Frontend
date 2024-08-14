@@ -25,6 +25,8 @@ import ShopEdit from '../src/Shop/ShopEdit';
 import ShopOwnerProfile from '../src/Shop/ShopOwnerProfile';
 import BookingDetailes from './Admin/BookingDetailes';
 import Shop from './Admin/Shop';
+import EditOwners from './Shop/EditOwners';
+import EditProfile from './User/EditProfile';
 
 const App = () => {
   return (
@@ -37,6 +39,7 @@ const App = () => {
         <Route path='/singlepage/:id' element={<SinglePage/>}/>
         <Route path='/profile/:id' element={<UserProfile/>}/>
         <Route path='/bookingpage' element={<BookingPage/>}/>
+        <Route path='editprofile/:id' element={<EditProfile/>}/>
         
         <Route path='/shophome' element={<ProtectedRoute><ShopHome/></ProtectedRoute>}/>
         <Route path='/addshop' element={<ProtectedRoute> <AddShop/></ProtectedRoute>}/>
@@ -46,6 +49,7 @@ const App = () => {
         <Route path='/viewshops' element={<ShopDetailes/>}/>
         <Route path='/editshop/:id'   element={<ShopEdit/>}/>
         <Route path='/ownerprofile/:id' element={<ShopOwnerProfile/>}/>
+        <Route path='/editowner/:id' element={<EditOwners/>}/>
 
         
         <Route path='/adminlogin' element={<AdminLogin/>} />

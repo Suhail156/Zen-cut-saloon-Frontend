@@ -15,12 +15,14 @@ import {
   faTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom"; 
 import axios from "axios";
+import Navbar from "../Navbar";
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
   const { id } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -41,8 +43,13 @@ const UserProfile = () => {
     return <div>Loading...</div>;
   }
 
+  const handleEditClick = () => {
+    navigate(`/editprofile/${id}`); 
+  };
+
   return (
     <div>
+      <Navbar/>
       <Box
         sx={{
           display: "flex",
@@ -60,6 +67,7 @@ const UserProfile = () => {
             borderRadius: 2,
             boxShadow: 3,
             background: "#fff",
+            mb:10
           }}
         >
           <CardContent>
@@ -67,7 +75,7 @@ const UserProfile = () => {
               <Grid item xs={12} sm={4} textAlign="center">
                 <Avatar
                   alt="Profile"
-                  src={user.profilePicture || "/default-avatar.png"} 
+                  src={user.profilePicture || "/default-avatar.png"}
                   sx={{ width: 140, height: 140, mb: 2, mx: "auto", border: "3px solid #007BFF" }}
                 />
                 <Typography
@@ -77,13 +85,14 @@ const UserProfile = () => {
                 >
                   {user.username}
                 </Typography>
-                {/* <Typography
-                  variant="body1"
-                  color="textSecondary"
-                  sx={{ cursor: "pointer", textDecoration: "underline" }}
+                <Button 
+                  variant="contained" 
+                  color="primary" 
+                  onClick={handleEditClick} 
+                  sx={{ textTransform: "none" }}
                 >
-                  Edit basic info
-                </Typography> */}
+                  Edit Profile
+                </Button>
               </Grid>
               <Grid item xs={12} sm={8}>
                 <Box textAlign="left">

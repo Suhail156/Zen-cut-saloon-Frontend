@@ -17,7 +17,7 @@ const SideNavbar = () => {
   };
 
   return (
-    <div >
+    <div>
       {/* Menu Toggle Button */}
       <button
         onClick={toggleMenu}
@@ -28,13 +28,13 @@ const SideNavbar = () => {
       </button>
 
       {/* Sidebar */}
-      <div className={`fixed top-0 left-0 h-full bg-gradient-to-br from white-500 to-cyan-600 text-black flex flex-col items-start py-6 mt-[72px] shadow-lg rounded-r-lg transition-transform duration-300 ${menuOpen ? 'translate-x-0' : '-translate-x-16'} ${menuOpen ? 'w-64' : 'w-16'}`}>
+      <div className={`fixed top-0 left-0 h-full bg-white text-black flex flex-col items-start py-6 mt-[72px] shadow-lg rounded-r-lg transition-transform duration-300 ${menuOpen ? 'translate-x-0' : '-translate-x-16'} ${menuOpen ? 'w-64' : 'w-16'}`}>
         <div className={`flex items-center mb-6 px-4 ${menuOpen ? 'block' : 'hidden'}`}>
           <h1 className="text-2xl font-bold">Shop Panel</h1>
         </div>
         <button
           onClick={() => nav('/shophome')}
-          className="w-full px-4 py-3 my-2 flex items-center text-left text-white bg-gray-800 rounded-lg transition duration-300 hover:bg-gray-700"
+          className="w-full px-4 py-3  flex items-center text-left text-black bg-white rounded-lg transition duration-300 hover:bg-gray-200"
           title="Dashboard"
         >
           <FaHome className="text-xl" />
@@ -42,7 +42,7 @@ const SideNavbar = () => {
         </button>
         <button
           onClick={() => nav('/addshop')}
-          className="w-full px-4 py-3 my-2 flex items-center text-left text-white bg-gray-800 rounded-lg transition duration-300 hover:bg-gray-700"
+          className="w-full px-4 py-3  flex items-center text-left text-black bg-white rounded-lg transition duration-300 hover:bg-gray-200"
           title="Add Shop Details"
         >
           <FaShopify className="text-xl" />
@@ -50,7 +50,7 @@ const SideNavbar = () => {
         </button>
         <button
           onClick={() => nav('/bookingdetails')}
-          className="w-full px-4 py-3 my-2 flex items-center text-left text-white bg-gray-800 rounded-lg transition duration-300 hover:bg-gray-700"
+          className="w-full px-4 py-3  flex items-center text-left text-black bg-white rounded-lg transition duration-300 hover:bg-gray-200"
           title="Booking Details"
         >
           <FaCalendarCheck className="text-xl" />
@@ -58,7 +58,7 @@ const SideNavbar = () => {
         </button>
         <button
           onClick={() => nav('/viewshops')}
-          className="w-full px-4 py-3 my-2 flex items-center text-left text-white bg-gray-800 rounded-lg transition duration-300 hover:bg-gray-700"
+          className="w-full px-4 py-3  flex items-center text-left text-black bg-white rounded-lg transition duration-300 hover:bg-gray-200"
           title="Shop Details"
         >
           <FaInfoCircle className="text-xl" />
@@ -66,7 +66,7 @@ const SideNavbar = () => {
         </button>
         <button
           onClick={() => nav(`/ownerprofile/${id}`)}
-          className="w-full px-4 py-3 my-2 flex items-center text-left text-white bg-gray-800 rounded-lg transition duration-300 hover:bg-gray-700"
+          className="w-full px-4 py-3 flex items-center text-left text-black bg-white rounded-lg transition duration-300 hover:bg-gray-200"
           title="Profile"
         >
           <FaUser className="text-xl" />
@@ -74,7 +74,7 @@ const SideNavbar = () => {
         </button>
         <button
           onClick={logout}
-          className="w-full px-4 py-3 my-2 flex items-center text-left text-white bg-gray-800 rounded-lg transition duration-300 hover:bg-gray-700"
+          className="w-full px-4 py-3  flex items-center text-left text-black bg-white rounded-lg transition duration-300 hover:bg-gray-200"
           title="Logout"
         >
           <FaSignOutAlt className="text-xl" />

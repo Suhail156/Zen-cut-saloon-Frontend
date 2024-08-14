@@ -1,111 +1,106 @@
 import SideNavbar from './SideNavbar';
 import OwnerNavbar from '../OwnerNavbar';
-import { Box, Container, Grid, Card, CardContent, Typography, CardMedia } from '@mui/material';
-import { FaDollarSign, FaListAlt, FaCalendarDay } from 'react-icons/fa';
-
-
-const bookingData = [
-  { id: 1, date: '2024-07-19', customer: 'John Doe', service: 'Haircut', imageUrl: 'https://via.placeholder.com/150' },
-  { id: 2, date: '2024-07-20', customer: 'Jane Smith', service: 'Facial', imageUrl: 'https://via.placeholder.com/150' },
-  { id: 3, date: '2024-07-21', customer: 'Alice Johnson', service: 'Beard Trim', imageUrl: 'https://via.placeholder.com/150' },
-
-];
-
-
-const statistics = {
-  totalOrders: 123,
-  todayOrders: 5,
-  monthlyTurnover: 1500.00,
-};
+import { Box, Container, Grid, Card, CardContent, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { FaListAlt, FaCalendarDay } from 'react-icons/fa';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 const ShopHome = () => {
+  const [bookings, setBookings] = useState([]);
+  const ownerId = localStorage.getItem("ownerId");
+
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3205/api/shopowner/ownerviewbookings/${ownerId}`
+        );
+        const sortedBookings = response.data.data.booking.sort((a, b) => new Date(b.date) - new Date(a.date));
+        setBookings(sortedBookings);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchBookings();
+  }, [ownerId]);
+
+  const statistics = {
+    totalOrders: bookings.length,
+    todayOrders: bookings.filter(booking => new Date(booking.date).toDateString() === new Date().toDateString()).length,
+  };
+
+  const todayBookings = bookings.filter(booking => new Date(booking.date).toDateString() === new Date().toDateString());
+
   return (
     <>
-        <OwnerNavbar />
-    <div className="flex h-screen">
-      <SideNavbar />
-      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-        <Box sx={{ flex: 1, p: 4, bgcolor: '#f5f5f5' }}>
-          <Container>
-            <Typography variant="h4" gutterBottom color="primary" sx={{ textAlign: 'center', mb: 4 }}>
-              Welcome to ShopHome
-            </Typography>
-            
-            <Grid container spacing={4} mb={4}>
-              <Grid item xs={12} sm={6} md={4}>
-                <Card variant="outlined" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2, boxShadow: 3 }}>
-                  <FaListAlt size={40} color="#3f51b5" />
-                  <CardContent>
-                    <Typography variant="h6" component="div">
-                      Total Orders
-                    </Typography>
-                    <Typography variant="h4" color="text.primary">
-                      {statistics.totalOrders}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
-                <Card variant="outlined" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2, boxShadow: 3 }}>
-                  <FaCalendarDay size={40} color="#3f51b5" />
-                  <CardContent>
-                    <Typography variant="h6" component="div">
-                      Todays Orders
-                    </Typography>
-                    <Typography variant="h4" color="text.primary">
-                      {statistics.todayOrders}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-              <Grid item xs={12} sm={6} md={4}>
-                <Card variant="outlined" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2, boxShadow: 3 }}>
-                  <FaDollarSign size={40} color="#3f51b5" />
-                  <CardContent>
-                    <Typography variant="h6" component="div">
-                      Monthly Turnover
-                    </Typography>
-                    <Typography variant="h4" color="text.primary">
-                      ${statistics.monthlyTurnover.toFixed(2)}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            </Grid>
-
-           
-            <Typography variant="h5" gutterBottom color="primary">
-              Recent Bookings
-            </Typography>
-            <Grid container spacing={4}>
-              {bookingData.map((booking) => (
-                <Grid item xs={12} sm={6} md={4} key={booking.id}>
-                  <Card variant="outlined" sx={{ maxWidth: 345, borderRadius: 2, boxShadow: 3 }}>
-                    <CardMedia
-                      component="img"
-                      height="140"
-                      image={booking.imageUrl}
-                      alt="Booking Image"
-                    />
+      <OwnerNavbar />
+      <div className="flex h-screen">
+        <SideNavbar />
+        <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+          <Box sx={{ flex: 1, p: 4, bgcolor: '#f5f5f5' }}>
+            <Container>
+              <Typography variant="h4" gutterBottom color="primary" sx={{ textAlign: 'center', mb: 4 }}>
+                Welcome to Home
+              </Typography>
+              
+              <Grid container spacing={4} mb={4}>
+                <Grid item xs={12} sm={6} md={6}>
+                  <Card variant="outlined" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2, boxShadow: 3 }}>
+                    <FaListAlt size={40} color="#3f51b5" />
                     <CardContent>
-                      <Typography variant="h6" component="div" color="secondary">
-                        Booking Date: {booking.date}
+                      <Typography variant="h6" component="div">
+                        Total Orders
                       </Typography>
-                      <Typography variant="body1" color="text.primary">
-                        Customer: {booking.customer}
-                      </Typography>
-                      <Typography variant="body1" color="text.secondary">
-                        Service: {booking.service}
+                      <Typography variant="h4" color="text.primary">
+                        {statistics.totalOrders}
                       </Typography>
                     </CardContent>
                   </Card>
                 </Grid>
-              ))}
-            </Grid>
-          </Container>
+                <Grid item xs={12} sm={6} md={6}>
+                  <Card variant="outlined" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2, boxShadow: 3 }}>
+                    <FaCalendarDay size={40} color="#3f51b5" />
+                    <CardContent>
+                      <Typography variant="h6" component="div">
+                        Today's Orders
+                      </Typography>
+                      <Typography variant="h4" color="text.primary">
+                        {statistics.todayOrders}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
+
+              <Typography variant="h5" gutterBottom color="primary">
+                Today's Bookings
+              </Typography>
+              <TableContainer component={Paper}>
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Date</TableCell>
+                      <TableCell>Username</TableCell>
+                      <TableCell>Phone</TableCell>
+                      <TableCell>Time</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {todayBookings.map((booking) => (
+                      <TableRow key={booking.id}>
+                        <TableCell>{new Date(booking.date).toLocaleDateString()}</TableCell>
+                        <TableCell>{booking.username}</TableCell>
+                        <TableCell>{booking.phone}</TableCell>
+                        <TableCell>{booking.startTime}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            </Container>
+          </Box>
         </Box>
-      </Box>
-    </div>
+      </div>
     </>
   );
 };

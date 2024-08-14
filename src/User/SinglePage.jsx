@@ -13,7 +13,7 @@ const SinglePage = () => {
   const [selectedSlot, setSelectedSlot] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
-
+   const userId=localStorage.getItem('id')
   useEffect(() => {
     const fetchShop = async () => {
       try {
@@ -87,10 +87,16 @@ const SinglePage = () => {
       toast.error("Please select a slot."); // Show error toast
       return;
     }
+    
+    if(!userId){
+      navigate('/userlogin')
+      return
+    }
+      navigate("/bookingpage", { state: { date: selectedDate, slot: selectedSlot, shops: shop } });
 
+    }
+  
     // Proceed with the booking
-    navigate("/bookingpage", { state: { date: selectedDate, slot: selectedSlot, shops: shop } });
-  };
 
   const goBack = () => {
     navigate(-1);
