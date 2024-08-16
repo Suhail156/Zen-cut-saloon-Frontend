@@ -1,43 +1,53 @@
-import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { Box, TextField, Button, Input, Typography, Grid, Paper } from '@mui/material';
-import toast from 'react-hot-toast';
-import SideNavbar from './SideNavbar';
+import { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import {
+  Box,
+  TextField,
+  Button,
+  Input,
+  Typography,
+  Grid,
+  Paper,
+} from "@mui/material";
+import toast from "react-hot-toast";
+import SideNavbar from "./SideNavbar";
 
 const ShopEdit = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
   const [formData, setFormData] = useState({
-    shopname: '',
-    location: '',
-    phone: '',
-    startTime: '',
-    endTime: '',
-    image: null
+    shopname: "",
+    location: "",
+    phone: "",
+    startTime: "",
+    endTime: "",
+    image: null,
   });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3205/api/shopowner/ownerviewshop/${id}`);
-        console.log('Fetched Data:', response.data); // Debugging: Check API response
+        const response = await axios.get(
+          `http://localhost:3205/api/shopowner/ownerviewshop/${id}`
+        );
+        console.log("Fetched Data:", response.data);
         const shopData = response.data.data.shopId[0];
         if (shopData) {
           setFormData({
-            shopname: shopData.shopname || '',
-            location: shopData.location || '',
-            phone: shopData.phone || '',
-            startTime: shopData.startTime || '',
-            endTime: shopData.endTime || '',
-            image: shopData.image || null
+            shopname: shopData.shopname || "",
+            location: shopData.location || "",
+            phone: shopData.phone || "",
+            startTime: shopData.startTime || "",
+            endTime: shopData.endTime || "",
+            image: shopData.image || null,
           });
         } else {
-          console.warn('No shop data found for this ID');
+          console.warn("No shop data found for this ID");
         }
       } catch (error) {
-        console.error('Error fetching shop details:', error);
+        console.error("Error fetching shop details:", error);
       }
     };
     fetchData();
@@ -45,7 +55,7 @@ const ShopEdit = () => {
 
   const handleChange = (e) => {
     const { name, value, files, type } = e.target;
-    if (type === 'file') {
+    if (type === "file") {
       setFormData({ ...formData, [name]: files[0] });
     } else {
       setFormData({ ...formData, [name]: value });
@@ -56,38 +66,52 @@ const ShopEdit = () => {
     e.preventDefault();
     try {
       const updatedFormData = new FormData();
-      updatedFormData.append('shopname', formData.shopname);
-      updatedFormData.append('location', formData.location);
-      updatedFormData.append('phone', formData.phone);
-      updatedFormData.append('startTime', formData.startTime);
-      updatedFormData.append('endTime', formData.endTime);
+      updatedFormData.append("shopname", formData.shopname);
+      updatedFormData.append("location", formData.location);
+      updatedFormData.append("phone", formData.phone);
+      updatedFormData.append("startTime", formData.startTime);
+      updatedFormData.append("endTime", formData.endTime);
       if (formData.image) {
-        updatedFormData.append('image', formData.image);
+        updatedFormData.append("image", formData.image);
       }
-  
-      // Debugging output
       updatedFormData.forEach((value, key) => {
         console.log(`${key}: ${value}`);
       });
-  
-      const response = await axios.patch(`http://localhost:3205/api/shopowner/ownereditshop/${id}`, updatedFormData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+
+      const response = await axios.patch(
+        `http://localhost:3205/api/shopowner/ownereditshop/${id}`,
+        updatedFormData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
-      });
-  
+      );
+
       toast.success(response.data.message);
       navigate(`/viewshops`);
     } catch (error) {
-      console.error('Error updating shop details:', error.response ? error.response.data : error.message);
+      console.error(
+        "Error updating shop details:",
+        error.response ? error.response.data : error.message
+      );
       toast.error("Error updating shop details.");
     }
   };
 
   return (
-    <Box sx={{ p: 4, backgroundColor: '#f9f9f9', minHeight: '100vh' }}>
+    <Box sx={{ p: 4, backgroundColor: "#f9f9f9", minHeight: "100vh" }}>
       <SideNavbar />
-      <Paper elevation={3} sx={{ padding: 3, maxWidth: 600, margin: 'auto', minHeight: '600px', width: '100%' }}>
+      <Paper
+        elevation={3}
+        sx={{
+          padding: 3,
+          maxWidth: 600,
+          margin: "auto",
+          minHeight: "600px",
+          width: "100%",
+        }}
+      >
         <Typography variant="h5" component="h1" gutterBottom>
           Edit Shop Details
         </Typography>
@@ -144,11 +168,7 @@ const ShopEdit = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Input
-                type="file"
-                name="image"
-                onChange={handleChange}
-              />
+              <Input type="file" name="image" onChange={handleChange} />
             </Grid>
             <Grid item xs={12}>
               <Button

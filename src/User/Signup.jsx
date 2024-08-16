@@ -27,7 +27,7 @@ const Signup = () => {
         );
         console.log(response);
         if (response.status === 200) {
-          setIsOtpSent(true); 
+          setIsOtpSent(true);
         }
       } catch (error) {
         console.log(error.response.data);
@@ -43,7 +43,7 @@ const Signup = () => {
           }
         );
         if (response.status === 201) {
-          toast.success("successfull")
+          toast.success("successfull");
           nav("/userlogin");
         }
       } catch (error) {
@@ -54,7 +54,12 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-cover bg-center bg-no-repeat" style={{ backgroundImage: `url('https://img.freepik.com/premium-photo/spray-bottle-hair-dryer_23-2148352946.jpg?w=740')` }}>
+    <div
+      className="flex justify-center items-center min-h-screen bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: `url('https://img.freepik.com/premium-photo/spray-bottle-hair-dryer_23-2148352946.jpg?w=740')`,
+      }}
+    >
       <div className="w-1/2 lg:w-1/3 bg-white p-8 rounded-lg shadow-lg opacity-70">
         <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
         <form onSubmit={submitHandler}>
@@ -113,4 +118,3 @@ const Signup = () => {
 };
 
 export default Signup;
-

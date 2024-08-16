@@ -1,27 +1,29 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { Box, TextField, Button, Typography, Paper, Grid } from '@mui/material';
-import toast from 'react-hot-toast';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { Box, TextField, Button, Typography, Paper, Grid } from "@mui/material";
+import toast from "react-hot-toast";
 
 const AdminEditOwners = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  
+
   const [formData, setFormData] = useState({
-    username: '',
-    shopname: '',
-    email: '',
-    phone: ''
+    username: "",
+    shopname: "",
+    email: "",
+    phone: "",
   });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3205/api/admin/adminviewbyid/${id}`);
+        const response = await axios.get(
+          `http://localhost:3205/api/admin/adminviewbyid/${id}`
+        );
         setFormData(response.data.owners);
       } catch (error) {
-        console.error('Error fetching owner data:', error);
+        console.error("Error fetching owner data:", error);
       }
     };
     fetchData();
@@ -35,18 +37,30 @@ const AdminEditOwners = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.patch(`http://localhost:3205/api/admin/admineditowners/${id}`, formData);
+      const response = await axios.patch(
+        `http://localhost:3205/api/admin/admineditowners/${id}`,
+        formData
+      );
       toast.success(response.data.message);
-      navigate('/owners');
+      navigate("/owners");
     } catch (error) {
-      console.error('Error updating owner details:', error);
-      toast.error('Error updating owner details.');
+      console.error("Error updating owner details:", error);
+      toast.error("Error updating owner details.");
     }
   };
 
   return (
-    <Box sx={{ p: 4, backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
-      <Paper elevation={6} sx={{ padding: 4, maxWidth: 600, margin: 'auto', borderRadius: 2, backgroundColor: '#ffffff' }}>
+    <Box sx={{ p: 4, backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
+      <Paper
+        elevation={6}
+        sx={{
+          padding: 4,
+          maxWidth: 600,
+          margin: "auto",
+          borderRadius: 2,
+          backgroundColor: "#ffffff",
+        }}
+      >
         <Typography variant="h4" component="h1" gutterBottom align="center">
           Edit Owner Details
         </Typography>
@@ -104,7 +118,7 @@ const AdminEditOwners = () => {
                 color="primary"
                 type="submit"
                 fullWidth
-                sx={{ mb: 2, padding: '12px' }}
+                sx={{ mb: 2, padding: "12px" }}
               >
                 Update
               </Button>
@@ -113,9 +127,9 @@ const AdminEditOwners = () => {
               <Button
                 variant="outlined"
                 color="secondary"
-                onClick={() => navigate('/owners')}
+                onClick={() => navigate("/owners")}
                 fullWidth
-                sx={{ padding: '12px' }}
+                sx={{ padding: "12px" }}
               >
                 Cancel
               </Button>

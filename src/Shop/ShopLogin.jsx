@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -136,7 +136,7 @@ const ShopLogin = () => {
               </Typography>
             </Box>
             <Typography variant="h6" align="center">
-              Don't have an account?{" "}
+              Dont have an account?{" "}
               <Link to={"/shopsignup"} style={{ color: "#1e90ff" }}>
                 Register here
               </Link>
@@ -153,8 +153,7 @@ const ShopLogin = () => {
             backgroundPosition: "center",
             height: { xs: "150px", md: "67.5vh" },
           }}
-        >
-        </Grid>
+        ></Grid>
       </Grid>
     </Box>
   );

@@ -136,7 +136,9 @@ const User = () => {
                     <TableCell>{user.email}</TableCell>
                     <TableCell>{user.phone}</TableCell>
                     <TableCell>
-                      <Tooltip title={user.blocked ? "Unblock User" : "Block User"}>
+                      <Tooltip
+                        title={user.blocked ? "Unblock User" : "Block User"}
+                      >
                         <IconButton
                           color={user.blocked ? "error" : "success"}
                           onClick={() => toggleBlockUser(user._id)}
@@ -144,7 +146,9 @@ const User = () => {
                             borderRadius: "50%",
                             width: "36px",
                             height: "36px",
-                            bgcolor: user.blocked ? "error.main" : "success.main",
+                            bgcolor: user.blocked
+                              ? "error.main"
+                              : "success.main",
                             "&:hover": {
                               bgcolor: user.blocked
                                 ? "error.dark"

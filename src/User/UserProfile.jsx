@@ -15,7 +15,7 @@ import {
   faTwitter,
   faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
-import { useParams, useNavigate } from "react-router-dom"; 
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../Navbar";
 
@@ -44,12 +44,12 @@ const UserProfile = () => {
   }
 
   const handleEditClick = () => {
-    navigate(`/editprofile/${id}`); 
+    navigate(`/editprofile/${id}`);
   };
 
   return (
     <div>
-      <Navbar/>
+      <Navbar />
       <Box
         sx={{
           display: "flex",
@@ -67,7 +67,7 @@ const UserProfile = () => {
             borderRadius: 2,
             boxShadow: 3,
             background: "#fff",
-            mb:10
+            mb: 10,
           }}
         >
           <CardContent>
@@ -76,7 +76,13 @@ const UserProfile = () => {
                 <Avatar
                   alt="Profile"
                   src={user.profilePicture || "/default-avatar.png"}
-                  sx={{ width: 140, height: 140, mb: 2, mx: "auto", border: "3px solid #007BFF" }}
+                  sx={{
+                    width: 140,
+                    height: 140,
+                    mb: 2,
+                    mx: "auto",
+                    border: "3px solid #007BFF",
+                  }}
                 />
                 <Typography
                   variant="h5"
@@ -85,10 +91,10 @@ const UserProfile = () => {
                 >
                   {user.username}
                 </Typography>
-                <Button 
-                  variant="contained" 
-                  color="primary" 
-                  onClick={handleEditClick} 
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleEditClick}
                   sx={{ textTransform: "none" }}
                 >
                   Edit Profile
@@ -96,20 +102,32 @@ const UserProfile = () => {
               </Grid>
               <Grid item xs={12} sm={8}>
                 <Box textAlign="left">
-                  <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    sx={{ fontWeight: 600 }}
+                  >
                     Basic Information
                   </Typography>
                   <Divider sx={{ mb: 2 }} />
                   <Typography variant="subtitle1" color="textPrimary">
                     User name:
                   </Typography>
-                  <Typography variant="body2" color="textSecondary" gutterBottom>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    gutterBottom
+                  >
                     {user.username || "N/A"}
                   </Typography>
                   <Typography variant="subtitle1" color="textPrimary">
                     Mobile number:
                   </Typography>
-                  <Typography variant="body2" color="textSecondary" gutterBottom>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    gutterBottom
+                  >
                     {user.phone || (
                       <Button
                         variant="contained"
@@ -124,7 +142,11 @@ const UserProfile = () => {
                   <Typography variant="subtitle1" color="textPrimary">
                     Email address:
                   </Typography>
-                  <Typography variant="body2" color="textSecondary" gutterBottom>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    gutterBottom
+                  >
                     {user.email}
                   </Typography>
                 </Box>

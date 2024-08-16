@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Navbar from "../Navbar";
-import { format, addMinutes, startOfToday, addDays } from 'date-fns';
-import toast, { Toaster } from 'react-hot-toast';
+import { format, addMinutes, startOfToday, addDays } from "date-fns";
+import toast, { Toaster } from "react-hot-toast";
 
 const SinglePage = () => {
   const [shop, setShop] = useState(null);
@@ -13,11 +13,14 @@ const SinglePage = () => {
   const [selectedSlot, setSelectedSlot] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
-   const userId=localStorage.getItem('id')
+  const userId = localStorage.getItem("id");
+
   useEffect(() => {
     const fetchShop = async () => {
       try {
-        const response = await axios.get(`http://localhost:3205/api/usershop/usershopid/${id}`);
+        const response = await axios.get(
+          `http://localhost:3205/api/usershop/usershopid/${id}`
+        );
         const shopData = response.data.data;
         setShop(shopData);
         setLoading(false);
@@ -31,9 +34,19 @@ const SinglePage = () => {
       const slots = [];
       let start = new Date(`1970-01-01T${startTime}:00`);
       let end = new Date(`1970-01-01T${endTime}:00`);
+      const now = new Date();
+
+      const isToday = format(selectedDate, "yyyy-MM-dd") === format(now, "yyyy-MM-dd");
+
+      if (isToday) {
+        const todayStart = new Date(
+          `1970-01-01T${format(now, "HH:mm")}:00`
+        ); 
+        start = todayStart > start ? todayStart : start; 
+      }
 
       while (start < end) {
-        slots.push(format(start, 'hh:mm a'));
+        slots.push(format(start, "hh:mm a"));
         start = addMinutes(start, 60);
       }
 
@@ -41,33 +54,36 @@ const SinglePage = () => {
     };
 
     fetchShop();
-  }, [id]);
+  }, [id, selectedDate]);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    setSelectedSlot(null); 
   };
 
   const handleSlotClick = (slot) => {
     setSelectedSlot(slot);
   };
 
-  
   const checkAvailability = async () => {
-    const formattedDate = format(selectedDate, 'yyyy-MM-dd');
-    console.log('Selected values:', {
+    const formattedDate = format(selectedDate, "yyyy-MM-dd");
+    console.log("Selected values:", {
       id,
       formattedDate,
       selectedSlot,
     });
 
     try {
-      const response = await axios.get('http://localhost:3205/api/userbooking/checkavailability', {
-        params: {
-          shopId: id,
-          date: formattedDate,
-          startTime: selectedSlot,
-        },
-      });
+      const response = await axios.get(
+        "http://localhost:3205/api/userbooking/checkavailability",
+        {
+          params: {
+            shopId: id,
+            date: formattedDate,
+            startTime: selectedSlot,
+          },
+        }
+      );
 
       if (response.status === 200) {
         toast.success("Slot available for booking!");
@@ -76,27 +92,26 @@ const SinglePage = () => {
       }
     } catch (error) {
       console.error("Error checking availability:", error);
-      toast.error(error.response?.data?.message || "Error checking availability.");
+      toast.error(
+        error.response?.data?.message || "Error checking availability."
+      );
     }
   };
-  
-    
 
   const submitHandler = async () => {
     if (!selectedSlot) {
-      toast.error("Please select a slot."); // Show error toast
+      toast.error("Please select a slot.");
       return;
     }
-    
-    if(!userId){
-      navigate('/userlogin')
-      return
-    }
-      navigate("/bookingpage", { state: { date: selectedDate, slot: selectedSlot, shops: shop } });
 
+    if (!userId) {
+      navigate("/userlogin");
+      return;
     }
-  
-    // Proceed with the booking
+    navigate("/bookingpage", {
+      state: { date: selectedDate, slot: selectedSlot, shops: shop },
+    });
+  };
 
   const goBack = () => {
     navigate(-1);
@@ -110,7 +125,7 @@ const SinglePage = () => {
     );
   }
 
-  const dates = Array.from({ length: 7 }, (_, i) => addDays(startOfToday(), i));
+  const dates = Array.from({ length: 4 }, (_, i) => addDays(startOfToday(), i));
 
   let categories = [];
   try {
@@ -146,12 +161,20 @@ const SinglePage = () => {
           <div className="w-full md:w-1/2">
             <div className="max-w-full mb-8 relative">
               <div className="p-4">
-                <h2 className="text-3xl md:text-4xl font-bold mb-2">{shop.shopname}</h2>
-                <p className="text-base md:text-lg text-gray-700 mb-1">{shop.location}</p>
-                <p className="text-base md:text-lg text-gray-700 mb-4">{shop.phone}</p>
+                <h2 className="text-3xl md:text-4xl font-bold mb-2">
+                  {shop.shopname}
+                </h2>
+                <p className="text-base md:text-lg text-gray-700 mb-1">
+                  {shop.location}
+                </p>
+                <p className="text-base md:text-lg text-gray-700 mb-4">
+                  {shop.phone}
+                </p>
 
                 <div className="mb-4">
-                  <h3 className="text-lg md:text-xl font-semibold">Categories:</h3>
+                  <h3 className="text-lg md:text-xl font-semibold">
+                    Categories:
+                  </h3>
                   <div className="flex flex-wrap gap-2 mt-2">
                     {categories.length > 0 ? (
                       categories.map((category, index) => (
@@ -173,7 +196,9 @@ const SinglePage = () => {
                     <div className="text-lg md:text-xl font-semibold mt-4 mb-2">
                       Additional Details:
                     </div>
-                    <p className="text-base md:text-lg text-gray-800">{shop.additionalDetails}</p>
+                    <p className="text-base md:text-lg text-gray-800">
+                      {shop.additionalDetails}
+                    </p>
                   </div>
                 )}
               </div>
@@ -191,53 +216,51 @@ const SinglePage = () => {
                   <button
                     key={index}
                     onClick={() => handleDateChange(date)}
-                    className={`px-2 py-1 rounded border ${
-                      format(selectedDate, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
-                        ? 'bg-blue-500 text-white border-blue-600'
-                        : 'bg-gray-200 text-gray-800 border-gray-400'
+                    className={`px-4 py-2 rounded-full text-sm ${
+                      format(selectedDate, "yyyy-MM-dd") ===
+                      format(date, "yyyy-MM-dd")
+                        ? "bg-blue-500 text-white"
+                        : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                     }`}
                   >
-                    {format(date, 'EEE dd')}
+                    {format(date, "EEE, MMM d")}
                   </button>
                 ))}
               </div>
 
-              <div>
-                <h3 className="text-lg md:text-xl font-semibold mb-2">Available Slots</h3>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+              <div className="text-center mb-4">
+                <h3 className="text-lg md:text-xl font-semibold text-gray-800">
+                  Available Time Slots:
+                </h3>
+                <div className="flex flex-wrap justify-center mt-2 gap-2">
                   {timeSlots.length > 0 ? (
                     timeSlots.map((slot, index) => (
                       <button
                         key={index}
                         onClick={() => handleSlotClick(slot)}
-                        className={`px-2 py-1 rounded border ${
+                        className={`px-4 py-2 rounded-full text-sm ${
                           selectedSlot === slot
-                            ? 'bg-green-500 text-white border-green-600'
-                            : 'bg-gray-200 text-gray-800 border-gray-400'
+                            ? "bg-blue-500 text-white"
+                            : "bg-gray-200 text-gray-800 hover:bg-gray-300"
                         }`}
                       >
                         {slot}
                       </button>
                     ))
                   ) : (
-                    <span>No slots available for the selected date</span>
+                    <p className="text-gray-600">No available slots</p>
                   )}
                 </div>
               </div>
 
-              <button
-                onClick={checkAvailability} 
-                className="w-full mt-6 px-4 py-2 bg-black text-white rounded-lg hover:bg-black-600"
-              >
-                Check Availability
-              </button>
-              <button
-                onClick={submitHandler}
-                className="w-full mt-6 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                disabled={!selectedSlot}
-              >
-                Book Now
-              </button>
+              <div className="text-center mt-6">
+                <button
+                  onClick={submitHandler}
+                  className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                  Book Now
+                </button>
+              </div>
             </div>
           </div>
         </div>

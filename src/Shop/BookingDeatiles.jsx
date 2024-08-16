@@ -78,12 +78,15 @@ const BookingDetailses = () => {
                 </TableRow>
               ) : (
                 users.map((user, index) => {
-                  const dates = new Date(user.date).toLocaleDateString("en-US", {
-                    weekday: "short",
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  });
+                  const dates = new Date(user.date).toLocaleDateString(
+                    "en-US",
+                    {
+                      weekday: "short",
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
+                    }
+                  );
                   return (
                     <TableRow key={index}>
                       <TableCell>{user.username}</TableCell>

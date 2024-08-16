@@ -1,4 +1,12 @@
-import { Button, TextField, Box, Grid, Typography, Card, CardContent } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Box,
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+} from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -8,20 +16,22 @@ const EditProfile = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: '',
-    phone: '',
-    email: ''
+    username: "",
+    phone: "",
+    email: "",
   });
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:3205/api/users/userview/${id}`);
+        const response = await axios.get(
+          `http://localhost:3205/api/users/userview/${id}`
+        );
         const user = response.data.data;
         setFormData({
           username: user.username,
           phone: user.phone,
-          email: user.email
+          email: user.email,
         });
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -33,9 +43,13 @@ const EditProfile = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.patch(`http://localhost:3205/api/users/useredit/${id}`, formData, {
-        headers: { 'Content-Type': 'application/json' }
-      });
+      const response = await axios.patch(
+        `http://localhost:3205/api/users/useredit/${id}`,
+        formData,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       toast.success(response.data.message);
       navigate(`/profile/${id}`);
@@ -51,10 +65,24 @@ const EditProfile = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', background: 'linear-gradient(to right, #E0E5EC, #C4C9D4)', p: 2 }}>
-      <Card sx={{ width: '100%', maxWidth: 600, borderRadius: 2, boxShadow: 3 }}>
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        background: "linear-gradient(to right, #E0E5EC, #C4C9D4)",
+        p: 2,
+      }}
+    >
+      <Card
+        sx={{ width: "100%", maxWidth: 600, borderRadius: 2, boxShadow: 3 }}
+      >
         <CardContent>
-          <Typography variant="h5" sx={{ mb: 4, textAlign: 'center', fontWeight: 600 }}>
+          <Typography
+            variant="h5"
+            sx={{ mb: 4, textAlign: "center", fontWeight: 600 }}
+          >
             Edit Profile
           </Typography>
           <form onSubmit={submitHandler}>
@@ -93,11 +121,17 @@ const EditProfile = () => {
                 />
               </Grid>
             </Grid>
-            <Box sx={{ mt: 4, display: 'flex', justifyContent: 'space-between' }}>
+            <Box
+              sx={{ mt: 4, display: "flex", justifyContent: "space-between" }}
+            >
               <Button type="submit" variant="contained" color="primary">
                 Submit
               </Button>
-              <Button variant="outlined" color="secondary" onClick={() => navigate(`/profile/${id}`)}>
+              <Button
+                variant="outlined"
+                color="secondary"
+                onClick={() => navigate(`/profile/${id}`)}
+              >
                 Cancel
               </Button>
             </Box>

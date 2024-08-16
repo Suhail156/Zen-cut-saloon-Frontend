@@ -1,38 +1,39 @@
-import { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import Navbar from '../Navbar';
-import axios from 'axios';
-import toast from 'react-hot-toast';
+import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import Navbar from "../Navbar";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 const BookingPage = () => {
   const location = useLocation();
   const { date, slot, shops } = location.state || {};
-  const id = localStorage.getItem('id');
+  const id = localStorage.getItem("id");
   const nav = useNavigate();
-  const [username, setUsername] = useState('');
-  const [phone, setPhone] = useState('');
+  const [username, setUsername] = useState("");
+  const [phone, setPhone] = useState("");
 
   const ownerId = shops.ownerId;
 
   const booking = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:3205/api/userbooking/booking/${id}/shop/${shops._id}/${ownerId}`, {
-        username,
-        phone,
-        startTime: slot,
-        date: date
-      });
+      const response = await axios.post(
+        `http://localhost:3205/api/userbooking/booking/${id}/shop/${shops._id}/${ownerId}`,
+        {
+          username,
+          phone,
+          startTime: slot,
+          date: date,
+        }
+      );
       toast.success(response.data.message);
-      nav('/');
+      nav("/");
     } catch (error) {
-      console.error('Error booking appointment:', error);
+      console.error("Error booking appointment:", error);
       if (error.response && error.response.status === 400) {
-        // Handle specific error for duplicate booking
-        toast.error('Booking already exists for this time and date.');
+        toast.error("Booking already exists for this time and date.");
       } else {
-        // Handle other errors
-        toast.error('Failed to book appointment. Please try again.');
+        toast.error("Failed to book appointment. Please try again.");
       }
     }
   };
@@ -42,7 +43,6 @@ const BookingPage = () => {
       <Navbar />
       <div className="min-h-screen bg-gray-200 flex justify-center items-center">
         <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl flex">
-          {/* Image Section */}
           <div className="w-1/2 relative rounded-lg overflow-hidden">
             <div>
               <img
@@ -52,15 +52,28 @@ const BookingPage = () => {
               />
             </div>
           </div>
-          {/* Details Section */}
           <div className="w-1/2 p-8 flex flex-col justify-center">
-            <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">Booking Details</h2>
-            <p className="text-lg mb-2"><span className="font-semibold">Selected Date:</span> {date && date.toDateString()}</p>
-            <p className="text-lg mb-4"><span className="font-semibold">Selected Time:</span> {slot}</p>
-            <p className="text-lg mb-4"><span className="font-semibold">Phone:</span> {shops.phone}</p>
+            <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
+              Booking Details
+            </h2>
+            <p className="text-lg mb-2">
+              <span className="font-semibold">Selected Date:</span>{" "}
+              {date && date.toDateString()}
+            </p>
+            <p className="text-lg mb-4">
+              <span className="font-semibold">Selected Time:</span> {slot}
+            </p>
+            <p className="text-lg mb-4">
+              <span className="font-semibold">Phone:</span> {shops.phone}
+            </p>
             <form onSubmit={booking} className="mt-4">
               <div className="mb-6">
-                <label htmlFor="username" className="block text-lg font-semibold mb-2">Client Name</label>
+                <label
+                  htmlFor="username"
+                  className="block text-lg font-semibold mb-2"
+                >
+                  Client Name
+                </label>
                 <input
                   type="text"
                   id="username"
@@ -72,7 +85,12 @@ const BookingPage = () => {
                 />
               </div>
               <div className="mb-6">
-                <label htmlFor="phone" className="block text-lg font-semibold mb-2">Phone Number</label>
+                <label
+                  htmlFor="phone"
+                  className="block text-lg font-semibold mb-2"
+                >
+                  Phone Number
+                </label>
                 <input
                   type="text"
                   id="phone"
@@ -83,7 +101,12 @@ const BookingPage = () => {
                   required
                 />
               </div>
-              <button type="submit" className="w-full py-3 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition duration-300">Book Appointment</button>
+              <button
+                type="submit"
+                className="w-full py-3 bg-blue-500 text-white rounded-full font-semibold hover:bg-blue-600 transition duration-300"
+              >
+                Book Appointment
+              </button>
             </form>
           </div>
         </div>

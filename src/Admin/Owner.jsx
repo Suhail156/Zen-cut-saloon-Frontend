@@ -1,8 +1,26 @@
 import { useState, useEffect } from "react";
 import {
-  Box, Container,Typography,Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper, IconButton, Tooltip, Popover, List, ListItem,ListItemIcon, ListItemText,  Divider, Button,
+  Box,
+  Container,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  IconButton,
+  Tooltip,
+  Popover,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+  Button,
 } from "@mui/material";
-import { Menu, Info, Edit, Event } from "@mui/icons-material"
+import { Menu, Info, Edit, Event } from "@mui/icons-material";
 import Sidebar from "./Sidebar";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -135,7 +153,7 @@ const Owner = () => {
                 {users.map((user, index) => (
                   <TableRow key={user._id}>
                     <TableCell>{index + 1}</TableCell>
-                    <TableCell>{user.username }</TableCell>
+                    <TableCell>{user.username}</TableCell>
                     <TableCell>{user.email}</TableCell>
                     <TableCell>{user.shopname}</TableCell>
                     <TableCell>{user.phone}</TableCell>
@@ -170,19 +188,30 @@ const Owner = () => {
                           </Typography>
                           <Divider />
                           <List>
-                            <ListItem button onClick={() => handleDetails(selectedUser._id)}>
+                            <ListItem
+                              button
+                              onClick={() => handleDetails(selectedUser._id)}
+                            >
                               <ListItemIcon>
                                 <Info color="primary" />
                               </ListItemIcon>
                               <ListItemText primary="Shop" />
                             </ListItem>
-                            <ListItem button onClick={() => handleEdit(selectedUser._id)}>
+                            <ListItem
+                              button
+                              onClick={() => handleEdit(selectedUser._id)}
+                            >
                               <ListItemIcon>
                                 <Edit color="primary" />
                               </ListItemIcon>
                               <ListItemText primary="Edit" />
                             </ListItem>
-                            <ListItem button onClick={() => handleBookingDetails(selectedUser._id)}>
+                            <ListItem
+                              button
+                              onClick={() =>
+                                handleBookingDetails(selectedUser._id)
+                              }
+                            >
                               <ListItemIcon>
                                 <Event color="primary" />
                               </ListItemIcon>

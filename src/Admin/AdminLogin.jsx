@@ -1,6 +1,14 @@
 import { useState } from "react";
-import { Box, TextField, Button, Typography, Paper, Avatar, Container } from "@mui/material";
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import {
+  Box,
+  TextField,
+  Button,
+  Typography,
+  Paper,
+  Avatar,
+  Container,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -8,27 +16,39 @@ import { useNavigate } from "react-router-dom";
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
- const nav=useNavigate()
-  const submitHandler = async() => {
+  const nav = useNavigate();
+  const submitHandler = async () => {
     try {
-        const response=await axios.post(" http://localhost:3205/api/admin/adminlogin",{email,password})
-        if(response.status===200){
-            console.log(response.data);
-            toast.success(response.data.message || "Successful login");
-            const token = response.data.token;
-            nav('/adminhome')
-            localStorage.setItem("token", token);
-            console.log(token);
-        }
+      const response = await axios.post(
+        " http://localhost:3205/api/admin/adminlogin",
+        { email, password }
+      );
+      if (response.status === 200) {
+        console.log(response.data);
+        toast.success(response.data.message || "Successful login");
+        const token = response.data.token;
+        nav("/adminhome");
+        localStorage.setItem("token", token);
+        console.log(token);
+      }
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   };
 
   return (
     <Container component="main" maxWidth="xs">
-      <Paper elevation={3} sx={{ p: 4, mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+      <Paper
+        elevation={3}
+        sx={{
+          p: 4,
+          mt: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -73,4 +93,3 @@ const AdminLogin = () => {
 };
 
 export default AdminLogin;
-

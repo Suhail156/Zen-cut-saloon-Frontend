@@ -1,9 +1,16 @@
-import { useState } from 'react';
-import { Box, Drawer, Typography, IconButton, AppBar, Toolbar } from '@mui/material';
-import { Menu as MenuIcon } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import {
+  Box,
+  Drawer,
+  Typography,
+  IconButton,
+  AppBar,
+  Toolbar,
+} from "@mui/material";
+import { Menu as MenuIcon } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
-const drawerWidth = 240; 
+const drawerWidth = 240;
 const Sidebar = ({ drawerContent }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
@@ -13,9 +20,11 @@ const Sidebar = ({ drawerContent }) => {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
-  
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+    <Box sx={{ display: "flex" }}>
+      <AppBar
+        position="fixed"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
@@ -41,11 +50,14 @@ const Sidebar = ({ drawerContent }) => {
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, 
+            keepMounted: true,
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
         >
           {drawerContent(handleDrawerToggle, navigate)}
@@ -53,8 +65,11 @@ const Sidebar = ({ drawerContent }) => {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: { xs: "none", sm: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
           open
         >

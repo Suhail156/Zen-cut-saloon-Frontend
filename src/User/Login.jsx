@@ -20,13 +20,13 @@ const Login = () => {
           localStorage.setItem("token", token);
           localStorage.setItem("name", name);
           localStorage.setItem("id", id);
-          
+
           toast.success(response.data.message);
           nav("/");
         })
         .catch((error) => {
           console.log(error);
-          toast.error(error.response.data.message )
+          toast.error(error.response.data.message);
         });
     } catch (error) {
       console.log(error);
@@ -62,7 +62,7 @@ const Login = () => {
             Login
           </button>
         </form>
-        <h3 className="mt-4 text-center">Don't have an account?</h3>
+        <h3 className="mt-4 text-center">Don t have an account?</h3>
         <Link
           to={"/usersignup"}
           className="text-blue-500 hover:underline text-center block mt-2"

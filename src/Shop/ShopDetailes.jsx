@@ -1,20 +1,29 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { Box, Typography, Paper, Button, Avatar, Divider, Chip } from '@mui/material';
-import SideNavbar from './SideNavbar';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import {
+  Box,
+  Typography,
+  Paper,
+  Button,
+  Avatar,
+  Divider,
+  Chip,
+} from "@mui/material";
+import SideNavbar from "./SideNavbar";
 
 const ShopDetails = () => {
   const [shops, setShops] = useState([]);
-  const id = localStorage.getItem('ownerId');
+  const id = localStorage.getItem("ownerId");
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchShops = async () => {
       try {
-        const response = await axios.get(`http://localhost:3205/api/shopowner/ownerviewshop/${id}`);
-        // Parse category safely
-        const shopData = response.data.data.shopId.map(shop => {
+        const response = await axios.get(
+          `http://localhost:3205/api/shopowner/ownerviewshop/${id}`
+        );
+        const shopData = response.data.data.shopId.map((shop) => {
           let categories = [];
           try {
             categories = shop.category ? JSON.parse(shop.category) : [];
@@ -23,7 +32,7 @@ const ShopDetails = () => {
           }
           return {
             ...shop,
-            category: categories
+            category: categories,
           };
         });
         setShops(shopData);
@@ -39,15 +48,19 @@ const ShopDetails = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', height: '100vh', background: '#f0f2f5' }}>
+    <Box sx={{ display: "flex", height: "100vh", background: "#f0f2f5" }}>
       <SideNavbar />
       <Box sx={{ flexGrow: 1, p: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
           Shop Profile
         </Typography>
         {shops.map((shop) => (
-          <Paper key={shop._id} elevation={3} sx={{ p: 4, borderRadius: 2, mb: 4, minHeight: 300 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+          <Paper
+            key={shop._id}
+            elevation={3}
+            sx={{ p: 4, borderRadius: 2, mb: 4, minHeight: 300 }}
+          >
+            <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
               <Avatar
                 src={shop.image}
                 alt={shop.shopname}
@@ -80,20 +93,19 @@ const ShopDetails = () => {
                 <strong>Category:</strong>
                 {Array.isArray(shop.category) && shop.category.length > 0 ? (
                   shop.category.map((category, index) => (
-                    // Ensure `category.name` is a string and render it
-                    <Chip key={index} label={category.name || 'Unknown'} sx={{ ml: 1 }} />
+                    <Chip
+                      key={index}
+                      label={category.name || "Unknown"}
+                      sx={{ ml: 1 }}
+                    />
                   ))
                 ) : (
                   <span>No categories available</span>
                 )}
               </Typography>
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleEdit}
-              >
+            <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+              <Button variant="contained" color="primary" onClick={handleEdit}>
                 Edit
               </Button>
             </Box>

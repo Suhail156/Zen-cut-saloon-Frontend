@@ -118,7 +118,7 @@ const Home = () => {
             </div>
           </div>
 
-          <div className="container mx-auto -mt-20"> 
+          <div className="container mx-auto -mt-20">
             {chunkedShops.map((row, rowIndex) => (
               <div key={rowIndex} className="flex flex-wrap justify-center">
                 {row.map((item) => (
