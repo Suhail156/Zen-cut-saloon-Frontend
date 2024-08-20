@@ -50,12 +50,12 @@ const AdminEditOwners = () => {
   };
 
   return (
-    <Box sx={{ p: 4, backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
+    <Box sx={{ p: 2, backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
       <Paper
         elevation={6}
         sx={{
-          padding: 4,
-          maxWidth: 600,
+          padding: 3,
+          maxWidth: { xs: "100%", sm: "600px" },
           margin: "auto",
           borderRadius: 2,
           backgroundColor: "#ffffff",
@@ -112,7 +112,7 @@ const AdminEditOwners = () => {
                 sx={{ mb: 2 }}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
               <Button
                 variant="contained"
                 color="primary"
@@ -123,7 +123,7 @@ const AdminEditOwners = () => {
                 Update
               </Button>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
               <Button
                 variant="outlined"
                 color="secondary"

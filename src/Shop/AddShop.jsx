@@ -136,22 +136,31 @@ const AddShop = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          p: 4,
+          p: { xs: 3, sm: 6 },
         }}
       >
-        <Paper elevation={4} sx={{ p: 4, maxWidth: 600, width: "100%" }}>
+        <Paper
+          elevation={4}
+          sx={{
+            p: { xs: 3, sm: 5 },
+            maxWidth: 900,
+            width: "100%",
+            borderRadius: 2,
+          }}
+        >
           <Typography
             variant="h4"
             component="h2"
             gutterBottom
             align="center"
             color="primary"
+            sx={{ fontSize: { xs: "1.5rem", sm: "2rem" } }}
           >
             Add Shop Details
           </Typography>
           <form onSubmit={handleSubmit}>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
+            <Grid container spacing={3} alignItems="center">
+              <Grid item xs={12} md={6}>
                 <TextField
                   label="Shop Name"
                   name="shopname"
@@ -166,10 +175,11 @@ const AddShop = () => {
                         <FontAwesomeIcon icon={faStore} />
                       </InputAdornment>
                     ),
+                    sx: { fontSize: { xs: "1rem", sm: "1.2rem" } },
                   }}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   label="Phone"
                   name="phone"
@@ -184,10 +194,11 @@ const AddShop = () => {
                         <FontAwesomeIcon icon={faPhoneAlt} />
                       </InputAdornment>
                     ),
+                    sx: { fontSize: { xs: "1rem", sm: "1.2rem" } },
                   }}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   label="Email"
                   name="email"
@@ -203,10 +214,11 @@ const AddShop = () => {
                         <FontAwesomeIcon icon={faEnvelope} />
                       </InputAdornment>
                     ),
+                    sx: { fontSize: { xs: "1rem", sm: "1.2rem" } },
                   }}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6}>
                 <input
                   accept="image/*"
                   style={{ display: "none" }}
@@ -222,12 +234,32 @@ const AddShop = () => {
                     component="span"
                     fullWidth
                     startIcon={<FontAwesomeIcon icon={faUpload} />}
+                    sx={{ fontSize: { xs: "0.9rem", sm: "1rem" } }}
                   >
                     Upload Image
                   </Button>
                 </label>
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6}>
+                <TextField
+                  label="Location"
+                  name="location"
+                  value={shopDetails.location}
+                  onChange={handleChange}
+                  fullWidth
+                  variant="outlined"
+                  required
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <FontAwesomeIcon icon={faMapMarkerAlt} />
+                      </InputAdornment>
+                    ),
+                    sx: { fontSize: { xs: "1rem", sm: "1.2rem" } },
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} md={6}>
                 <Typography variant="h6">Category</Typography>
                 <FormGroup row>
                   {categoriesList.map((category) => (
@@ -243,29 +275,12 @@ const AddShop = () => {
                         />
                       }
                       label={category.name}
+                      sx={{ fontSize: { xs: "0.9rem", sm: "1rem" } }}
                     />
                   ))}
                 </FormGroup>
               </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="Location"
-                  name="location"
-                  value={shopDetails.location}
-                  onChange={handleChange}
-                  fullWidth
-                  variant="outlined"
-                  required
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <FontAwesomeIcon icon={faMapMarkerAlt} />
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   label="Start Time"
                   name="startTime"
@@ -281,10 +296,11 @@ const AddShop = () => {
                         <FontAwesomeIcon icon={faClock} />
                       </InputAdornment>
                     ),
+                    sx: { fontSize: { xs: "1rem", sm: "1.2rem" } },
                   }}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} md={6}>
                 <TextField
                   label="End Time"
                   name="endTime"
@@ -300,15 +316,22 @@ const AddShop = () => {
                         <FontAwesomeIcon icon={faClock} />
                       </InputAdornment>
                     ),
+                    sx: { fontSize: { xs: "1rem", sm: "1.2rem" } },
                   }}
                 />
               </Grid>
               <Grid item xs={12}>
                 <Button
-                  type="submit"
                   variant="contained"
                   color="primary"
+                  type="submit"
                   fullWidth
+                  sx={{
+                    mt: 2,
+                    py: 1.5,
+                    fontSize: { xs: "1rem", sm: "1.2rem" },
+                    textTransform: "none",
+                  }}
                 >
                   Add Shop
                 </Button>

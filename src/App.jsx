@@ -26,6 +26,7 @@ import BookingDetailes from './Admin/BookingDetailes';
 import Shop from './Admin/Shop';
 import EditOwners from './Shop/EditOwners';
 import EditProfile from './User/EditProfile';
+import BookingPending from './Shop/BookingPending';
 
 const App = () => {
   return (
@@ -49,6 +50,7 @@ const App = () => {
         <Route path='/editshop/:id'   element={<ShopEdit/>}/>
         <Route path='/ownerprofile/:id' element={<ShopOwnerProfile/>}/>
         <Route path='/editowner/:id' element={<EditOwners/>}/>
+        <Route path='/ownerviewpending/:id' element={<BookingPending/>}/>
 
         
         <Route path='/adminlogin' element={<AdminLogin/>} />

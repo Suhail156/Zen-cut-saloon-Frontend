@@ -59,18 +59,18 @@ const ShopHome = () => {
       <div className="flex h-screen">
         <SideNavbar />
         <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          <Box sx={{ flex: 1, p: 4, bgcolor: "#f5f5f5" }}>
+          <Box sx={{ flex: 1, p: { xs: 2, md: 4 }, bgcolor: "#f5f5f5" }}>
             <Container>
               <Typography
                 variant="h4"
                 gutterBottom
                 color="primary"
-                sx={{ textAlign: "center", mb: 4 }}
+                sx={{ textAlign: "center", mb: { xs: 2, md: 4 } }}
               >
                 Welcome to Home
               </Typography>
 
-              <Grid container spacing={4} mb={4}>
+              <Grid container spacing={3} mb={4}>
                 <Grid item xs={12} sm={6} md={6}>
                   <Card
                     variant="outlined"
@@ -78,16 +78,25 @@ const ShopHome = () => {
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
-                      padding: 2,
+                      padding: { xs: 2, md: 3 },
                       boxShadow: 3,
+                      minHeight: 150,
                     }}
                   >
                     <FaListAlt size={40} color="#3f51b5" />
                     <CardContent>
-                      <Typography variant="h6" component="div">
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{ fontSize: { xs: "1rem", md: "1.2rem" } }}
+                      >
                         Total Orders
                       </Typography>
-                      <Typography variant="h4" color="text.primary">
+                      <Typography
+                        variant="h4"
+                        color="text.primary"
+                        sx={{ fontSize: { xs: "1.5rem", md: "2rem" } }}
+                      >
                         {statistics.totalOrders}
                       </Typography>
                     </CardContent>
@@ -100,16 +109,25 @@ const ShopHome = () => {
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
-                      padding: 2,
+                      padding: { xs: 2, md: 3 },
                       boxShadow: 3,
+                      minHeight: 150,
                     }}
                   >
                     <FaCalendarDay size={40} color="#3f51b5" />
                     <CardContent>
-                      <Typography variant="h6" component="div">
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        sx={{ fontSize: { xs: "1rem", md: "1.2rem" } }}
+                      >
                         Today s Orders
                       </Typography>
-                      <Typography variant="h4" color="text.primary">
+                      <Typography
+                        variant="h4"
+                        color="text.primary"
+                        sx={{ fontSize: { xs: "1.5rem", md: "2rem" } }}
+                      >
                         {statistics.todayOrders}
                       </Typography>
                     </CardContent>
@@ -117,28 +135,79 @@ const ShopHome = () => {
                 </Grid>
               </Grid>
 
-              <Typography variant="h5" gutterBottom color="primary">
+              <Typography
+                variant="h5"
+                gutterBottom
+                color="primary"
+                sx={{ fontSize: { xs: "1.2rem", md: "1.5rem" } }}
+              >
                 Today s Bookings
               </Typography>
               <TableContainer component={Paper}>
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell>Date</TableCell>
-                      <TableCell>Username</TableCell>
-                      <TableCell>Phone</TableCell>
-                      <TableCell>Time</TableCell>
+                      <TableCell
+                        sx={{
+                          fontSize: { xs: "0.8rem", md: "1rem" },
+                        }}
+                      >
+                        Date
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontSize: { xs: "0.8rem", md: "1rem" },
+                        }}
+                      >
+                        Username
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontSize: { xs: "0.8rem", md: "1rem" },
+                        }}
+                      >
+                        Phone
+                      </TableCell>
+                      <TableCell
+                        sx={{
+                          fontSize: { xs: "0.8rem", md: "1rem" },
+                        }}
+                      >
+                        Time
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
                     {todayBookings.map((booking) => (
                       <TableRow key={booking.id}>
-                        <TableCell>
+                        <TableCell
+                          sx={{
+                            fontSize: { xs: "0.8rem", md: "1rem" },
+                          }}
+                        >
                           {new Date(booking.date).toLocaleDateString()}
                         </TableCell>
-                        <TableCell>{booking.username}</TableCell>
-                        <TableCell>{booking.phone}</TableCell>
-                        <TableCell>{booking.startTime}</TableCell>
+                        <TableCell
+                          sx={{
+                            fontSize: { xs: "0.8rem", md: "1rem" },
+                          }}
+                        >
+                          {booking.username}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontSize: { xs: "0.8rem", md: "1rem" },
+                          }}
+                        >
+                          {booking.phone}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontSize: { xs: "0.8rem", md: "1rem" },
+                          }}
+                        >
+                          {booking.startTime}
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>

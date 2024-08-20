@@ -32,7 +32,6 @@ const ShopEdit = () => {
         const response = await axios.get(
           `http://localhost:3205/api/shopowner/ownerviewshop/${id}`
         );
-        console.log("Fetched Data:", response.data);
         const shopData = response.data.data.shopId[0];
         if (shopData) {
           setFormData({
@@ -74,9 +73,6 @@ const ShopEdit = () => {
       if (formData.image) {
         updatedFormData.append("image", formData.image);
       }
-      updatedFormData.forEach((value, key) => {
-        console.log(`${key}: ${value}`);
-      });
 
       const response = await axios.patch(
         `http://localhost:3205/api/shopowner/ownereditshop/${id}`,
@@ -100,16 +96,22 @@ const ShopEdit = () => {
   };
 
   return (
-    <Box sx={{ p: 4, backgroundColor: "#f9f9f9", minHeight: "100vh" }}>
+    <Box
+      sx={{
+        p: { xs: 2, sm: 3, md: 4 },
+        backgroundColor: "#f9f9f9",
+        minHeight: "100vh",
+      }}
+    >
       <SideNavbar />
       <Paper
         elevation={3}
         sx={{
-          padding: 3,
-          maxWidth: 600,
+          padding: { xs: 2, sm: 3 },
+          maxWidth: { xs: "100%", sm: "600px" },
           margin: "auto",
-          minHeight: "600px",
           width: "100%",
+          borderRadius: 2,
         }}
       >
         <Typography variant="h5" component="h1" gutterBottom>
@@ -168,7 +170,12 @@ const ShopEdit = () => {
               />
             </Grid>
             <Grid item xs={12}>
-              <Input type="file" name="image" onChange={handleChange} />
+              <Input
+                type="file"
+                name="image"
+                onChange={handleChange}
+                fullWidth
+              />
             </Grid>
             <Grid item xs={12}>
               <Button

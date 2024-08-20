@@ -10,11 +10,20 @@ import {
   TableHead,
   TableRow,
   Paper,
+  TextField,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
 } from "@mui/material";
 import SideNavbar from "./SideNavbar";
+import dayjs from "dayjs";
 
 const BookingDetailses = () => {
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("");
   const ownerId = localStorage.getItem("ownerId");
 
   useEffect(() => {
@@ -24,6 +33,7 @@ const BookingDetailses = () => {
           `http://localhost:3205/api/shopowner/ownerviewbookings/${ownerId}`
         );
         setUsers(response.data.data.booking);
+        setFilteredUsers(response.data.data.booking);
       } catch (error) {
         console.error(error);
       }
@@ -31,18 +41,95 @@ const BookingDetailses = () => {
     fetchUsers();
   }, [ownerId]);
 
+  useEffect(() => {
+    let filtered = users;
+
+    if (selectedDate) {
+      filtered = filtered.filter(user =>
+        dayjs(user.date).isSame(dayjs(selectedDate), "day")
+      );
+    }
+
+    if (selectedMonth) {
+      filtered = filtered.filter(user => {
+        const userMonth = dayjs(user.date).format("MMM");
+        return userMonth === selectedMonth;
+      });
+    }
+
+    setFilteredUsers(filtered);
+  }, [selectedDate, selectedMonth, users]);
+
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
+  };
+
+  const handleMonthChange = (event) => {
+    setSelectedMonth(event.target.value);
+  };
+
   return (
     <Box
       sx={{
         display: "flex",
         height: "100vh",
+        backgroundColor: "#f0f0f0", // Light gray background
       }}
     >
       <SideNavbar />
-      <Box className="container mx-auto bg-white p-4 rounded-lg shadow-lg">
+      <Box
+        className="container mx-auto p-4 rounded-lg shadow-lg"
+        sx={{
+          backgroundColor: "#ffffff", // White background for the inner container
+          width: "100%",
+        }}
+      >
         <Typography variant="h4" component="h1" gutterBottom>
           Booking Details
         </Typography>
+
+        {/* Filter by Date */}
+        <TextField
+          label="Filter by Date"
+          type="date"
+          value={selectedDate}
+          onChange={handleDateChange}
+          fullWidth
+          sx={{ mb: 2 }}
+          InputLabelProps={{
+            shrink: true,
+          }}
+        />
+
+        {/* Filter by Month */}
+        <FormControl fullWidth sx={{ mb: 2 }}>
+          <InputLabel>Filter by Month</InputLabel>
+          <Select
+            value={selectedMonth}
+            onChange={handleMonthChange}
+            label="Filter by Month"
+          >
+            <MenuItem value="">All</MenuItem>
+            <MenuItem value="Jan">January</MenuItem>
+            <MenuItem value="Feb">February</MenuItem>
+            <MenuItem value="Mar">March</MenuItem>
+            <MenuItem value="Apr">April</MenuItem>
+            <MenuItem value="May">May</MenuItem>
+            <MenuItem value="Jun">June</MenuItem>
+            <MenuItem value="Jul">July</MenuItem>
+            <MenuItem value="Aug">August</MenuItem>
+            <MenuItem value="Sep">September</MenuItem>
+            <MenuItem value="Oct">October</MenuItem>
+            <MenuItem value="Nov">November</MenuItem>
+            <MenuItem value="Dec">December</MenuItem>
+          </Select>
+        </FormControl>
+
+        {/* Total Booking Count */}
+        <Typography variant="h6" gutterBottom>
+          Total Bookings: {filteredUsers.length}
+        </Typography>
+
         <TableContainer component={Paper}>
           <Table>
             <TableHead>
@@ -70,14 +157,14 @@ const BookingDetailses = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {users.length === 0 ? (
+              {filteredUsers.length === 0 ? (
                 <TableRow>
                   <TableCell colSpan={4} align="center">
                     <Typography variant="h6">No booking information</Typography>
                   </TableCell>
                 </TableRow>
               ) : (
-                users.map((user, index) => {
+                filteredUsers.map((user, index) => {
                   const dates = new Date(user.date).toLocaleDateString(
                     "en-US",
                     {

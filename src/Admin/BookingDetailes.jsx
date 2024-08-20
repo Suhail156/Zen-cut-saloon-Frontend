@@ -13,10 +13,21 @@ import {
   Typography,
   Box,
   Button,
+  MenuItem,
+  Select,
+  InputLabel,
+  FormControl,
+  TextField,
 } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const BookingDetailes = () => {
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [selectedMonth, setSelectedMonth] = useState("");
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [totalBookings, setTotalBookings] = useState(0);
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -26,8 +37,10 @@ const BookingDetailes = () => {
         const response = await axios.get(
           `http://localhost:3205/api/admin/adminviewbooking/${id}`
         );
-        setData(response.data.data.booking || []);
-        console.log(response.data.data.booking);
+        const bookingData = response.data.data.booking || [];
+        setData(bookingData);
+        setTotalBookings(bookingData.length);
+        setFilteredData(bookingData);
       } catch (error) {
         console.error("Error fetching booking details:", error);
       }
@@ -35,12 +48,32 @@ const BookingDetailes = () => {
     fetchDetails();
   }, [id]);
 
+  useEffect(() => {
+    let filtered = data;
+
+    if (selectedMonth) {
+      filtered = filtered.filter((user) => {
+        const bookingMonth = new Date(user.date).toLocaleString("default", { month: "short" });
+        return bookingMonth === selectedMonth;
+      });
+    }
+
+    if (startDate && endDate) {
+      filtered = filtered.filter((user) => {
+        const bookingDate = new Date(user.date);
+        return bookingDate >= new Date(startDate) && bookingDate <= new Date(endDate);
+      });
+    }
+
+    setFilteredData(filtered);
+  }, [selectedMonth, startDate, endDate, data]);
+
   const goBack = () => {
     navigate("/owners");
   };
 
   return (
-    <Container sx={{ padding: 4 }}>
+    <Container sx={{ padding: 2 }}>
       <Button
         variant="contained"
         color="primary"
@@ -62,14 +95,58 @@ const BookingDetailes = () => {
       <Typography variant="h4" gutterBottom>
         Booking Details
       </Typography>
-      {data.length === 0 ? (
+      <Typography variant="h6" gutterBottom>
+        Total Bookings: {totalBookings}
+      </Typography>
+      <FormControl fullWidth sx={{ mb: 2 }}>
+        <InputLabel>Filter by Month</InputLabel>
+        <Select
+          value={selectedMonth}
+          onChange={(e) => setSelectedMonth(e.target.value)}
+          label="Filter by Month"
+        >
+          <MenuItem value="">All</MenuItem>
+          <MenuItem value="Jan">January</MenuItem>
+          <MenuItem value="Feb">February</MenuItem>
+          <MenuItem value="Mar">March</MenuItem>
+          <MenuItem value="Apr">April</MenuItem>
+          <MenuItem value="May">May</MenuItem>
+          <MenuItem value="Jun">June</MenuItem>
+          <MenuItem value="Jul">July</MenuItem>
+          <MenuItem value="Aug">August</MenuItem>
+          <MenuItem value="Sep">September</MenuItem>
+          <MenuItem value="Oct">October</MenuItem>
+          <MenuItem value="Nov">November</MenuItem>
+          <MenuItem value="Dec">December</MenuItem>
+        </Select>
+      </FormControl>
+      <Box sx={{ mb: 2 }}>
+        <Typography variant="h6" gutterBottom>
+          Filter by Date Range
+        </Typography>
+        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+          <DatePicker
+            label="Start Date"
+            value={startDate}
+            onChange={(date) => setStartDate(date)}
+            renderInput={(params) => <TextField {...params} fullWidth />}
+          />
+          <DatePicker
+            label="End Date"
+            value={endDate}
+            onChange={(date) => setEndDate(date)}
+            renderInput={(params) => <TextField {...params} fullWidth />}
+          />
+        </Box>
+      </Box>
+      {filteredData.length === 0 ? (
         <Box sx={{ textAlign: "center", padding: 4 }}>
           <Typography variant="h6" color="textSecondary">
             No bookings available.
           </Typography>
         </Box>
       ) : (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} sx={{ maxWidth: '100%', overflowX: 'auto' }}>
           <Table>
             <TableHead>
               <TableRow>
@@ -88,7 +165,7 @@ const BookingDetailes = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((user, index) => {
+              {filteredData.map((user, index) => {
                 const dates = new Date(user.date).toLocaleDateString("en-US", {
                   weekday: "short",
                   year: "numeric",

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
-    <footer style={{backgroundColor:'#152238'}} className=" text-white py-8 mt-[-50px] ">
+    <footer style={{backgroundColor:'#152238'}} className=" text-white py-8 mt-[-10px] ">
       <div className="container mx-auto text-center  ">
         <div className="flex justify-center mb-4">
           <a href="https://facebook.com" className="mx-2 text-white hover:text-blue-500">

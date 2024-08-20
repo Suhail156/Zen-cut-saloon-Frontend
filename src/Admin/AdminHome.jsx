@@ -6,7 +6,6 @@ import {
   Typography,
   Card,
   CardContent,
-  CardMedia,
   Button,
 } from "@mui/material";
 import {
@@ -37,11 +36,12 @@ const AdminHome = () => {
     labels: [],
     datasets: [
       {
-        label: "Sales",
+        label: "Total Bookings",
         data: [],
         fill: false,
-        backgroundColor: "rgba(75,192,192,1)",
+        backgroundColor: "rgba(75,192,192,0.4)",
         borderColor: "rgba(75,192,192,1)",
+        tension: 0.1, // Smooth curve for the line chart
       },
     ],
   });
@@ -51,14 +51,18 @@ const AdminHome = () => {
       try {
         const [bookingResponse, userResponse, ownerResponse, chartsResponse] =
           await Promise.all([
-            axios.get("http://localhost:3205/api/admin/adminviewdetailes"),
-            axios.get("http://localhost:3205/api/admin/adminviewallusers"),
-            axios.get("http://localhost:3205/api/admin/adminviewallowners"),
+            axios.get("http://localhost:3205/api/admin/adminviewallbookings"),
+            axios.get("http://localhost:3205/api/admin/adminuserview"),
+            axios.get("http://localhost:3205/api/admin/adminownerview"),
             axios.get("http://localhost:3205/api/admin/adminviewchart"),
           ]);
 
-        console.log("Chart Response:", chartsResponse);
+        // Extract length of arrays
+        const totalBookings = bookingResponse.data.data.length;
+        const totalUsers = userResponse.data.data.length;
+        const totalOwners = ownerResponse.data.data.length;
 
+        // Handle chart data
         const chartDataArray = chartsResponse.data.data;
         if (!Array.isArray(chartDataArray) || chartDataArray.length === 0) {
           throw new Error("Chart data is missing or not an array");
@@ -67,9 +71,9 @@ const AdminHome = () => {
         const dataPoints = chartDataArray.map((item) => item.totalBookings);
 
         setData({
-          totalBookings: bookingResponse.data.data.totalBookings,
-          totalUsers: userResponse.data.data.totalusers,
-          totalOwners: ownerResponse.data.data.totalowners,
+          totalBookings: totalBookings,
+          totalUsers: totalUsers,
+          totalOwners: totalOwners,
         });
 
         setChartData({
@@ -79,14 +83,14 @@ const AdminHome = () => {
               label: "Total Bookings",
               data: dataPoints,
               fill: false,
-              backgroundColor: "rgba(75,192,192,1)",
+              backgroundColor: "rgba(75,192,192,0.4)",
               borderColor: "rgba(75,192,192,1)",
+              tension: 0.1,
             },
           ],
         });
       } catch (error) {
         console.error("Error fetching data:", error.message);
-        console.log("Error details:", error);
       }
     };
 
@@ -97,7 +101,7 @@ const AdminHome = () => {
     <div>
       <Typography
         variant="h6"
-        sx={{ p: 2, backgroundColor: "#3f51b5", color: "#fff" }}
+        sx={{ p: 2, backgroundColor: "#3f51b5", color: "#fff", fontWeight: "bold" }}
       >
         Admin Dashboard
       </Typography>
@@ -113,7 +117,7 @@ const AdminHome = () => {
           padding: "10px 20px",
           color: "#3f51b5",
           "&:hover": {
-            backgroundColor: "#f1f1f1",
+            backgroundColor: "#e8eaf6",
           },
         }}
       >
@@ -131,7 +135,7 @@ const AdminHome = () => {
           padding: "10px 20px",
           color: "#3f51b5",
           "&:hover": {
-            backgroundColor: "#f1f1f1",
+            backgroundColor: "#e8eaf6",
           },
         }}
       >
@@ -149,7 +153,7 @@ const AdminHome = () => {
           padding: "10px 20px",
           color: "#3f51b5",
           "&:hover": {
-            backgroundColor: "#f1f1f1",
+            backgroundColor: "#e8eaf6",
           },
         }}
       >
@@ -167,7 +171,7 @@ const AdminHome = () => {
           padding: "10px 20px",
           color: "#3f51b5",
           "&:hover": {
-            backgroundColor: "#f1f1f1",
+            backgroundColor: "#e8eaf6",
           },
         }}
       >
@@ -184,7 +188,7 @@ const AdminHome = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          bgcolor: "background.default",
+          bgcolor: "#f5f5f5",
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}
@@ -194,57 +198,135 @@ const AdminHome = () => {
             Admin Dashboard
           </Typography>
           <Grid container spacing={4}>
-            <Grid item xs={12} md={6} lg={3}>
-              <Card>
-                <CardContent>
-                  <Typography color="textSecondary" gutterBottom>
-                    Total Users
-                  </Typography>
-                  <Typography variant="h5" component="div">
-                    {data.totalUsers}
-                  </Typography>
+            <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Card
+                sx={{
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  transition: "0.3s ease-in-out",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    boxShadow: 6,
+                  },
+                }}
+              >
+                <CardContent sx={{ display: "flex", alignItems: "center" }}>
+                  <Box
+                    sx={{
+                      flexShrink: 0,
+                      width: 60,
+                      height: 60,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: "50%",
+                      background: "linear-gradient(45deg, #3f51b5 30%, #ff4081 90%)",
+                      color: "#fff",
+                    }}
+                  >
+                    <PersonIcon style={{ fontSize: 30 }} />
+                  </Box>
+                  <Box sx={{ ml: 2 }}>
+                    <Typography color="textSecondary" gutterBottom>
+                      Total Users
+                    </Typography>
+                    <Typography variant="h5" component="div">
+                      {data.totalUsers}
+                    </Typography>
+                  </Box>
                 </CardContent>
-                <CardMedia>
-                  <PersonIcon style={{ fontSize: 40, color: "#3f51b5" }} />
-                </CardMedia>
               </Card>
             </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <Card>
-                <CardContent>
-                  <Typography color="textSecondary" gutterBottom>
-                    Total Shop Owners
-                  </Typography>
-                  <Typography variant="h5" component="div">
-                    {data.totalOwners}
-                  </Typography>
+            <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Card
+                sx={{
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  transition: "0.3s ease-in-out",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    boxShadow: 6,
+                  },
+                }}
+              >
+                <CardContent sx={{ display: "flex", alignItems: "center" }}>
+                  <Box
+                    sx={{
+                      flexShrink: 0,
+                      width: 60,
+                      height: 60,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: "50%",
+                      background: "linear-gradient(45deg, #f50057 30%, #ff4081 90%)",
+                      color: "#fff",
+                    }}
+                  >
+                    <StoreIcon style={{ fontSize: 30 }} />
+                  </Box>
+                  <Box sx={{ ml: 2 }}>
+                    <Typography color="textSecondary" gutterBottom>
+                      Total Owners
+                    </Typography>
+                    <Typography variant="h5" component="div">
+                      {data.totalOwners}
+                    </Typography>
+                  </Box>
                 </CardContent>
-                <CardMedia>
-                  <StoreIcon style={{ fontSize: 40, color: "#f50057" }} />
-                </CardMedia>
               </Card>
             </Grid>
-            <Grid item xs={12} md={6} lg={3}>
-              <Card>
-                <CardContent>
-                  <Typography color="textSecondary" gutterBottom>
-                    Total Bookings
-                  </Typography>
-                  <Typography variant="h5" component="div">
-                    {data.totalBookings}
-                  </Typography>
+            <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Card
+                sx={{
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  transition: "0.3s ease-in-out",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    boxShadow: 6,
+                  },
+                }}
+              >
+                <CardContent sx={{ display: "flex", alignItems: "center" }}>
+                  <Box
+                    sx={{
+                      flexShrink: 0,
+                      width: 60,
+                      height: 60,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: "50%",
+                      background: "linear-gradient(45deg, #3f51b5 30%, #ff4081 90%)",
+                      color: "#fff",
+                    }}
+                  >
+                    <EventIcon style={{ fontSize: 30 }} />
+                  </Box>
+                  <Box sx={{ ml: 2 }}>
+                    <Typography color="textSecondary" gutterBottom>
+                      Total Bookings
+                    </Typography>
+                    <Typography variant="h5" component="div">
+                      {data.totalBookings}
+                    </Typography>
+                  </Box>
                 </CardContent>
-                <CardMedia>
-                  <EventIcon style={{ fontSize: 40, color: "#4caf50" }} />
-                </CardMedia>
               </Card>
             </Grid>
-            {/* Sales Chart */}
-            <Grid item xs={12} lg={9}>
-              <Paper elevation={3} style={{ padding: "16px", height: "400px" }}>
-                {" "}
-                {/* Ensure height is set */}
-                <Typography variant="h6">Sales Over Time</Typography>
+            <Grid item xs={12}>
+              <Paper
+                sx={{
+                  p: 3,
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  backgroundColor: "#fff",
+                }}
+              >
+                <Typography variant="h6" gutterBottom>
+                  Monthly Bookings Overview
+                </Typography>
                 <Line data={chartData} />
               </Paper>
             </Grid>

@@ -36,17 +36,14 @@ const SinglePage = () => {
       let end = new Date(`1970-01-01T${endTime}:00`);
       const now = new Date();
 
-      const isToday = format(selectedDate, "yyyy-MM-dd") === format(now, "yyyy-MM-dd");
-
-      if (isToday) {
-        const todayStart = new Date(
-          `1970-01-01T${format(now, "HH:mm")}:00`
-        ); 
-        start = todayStart > start ? todayStart : start; 
-      }
+      // Check if the selected date is today
+      const isToday = format(selectedDate, "yyyy-MM-dd") === format(new Date(), "yyyy-MM-dd");
 
       while (start < end) {
-        slots.push(format(start, "hh:mm a"));
+        // Filter out past time slots for today
+        if (!isToday || start > now) {
+          slots.push(format(start, "hh:mm a"));
+        }
         start = addMinutes(start, 60);
       }
 
@@ -54,11 +51,11 @@ const SinglePage = () => {
     };
 
     fetchShop();
-  }, [id, selectedDate]);
+  }, [id, selectedDate]); // Added selectedDate to the dependency array
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
-    setSelectedSlot(null); 
+    setSelectedSlot(null); // Reset selected slot when date changes
   };
 
   const handleSlotClick = (slot) => {
@@ -125,7 +122,7 @@ const SinglePage = () => {
     );
   }
 
-  const dates = Array.from({ length: 4 }, (_, i) => addDays(startOfToday(), i));
+  const dates = Array.from({ length: 7 }, (_, i) => addDays(startOfToday(), i));
 
   let categories = [];
   try {
@@ -216,51 +213,66 @@ const SinglePage = () => {
                   <button
                     key={index}
                     onClick={() => handleDateChange(date)}
-                    className={`px-4 py-2 rounded-full text-sm ${
+                    className={`px-2 py-1 rounded border ${
                       format(selectedDate, "yyyy-MM-dd") ===
                       format(date, "yyyy-MM-dd")
-                        ? "bg-blue-500 text-white"
-                        : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                        ? "bg-blue-500 text-white border-blue-600"
+                        : "bg-gray-200 text-gray-800 border-gray-400"
                     }`}
                   >
-                    {format(date, "EEE, MMM d")}
+                    {format(date, "EEE dd")}
                   </button>
                 ))}
               </div>
 
-              <div className="text-center mb-4">
-                <h3 className="text-lg md:text-xl font-semibold text-gray-800">
-                  Available Time Slots:
+              <div>
+                <h3 className="text-lg md:text-xl font-semibold mb-2">
+                  Available Slots
                 </h3>
-                <div className="flex flex-wrap justify-center mt-2 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                   {timeSlots.length > 0 ? (
-                    timeSlots.map((slot, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handleSlotClick(slot)}
-                        className={`px-4 py-2 rounded-full text-sm ${
-                          selectedSlot === slot
-                            ? "bg-blue-500 text-white"
-                            : "bg-gray-200 text-gray-800 hover:bg-gray-300"
-                        }`}
-                      >
-                        {slot}
-                      </button>
-                    ))
+                    timeSlots.map((slot, index) => {
+                      const slotTime = new Date(`1970-01-01T${slot}`);
+                      const now = new Date();
+                      const isToday =
+                        format(selectedDate, "yyyy-MM-dd") ===
+                        format(new Date(), "yyyy-MM-dd");
+                      const isPastSlot = isToday && slotTime <= now;
+
+                      return (
+                        <button
+                          key={index}
+                          onClick={() => handleSlotClick(slot)}
+                          className={`px-2 py-1 rounded border ${
+                            selectedSlot === slot
+                              ? "bg-green-500 text-white border-green-600"
+                              : "bg-gray-200 text-gray-800 border-gray-400"
+                          }`}
+                          disabled={isPastSlot} // Disable past slots
+                        >
+                          {slot}
+                        </button>
+                      );
+                    })
                   ) : (
-                    <p className="text-gray-600">No available slots</p>
+                    <span>No slots available for the selected date</span>
                   )}
                 </div>
               </div>
 
-              <div className="text-center mt-6">
-                <button
-                  onClick={submitHandler}
-                  className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                >
-                  Book Now
-                </button>
-              </div>
+              <button
+                onClick={checkAvailability}
+                className="w-full mt-6 px-4 py-2 bg-black text-white rounded-lg hover:bg-black-600"
+              >
+                Check Availability
+              </button>
+              <button
+                onClick={submitHandler}
+                className="w-full mt-6 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                disabled={!selectedSlot}
+              >
+                Proceed to Booking
+              </button>
             </div>
           </div>
         </div>

@@ -19,6 +19,8 @@ import {
   ListItemText,
   Divider,
   Button,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { Menu, Info, Edit, Event } from "@mui/icons-material";
 import Sidebar from "./Sidebar";
@@ -32,6 +34,9 @@ const Owner = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -70,7 +75,7 @@ const Owner = () => {
   };
 
   const handleBookingDetails = (userId) => {
-    navigate(`/bookingdetailes/${userId}`);
+    navigate(`/bookingdetails/${userId}`);
     handlePopoverClose();
   };
 
@@ -130,28 +135,51 @@ const Owner = () => {
           bgcolor: "background.default",
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
         }}
       >
         <Container maxWidth="lg">
-          <Typography variant="h4" gutterBottom>
-            User Management
+          <Typography variant={isMobile ? "h5" : "h4"} gutterBottom>
+            Owner Management
           </Typography>
-          <TableContainer component={Paper}>
+          <TableContainer
+            component={Paper}
+            sx={{
+              overflowX: "auto",
+              maxWidth: "100%",
+              mt: 2,
+              borderRadius: 2,
+              boxShadow: 3,
+              [theme.breakpoints.down("sm")]: {
+                maxWidth: "100vw",
+              },
+            }}
+          >
             <Table>
               <TableHead>
-                <TableRow>
-                  <TableCell>Serial Number</TableCell>
-                  <TableCell>Username</TableCell>
-                  <TableCell>Email</TableCell>
-                  <TableCell>Shop Name</TableCell>
-                  <TableCell>Phone Number</TableCell>
-                  <TableCell>Category</TableCell>
-                  <TableCell>Action</TableCell>
+                <TableRow sx={{ bgcolor: theme.palette.primary.main }}>
+                  <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Serial Number</TableCell>
+                  <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Username</TableCell>
+                  <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Email</TableCell>
+                  <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Shop Name</TableCell>
+                  <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Phone Number</TableCell>
+                  <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Category</TableCell>
+                  <TableCell sx={{ color: "#fff", fontWeight: "bold" }}>Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {users.map((user, index) => (
-                  <TableRow key={user._id}>
+                  <TableRow
+                    key={user._id}
+                    sx={{
+                      "&:nth-of-type(odd)": {
+                        bgcolor: theme.palette.action.hover,
+                      },
+                      "&:hover": {
+                        bgcolor: theme.palette.action.selected,
+                      },
+                    }}
+                  >
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{user.username}</TableCell>
                     <TableCell>{user.email}</TableCell>
@@ -167,6 +195,7 @@ const Owner = () => {
                             transition: "transform 0.2s",
                             "&:hover": {
                               transform: "scale(1.2)",
+                              bgcolor: theme.palette.action.hover,
                             },
                           }}
                         >
@@ -181,37 +210,38 @@ const Owner = () => {
                           vertical: "bottom",
                           horizontal: "left",
                         }}
+                        transformOrigin={{
+                          vertical: "top",
+                          horizontal: "left",
+                        }}
                       >
-                        <Box sx={{ p: 2, width: 200 }}>
+                        <Box
+                          sx={{
+                            p: 2,
+                            width: { xs: 200, sm: 250 },
+                            bgcolor: "background.paper",
+                            borderRadius: 2,
+                            boxShadow: 3,
+                          }}
+                        >
                           <Typography variant="h6" gutterBottom>
                             Actions
                           </Typography>
                           <Divider />
                           <List>
-                            <ListItem
-                              button
-                              onClick={() => handleDetails(selectedUser._id)}
-                            >
+                            <ListItem button onClick={() => handleDetails(selectedUser._id)}>
                               <ListItemIcon>
                                 <Info color="primary" />
                               </ListItemIcon>
                               <ListItemText primary="Shop" />
                             </ListItem>
-                            <ListItem
-                              button
-                              onClick={() => handleEdit(selectedUser._id)}
-                            >
+                            <ListItem button onClick={() => handleEdit(selectedUser._id)}>
                               <ListItemIcon>
                                 <Edit color="primary" />
                               </ListItemIcon>
                               <ListItemText primary="Edit" />
                             </ListItem>
-                            <ListItem
-                              button
-                              onClick={() =>
-                                handleBookingDetails(selectedUser._id)
-                              }
-                            >
+                            <ListItem button onClick={() => handleBookingDetails(selectedUser._id)}>
                               <ListItemIcon>
                                 <Event color="primary" />
                               </ListItemIcon>
