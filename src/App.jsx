@@ -27,6 +27,7 @@ import Shop from './Admin/Shop';
 import EditOwners from './Shop/EditOwners';
 import EditProfile from './User/EditProfile';
 import BookingPending from './Shop/BookingPending';
+import BookingDetailesUser from './User/BookingDetailesUser';
 
 const App = () => {
   return (
@@ -40,6 +41,7 @@ const App = () => {
         <Route path='/profile/:id' element={<UserProfile/>}/>
         <Route path='/bookingpage' element={<BookingPage/>}/>
         <Route path='editprofile/:id' element={<EditProfile/>}/>
+        <Route path='/viewbookings/:id' element={<BookingDetailesUser/>}/>
         
         <Route path='/shophome' element={<ProtectedRoute><ShopHome/></ProtectedRoute>}/>
         <Route path='/addshop' element={<ProtectedRoute> <AddShop/></ProtectedRoute>}/>

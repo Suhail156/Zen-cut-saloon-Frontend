@@ -73,14 +73,14 @@ const BookingDetailses = () => {
       sx={{
         display: "flex",
         height: "100vh",
-        backgroundColor: "#f0f0f0", // Light gray background
+        backgroundColor: "#e0e0e0", // Set background to light gray
       }}
     >
       <SideNavbar />
       <Box
         className="container mx-auto p-4 rounded-lg shadow-lg"
         sx={{
-          backgroundColor: "#ffffff", // White background for the inner container
+          backgroundColor: "#f5f5f5", // Set a slightly darker gray background for the inner container
           width: "100%",
         }}
       >
@@ -154,12 +154,17 @@ const BookingDetailses = () => {
                     Start Time
                   </Typography>
                 </TableCell>
+                <TableCell>
+                  <Typography variant="subtitle1" fontWeight="bold">
+                    Status
+                  </Typography>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {filteredUsers.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={4} align="center">
+                  <TableCell colSpan={5} align="center">
                     <Typography variant="h6">No booking information</Typography>
                   </TableCell>
                 </TableRow>
@@ -180,6 +185,22 @@ const BookingDetailses = () => {
                       <TableCell>{user.phone}</TableCell>
                       <TableCell>{dates}</TableCell>
                       <TableCell>{user.startTime}</TableCell>
+                      <TableCell>
+                        <Typography
+                          sx={{
+                            color:
+                              user.status === "accept"
+                                ? "green"
+                                : user.status === "pending"
+                                ? "orange"
+                                : "red",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {user.status.charAt(0).toUpperCase() +
+                            user.status.slice(1)}
+                        </Typography>
+                      </TableCell>
                     </TableRow>
                   );
                 })

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faSignOutAlt, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -89,6 +89,15 @@ const Navbar = () => {
                       >
                         <FontAwesomeIcon icon={faUser} className="mr-2" />
                         Profile
+                      </button>
+                      <button
+                        className="text-gray-700 block px-4 py-2 text-sm"
+                        role="menuitem"
+                        tabIndex="-1"
+                        onClick={() => navigate(`/viewbookings/${id}`)}  // Navigate to your bookings page
+                      >
+                        <FontAwesomeIcon icon={faCalendarAlt} className="mr-2" />
+                        Your Bookings
                       </button>
                       <button
                         className="text-gray-700 block px-4 py-2 text-sm"

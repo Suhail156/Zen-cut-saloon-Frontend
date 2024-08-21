@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 const BookingPage = () => {
   const location = useLocation();
   const { date, slot, shops } = location.state || {};
-    console.log(location.state,'time');
+    // console.log(location.state,'time');
     
   const id = localStorage.getItem("id");
   const nav = useNavigate();
@@ -30,6 +30,9 @@ const BookingPage = () => {
       );
       toast.success(response.data.message);
       nav("/");
+      console.log(response);
+      
+      console.log(date)
     } catch (error) {
       console.error("Error booking appointment:", error);
       if (error.response && error.response.status === 400) {
@@ -39,7 +42,7 @@ const BookingPage = () => {
       }
     }
   };
-
+     
   return (
     <>
       <Navbar />

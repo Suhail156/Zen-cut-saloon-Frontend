@@ -121,7 +121,7 @@ const ShopHome = () => {
                         component="div"
                         sx={{ fontSize: { xs: "1rem", md: "1.2rem" } }}
                       >
-                        Today s Orders
+                        Today’s Orders
                       </Typography>
                       <Typography
                         variant="h4"
@@ -141,7 +141,7 @@ const ShopHome = () => {
                 color="primary"
                 sx={{ fontSize: { xs: "1.2rem", md: "1.5rem" } }}
               >
-                Today s Bookings
+                Today’s Bookings
               </Typography>
               <TableContainer component={Paper}>
                 <Table>
@@ -175,6 +175,13 @@ const ShopHome = () => {
                       >
                         Time
                       </TableCell>
+                      <TableCell
+                        sx={{
+                          fontSize: { xs: "0.8rem", md: "1rem" },
+                        }}
+                      >
+                        Status
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -207,6 +214,13 @@ const ShopHome = () => {
                           }}
                         >
                           {booking.startTime}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            fontSize: { xs: "0.8rem", md: "1rem" },
+                          }}
+                        >
+                          {booking.status} {/* Display status */}
                         </TableCell>
                       </TableRow>
                     ))}

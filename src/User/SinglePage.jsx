@@ -32,23 +32,25 @@ const SinglePage = () => {
 
     const generateTimeSlots = (startTime, endTime) => {
       const slots = [];
-      let start = new Date(`1970-01-01T${startTime}:00`);
-      let end = new Date(`1970-01-01T${endTime}:00`);
+      let start = new Date(selectedDate);
+      start.setHours(...startTime.split(":"), 0, 0);
+      let end = new Date(selectedDate);
+      end.setHours(...endTime.split(":"), 0, 0);
+    
       const now = new Date();
-
-      // Check if the selected date is today
-      const isToday = format(selectedDate, "yyyy-MM-dd") === format(new Date(), "yyyy-MM-dd");
-
+    
+      // Generate slots within the start and end time range
       while (start < end) {
         // Filter out past time slots for today
-        if (!isToday || start > now) {
+        if (start > now) {
           slots.push(format(start, "hh:mm a"));
         }
         start = addMinutes(start, 60);
       }
-
+    
       setTimeSlots(slots);
     };
+    
 
     fetchShop();
   }, [id, selectedDate]); // Added selectedDate to the dependency array
@@ -64,11 +66,11 @@ const SinglePage = () => {
 
   const checkAvailability = async () => {
     const formattedDate = format(selectedDate, "yyyy-MM-dd");
-    console.log("Selected values:", {
-      id,
-      formattedDate,
-      selectedSlot,
-    });
+    // console.log("Selected values:", {
+    //   id,
+    //   formattedDate,
+    //   selectedSlot,
+    // });
 
     try {
       const response = await axios.get(
@@ -98,6 +100,7 @@ const SinglePage = () => {
   const submitHandler = async () => {
     if (!selectedSlot) {
       toast.error("Please select a slot.");
+      console.log(selectedDate )
       return;
     }
 
