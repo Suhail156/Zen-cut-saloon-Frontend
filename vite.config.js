@@ -7,9 +7,9 @@ export default defineConfig({
     include: ['@mui/styles'],
   },
   build: {
-    outDir: 'build', // Specify the output directory
+    outDir: 'build', 
     rollupOptions: {
-      external: [], // Make sure axios is not listed here
+      external: [], 
     },
   },
 });

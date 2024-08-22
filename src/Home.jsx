@@ -15,7 +15,8 @@ const Home = () => {
     const fetchShops = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3205/api/usershop/usershopview"
+          // "http://localhost:3205/api/usershop/usershopview"
+          "https://zen-cut-saloon-backend.onrender.com"
         );
         setShop(response.data.data);
       } catch (error) {
