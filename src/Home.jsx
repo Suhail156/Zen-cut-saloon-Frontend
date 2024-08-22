@@ -30,7 +30,9 @@ const Home = () => {
     const fetchLocation = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/usershop/usershopsearch?locations=${search}`
+          // `http://localhost:3205/api/usershop/usershopsearch?locations=${search}`
+          `https://zen-cut-saloon-backend.onrender.com/api/usershop/usershopsearch?locations=${search}`
+
         );
         setShop(response.data.shops);
       } catch (error) {
