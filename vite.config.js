@@ -1,4 +1,3 @@
-// vite.config.js
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
@@ -9,9 +8,11 @@ export default defineConfig({
     include: ['@mui/styles'],
   },
   build: {
+    outDir: 'build', // Change the output directory to "build"
     rollupOptions: {
       external: ['axios'],
     },
   },
 });
+
 
