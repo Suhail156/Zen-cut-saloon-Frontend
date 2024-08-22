@@ -18,6 +18,7 @@ import {
   InputLabel,
   FormControl,
   TextField,
+  Chip,
 } from "@mui/material";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
@@ -72,8 +73,22 @@ const BookingDetailes = () => {
     navigate("/owners");
   };
 
+  // Function to determine status chip color
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "Confirmed":
+        return "success";
+      case "Pending":
+        return "warning";
+      case "Cancelled":
+        return "error";
+      default:
+        return "default";
+    }
+  };
+
   return (
-    <Container sx={{ padding: 2 }}>
+    <Container sx={{ padding: 2, backgroundColor: '#f5f5f5', width: '100%' }}>
       <Button
         variant="contained"
         color="primary"
@@ -146,22 +161,15 @@ const BookingDetailes = () => {
           </Typography>
         </Box>
       ) : (
-        <TableContainer component={Paper} sx={{ maxWidth: '100%', overflowX: 'auto' }}>
+        <TableContainer component={Paper} sx={{ maxWidth: '100%', overflowX: 'auto', backgroundColor: '#ffffff' }}>
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>
-                  <strong>Username</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Phone</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Date</strong>
-                </TableCell>
-                <TableCell>
-                  <strong>Start Time</strong>
-                </TableCell>
+                <TableCell><strong>Username</strong></TableCell>
+                <TableCell><strong>Phone</strong></TableCell>
+                <TableCell><strong>Date</strong></TableCell>
+                <TableCell><strong>Start Time</strong></TableCell>
+                <TableCell><strong>Status</strong></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -178,6 +186,13 @@ const BookingDetailes = () => {
                     <TableCell>{user.phone}</TableCell>
                     <TableCell>{dates}</TableCell>
                     <TableCell>{user.startTime}</TableCell>
+                    <TableCell>
+                      <Chip
+                        label={user.status}
+                        color={getStatusColor(user.status)}
+                        variant="outlined"
+                      />
+                    </TableCell>
                   </TableRow>
                 );
               })}

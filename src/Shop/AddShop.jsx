@@ -128,7 +128,7 @@ const AddShop = () => {
   };
 
   return (
-    <Box sx={{ display: "flex", height: "100vh" }}>
+    <Box sx={{ display: "flex", height: "100vh" ,backgroundColor: "#e0e0e0" }}>
       <SideNavbar />
       <Box
         sx={{
@@ -136,7 +136,7 @@ const AddShop = () => {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          p: { xs: 3, sm: 6 },
+          p: { xs: 3, sm: 6 }
         }}
       >
         <Paper
@@ -146,6 +146,7 @@ const AddShop = () => {
             maxWidth: 900,
             width: "100%",
             borderRadius: 2,
+            
           }}
         >
           <Typography

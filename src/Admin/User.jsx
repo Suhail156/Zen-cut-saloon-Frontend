@@ -12,9 +12,9 @@ import {
   Paper,
   IconButton,
   Button,
-  Tooltip, // Added Tooltip
+  Tooltip,
 } from "@mui/material";
-import { Block, Done } from "@mui/icons-material"; // Removed CheckCircle
+import { Block, Done } from "@mui/icons-material";
 import Sidebar from "./Sidebar";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -108,7 +108,7 @@ const User = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          bgcolor: "background.default",
+          bgcolor: "grey.100", // Set background color to grey
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
         }}

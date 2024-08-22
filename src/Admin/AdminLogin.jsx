@@ -17,10 +17,11 @@ const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const nav = useNavigate();
+
   const submitHandler = async () => {
     try {
       const response = await axios.post(
-        " http://localhost:3205/api/admin/adminlogin",
+        "http://localhost:3205/api/admin/adminlogin",
         { email, password }
       );
       if (response.status === 200) {
@@ -37,15 +38,28 @@ const AdminLogin = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container
+      component="main"
+      maxWidth={false} // Makes the container full width
+      sx={{
+        height: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#f0f0f0", // Full-width grey background
+        px: 2, // Padding to avoid content touching edges
+      }}
+    >
       <Paper
         elevation={3}
         sx={{
           p: 4,
-          mt: 8,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          backgroundColor: "#fff",
+          width: "100%", // Makes Paper component responsive
+          maxWidth: "400px", // Sets a maximum width for the Paper component
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>

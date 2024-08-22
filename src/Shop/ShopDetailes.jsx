@@ -50,7 +50,7 @@ const ShopDetails = () => {
   return (
     <Box sx={{ display: "flex", height: "100vh", background: "#f0f2f5" }}>
       <SideNavbar />
-      <Box sx={{ flexGrow: 1, p: 4 }}>
+      <Box sx={{ flexGrow: 1, p: 4 ,backgroundColor: "#e0e0e0" }}>
         <Typography variant="h4" component="h1" gutterBottom>
           Shop Profile
         </Typography>

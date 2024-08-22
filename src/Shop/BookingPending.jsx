@@ -31,7 +31,6 @@ const BookingPending = () => {
         setData(response.data.data);
       } catch (error) {
         console.log(error);
-        toast.error("Failed to fetch bookings.");
       }
     };
     fetchData();
@@ -43,7 +42,7 @@ const BookingPending = () => {
       const response = await axios.patch(
         `http://localhost:3205/api/shopowner/owneraccept/${bookingId}`
       );
-      toast.success("Booking accepted successfully!"); // Show success toast
+      toast.success("Booking accepted successfully!"); 
       setData(
         data.map((booking) =>
           booking._id === bookingId
@@ -53,7 +52,7 @@ const BookingPending = () => {
       );
     } catch (error) {
       console.log(error);
-      toast.error("Failed to accept booking."); // Show error toast
+      toast.error("Failed to accept booking."); 
     }
   };
 
@@ -73,7 +72,7 @@ const BookingPending = () => {
       );
     } catch (error) {
       console.log(error);
-      toast.error("Failed to reject booking."); // Show error toast
+      toast.error("Failed to reject booking."); 
     }
   };
 
@@ -82,11 +81,12 @@ const BookingPending = () => {
       sx={{
         display: "flex",
         height: "100vh",
+        backgroundColor: "#e0e0e0"
       }}
     >
       {" "}
       <SideNavbar />
-      <Box className="container mx-auto bg-white p-4 rounded-lg shadow-lg">
+      <Box className="container mx-auto bg-grey p-4 rounded-lg shadow-lg">
         <Typography variant="h4" component="h1" gutterBottom>
           Booking Details
         </Typography>

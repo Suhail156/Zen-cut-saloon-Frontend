@@ -73,14 +73,14 @@ const BookingDetailses = () => {
       sx={{
         display: "flex",
         height: "100vh",
-        backgroundColor: "#e0e0e0", // Set background to light gray
+        backgroundColor: "#e0e0e0"
       }}
     >
       <SideNavbar />
       <Box
         className="container mx-auto p-4 rounded-lg shadow-lg"
         sx={{
-          backgroundColor: "#f5f5f5", // Set a slightly darker gray background for the inner container
+          backgroundColor: "#f5f5f5", 
           width: "100%",
         }}
       >

@@ -75,7 +75,7 @@ const Owner = () => {
   };
 
   const handleBookingDetails = (userId) => {
-    navigate(`/bookingdetails/${userId}`);
+    navigate(`/bookingdetailes/${userId}`);
     handlePopoverClose();
   };
 
