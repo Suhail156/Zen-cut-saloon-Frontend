@@ -1,16 +1,15 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     include: ['@mui/styles'],
   },
   build: {
-    outDir: 'build', // Keep or set the output directory to "build"
+    outDir: 'build', // Specify the output directory
     rollupOptions: {
-      external: [], // Ensure axios is not listed here
+      external: [], // Make sure axios is not listed here
     },
   },
 });
