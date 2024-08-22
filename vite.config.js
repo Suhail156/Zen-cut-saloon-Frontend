@@ -6,6 +6,12 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    include: ['@mui/styles']
-  }
+    include: ['@mui/styles'],
+  },
+  build: {
+    rollupOptions: {
+      external: ['axios'],
+    },
+  },
 });
+
