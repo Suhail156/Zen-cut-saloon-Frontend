@@ -15,16 +15,14 @@ const Login = () => {
       await axios
         .post(`${baseUrl}/api/users/login`, { email, password })
         .then((response) => {
-          console.log(response.status,"status")
           const token = response.data.token;
-          
-           if(token.reponse.status===203){
+          if(response.status===203){
             localStorage.setItem("Admin_token", token);
             nav("/adminhome");
-          }else if(token.reponse.status===201){
+          }else if(response.status===201){
             const name = response.data.data.username;
             const id = response.data.data._id;
-            localStorage.setItem("token", token);
+            localStorage.setItem("token",token);
             localStorage.setItem("name", name);
             localStorage.setItem("id", id);
   
