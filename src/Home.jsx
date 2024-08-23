@@ -16,7 +16,7 @@ const Home = () => {
       try {
         const response = await axios.get(
           // "http://localhost:3205/api/usershop/usershopview"
-          "https://zen-cut-saloon-frontend-qzug-343y4okr3.vercel.app/api/usershop/usershopview"
+          "https://zen-cut-saloon-backend.onrender.com/api/usershop/usershopview"
         );
         setShop(response.data.data);
       } catch (error) {
@@ -31,7 +31,7 @@ const Home = () => {
       try {
         const response = await axios.get(
           // `http://localhost:3205/api/usershop/usershopsearch?locations=${search}`
-          `https://zen-cut-saloon-frontend-qzug-343y4okr3.vercel.app/api/usershop/usershopsearch?locations=${search}`
+          `https://zen-cut-saloon-backend.onrender.com/api/usershop/usershopsearch?locations=${search}`
 
         );
         setShop(response.data.shops);
