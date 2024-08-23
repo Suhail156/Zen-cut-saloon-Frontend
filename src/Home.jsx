@@ -10,8 +10,8 @@ const Home = () => {
   const [shop, setShop] = useState([]);
   const [search, setSearch] = useState("");
   const nav = useNavigate();
-  const baseUrl=import.meta.process.env.VITE_BASE_URL;
-console.log(baseUrl,"baseeeee");
+  const baseUrl=import.meta.env.VITE_BASE_URL;
+  console.log(baseUrl,"baseeeeggge");
 
   useEffect(() => {
     const fetchShops = async () => {
