@@ -56,7 +56,7 @@ const App = () => {
 
         
         <Route path='/adminlogin' element={<AdminLogin/>} />
-        <Route path='/userlogin/adminhome' element={<AdminHome/>}/>
+        <Route path='/adminhome' element={<AdminHome/>}/>
         <Route path="/users" element={<User />} />
         <Route path='/owners' element={<Owner/>}/>
         <Route path='/admineditowners/:id' element={<AdminEditOwners/>}/>
