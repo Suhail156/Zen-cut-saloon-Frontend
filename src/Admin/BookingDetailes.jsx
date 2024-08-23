@@ -23,6 +23,7 @@ import {
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const BookingDetailes = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState("");
@@ -36,7 +37,7 @@ const BookingDetailes = () => {
     const fetchDetails = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/admin/adminviewbooking/${id}`
+          `${baseUrl}/api/admin/adminviewbooking/${id}`
         );
         const bookingData = response.data.data.booking || [];
         setData(bookingData);

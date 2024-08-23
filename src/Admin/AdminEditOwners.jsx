@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 const AdminEditOwners = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [formData, setFormData] = useState({
     username: "",
     shopname: "",
@@ -19,7 +19,7 @@ const AdminEditOwners = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/admin/adminviewbyid/${id}`
+          `${baseUrl}/api/admin/adminviewbyid/${id}`
         );
         setFormData(response.data.owners);
       } catch (error) {
@@ -38,7 +38,7 @@ const AdminEditOwners = () => {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        `http://localhost:3205/api/admin/admineditowners/${id}`,
+        `${baseUrl}/api/admin/admineditowners/${id}`,
         formData
       );
       toast.success(response.data.message);

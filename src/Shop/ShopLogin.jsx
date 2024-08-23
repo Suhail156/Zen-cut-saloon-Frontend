@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { TextField, Button, Box, Grid, Typography, Paper } from "@mui/material";
 
 const ShopLogin = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const nav = useNavigate();
@@ -13,7 +14,7 @@ const ShopLogin = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3205/api/shopowner/ownerlogin",
+        `${baseUrl}/api/shopowner/ownerlogin`,
         {
           email,
           password,

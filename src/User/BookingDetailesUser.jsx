@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 const BookingDetailesUser = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [data, setData] = useState([]);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const BookingDetailesUser = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/users/userviewbookings/${id}`
+          `${baseUrl}/api/users/userviewbookings/${id}`
         );
         setData(response.data.data.booking);
         console.log(response.data.data.booking);

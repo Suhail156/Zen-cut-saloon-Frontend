@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 const Signup = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,7 +18,7 @@ const Signup = () => {
     if (!isOtpSent) {
       try {
         const response = await axios.post(
-          "http://localhost:3205/api/users/signup",
+          `${baseUrl}/api/users/signup`,
           {
             username,
             password,
@@ -36,7 +37,7 @@ const Signup = () => {
     } else {
       try {
         const response = await axios.post(
-          "http://localhost:3205/api/users/verifyotp",
+          `${baseUrl}/api/users/verifyotp`,
           {
             email,
             otp,

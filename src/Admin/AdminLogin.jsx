@@ -14,14 +14,14 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const AdminLogin = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const nav = useNavigate();
-
   const submitHandler = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3205/api/admin/adminlogin",
+        `${baseUrl}/api/admin/adminlogin`,
         { email, password }
       );
       if (response.status === 200) {

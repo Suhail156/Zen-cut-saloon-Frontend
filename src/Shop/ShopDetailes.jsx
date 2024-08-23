@@ -13,6 +13,7 @@ import {
 import SideNavbar from "./SideNavbar";
 
 const ShopDetails = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [shops, setShops] = useState([]);
   const id = localStorage.getItem("ownerId");
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const ShopDetails = () => {
     const fetchShops = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/shopowner/ownerviewshop/${id}`
+          `${baseUrl}/api/shopowner/ownerviewshop/${id}`
         );
         const shopData = response.data.data.shopId.map((shop) => {
           let categories = [];

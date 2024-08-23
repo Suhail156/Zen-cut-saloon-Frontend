@@ -20,6 +20,7 @@ import axios from "axios";
 import Navbar from "../Navbar";
 
 const UserProfile = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [user, setUser] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const UserProfile = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/users/userview/${id}`
+          `${baseUrl}/api/users/userview/${id}`
         );
         setUser(response.data.data);
         console.log(response.data.data, "res");

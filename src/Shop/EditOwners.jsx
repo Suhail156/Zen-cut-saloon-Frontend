@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditOwners = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -19,7 +20,7 @@ const EditOwners = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/shopowner/ownerviewbyid/${id}`
+          `${baseUrl}/api/shopowner/ownerviewbyid/${id}`
         );
         const ownerData = response.data.data;
         if (ownerData) {
@@ -41,7 +42,7 @@ const EditOwners = () => {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        `http://localhost:3205/api/shopowner/owneredit/${id}`,
+        `${baseUrl}/api/shopowner/owneredit/${id}`,
         formData,
         {
           headers: { "Content-Type": "application/json" },

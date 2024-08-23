@@ -17,6 +17,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const ShopSignup = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [username, setUsername] = useState("");
   const [shopname, setShopname] = useState("");
   const [email, setEmail] = useState("");
@@ -55,7 +56,7 @@ const ShopSignup = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:3205/api/shopowner/ownersignup",
+        `${baseUrl}/api/shopowner/ownersignup`,
         {
           username,
           shopname,

@@ -22,13 +22,14 @@ import toast from "react-hot-toast";
 const drawerWidth = 240;
 
 const User = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3205/api/admin/adminuserview"
+          `${baseUrl}/api/admin/adminuserview`
         );
         setUsers(response.data.data);
       } catch (error) {
@@ -41,7 +42,7 @@ const User = () => {
   const toggleBlockUser = async (id) => {
     try {
       const response = await axios.patch(
-        `http://localhost:3205/api/admin/adminblock/${id}`
+        `${baseUrl}/api/admin/adminblock/${id}`
       );
       toast.success(response.data.message);
 

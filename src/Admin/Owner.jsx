@@ -30,6 +30,7 @@ import { useNavigate } from "react-router-dom";
 const drawerWidth = 240;
 
 const Owner = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [users, setUsers] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -42,7 +43,7 @@ const Owner = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3205/api/admin/adminownerview"
+          `${baseUrl}/api/admin/adminownerview`
         );
         setUsers(response.data.data);
       } catch (error) {

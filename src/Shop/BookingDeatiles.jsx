@@ -20,6 +20,7 @@ import SideNavbar from "./SideNavbar";
 import dayjs from "dayjs";
 
 const BookingDetailses = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [users, setUsers] = useState([]);
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [selectedDate, setSelectedDate] = useState("");
@@ -30,7 +31,7 @@ const BookingDetailses = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/shopowner/ownerviewbookings/${ownerId}`
+          `${baseUrl}api/shopowner/ownerviewbookings/${ownerId}`
         );
         setUsers(response.data.data.booking);
         setFilteredUsers(response.data.data.booking);

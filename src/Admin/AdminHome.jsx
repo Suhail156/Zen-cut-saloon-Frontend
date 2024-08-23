@@ -27,6 +27,7 @@ import axios from "axios";
 const drawerWidth = 240;
 
 const AdminHome = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [data, setData] = useState({
     totalBookings: 0,
     totalUsers: 0,
@@ -41,20 +42,20 @@ const AdminHome = () => {
         fill: false,
         backgroundColor: "rgba(75,192,192,0.4)",
         borderColor: "rgba(75,192,192,1)",
-        tension: 0.1, // Smooth curve for the line chart
+        tension: 0.1, 
       },
     ],
   });
-
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [bookingResponse, userResponse, ownerResponse, chartsResponse] =
           await Promise.all([
-            axios.get("http://localhost:3205/api/admin/adminviewallbookings"),
-            axios.get("http://localhost:3205/api/admin/adminuserview"),
-            axios.get("http://localhost:3205/api/admin/adminownerview"),
-            axios.get("http://localhost:3205/api/admin/adminviewchart"),
+            axios.get(`${baseUrl}/api/admin/adminviewallbookings`),
+            axios.get(`${baseUrl}/api/admin/adminuserview`),
+            axios.get(`${baseUrl}/api/admin/adminownerview`),
+            axios.get(`${baseUrl}/api/admin/adminviewchart`),
           ]);
 
         // Extract length of arrays

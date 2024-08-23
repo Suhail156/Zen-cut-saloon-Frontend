@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditProfile = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const { id } = useParams();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -25,7 +26,7 @@ const EditProfile = () => {
     const fetchUser = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/users/userview/${id}`
+          `${baseUrl}/api/users/userview/${id}`
         );
         const user = response.data.data;
         setFormData({
@@ -44,7 +45,7 @@ const EditProfile = () => {
     e.preventDefault();
     try {
       const response = await axios.patch(
-        `http://localhost:3205/api/users/useredit/${id}`,
+        `${baseUrl}/api/users/useredit/${id}`,
         formData,
         {
           headers: { "Content-Type": "application/json" },

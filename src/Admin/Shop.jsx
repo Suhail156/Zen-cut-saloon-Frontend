@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 
 const Shop = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [data, setData] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const Shop = () => {
     const fetching = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/admin/adminviewshop/${id}`
+          `${baseUrl}/api/admin/adminviewshop/${id}`
         );
         setData(response.data.data.shopId[0]);
       } catch (error) {

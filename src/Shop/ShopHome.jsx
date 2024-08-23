@@ -20,6 +20,7 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 const ShopHome = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [bookings, setBookings] = useState([]);
   const ownerId = localStorage.getItem("ownerId");
 
@@ -27,7 +28,7 @@ const ShopHome = () => {
     const fetchBookings = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/shopowner/ownerviewbookings/${ownerId}`
+          `${baseUrl}/api/shopowner/ownerviewbookings/${ownerId}`
         );
         const sortedBookings = response.data.data.booking.sort(
           (a, b) => new Date(b.date) - new Date(a.date)

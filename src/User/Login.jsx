@@ -4,6 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const Login = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const nav = useNavigate();
@@ -12,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     try {
       await axios
-        .post("http://localhost:3205/api/users/login", { email, password })
+        .post(`${baseUrl}/api/users/login`, { email, password })
         .then((response) => {
           const token = response.data.data.token;
           const name = response.data.data.username;

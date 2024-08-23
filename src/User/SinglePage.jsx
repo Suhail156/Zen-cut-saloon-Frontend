@@ -6,6 +6,7 @@ import { format, addMinutes, startOfToday, addDays } from "date-fns";
 import toast, { Toaster } from "react-hot-toast";
 
 const SinglePage = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [shop, setShop] = useState(null);
   const [loading, setLoading] = useState(true);
   const [timeSlots, setTimeSlots] = useState([]);
@@ -19,7 +20,7 @@ const SinglePage = () => {
     const fetchShop = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/usershop/usershopid/${id}`
+          `${baseUrl}/api/usershop/usershopid/${id}`
         );
         const shopData = response.data.data;
         setShop(shopData);
@@ -74,7 +75,7 @@ const SinglePage = () => {
 
     try {
       const response = await axios.get(
-        "http://localhost:3205/api/userbooking/checkavailability",
+        `${baseUrl}/api/userbooking/checkavailability`,
         {
           params: {
             shopId: id,

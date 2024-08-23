@@ -20,6 +20,7 @@ import axios from "axios";
 import SideNavbar from "./SideNavbar";
 
 const ShopOwnerProfile = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const [owner, setOwner] = useState(null);
   const { id } = useParams();
   const nav = useNavigate();
@@ -27,7 +28,7 @@ const ShopOwnerProfile = () => {
     const fetchOwner = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/shopowner/ownerviewbyid/${id}`
+          `${baseUrl}/api/shopowner/ownerviewbyid/${id}`
         );
         setOwner(response.data.data);
       } catch (error) {

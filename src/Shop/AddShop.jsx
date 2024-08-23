@@ -26,6 +26,7 @@ import {
 import SideNavbar from "./SideNavbar";
 
 const AddShop = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
   const [shopDetails, setShopDetails] = useState({
     shopname: "",
@@ -109,7 +110,7 @@ const AddShop = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3205/api/shop/shops/${ownerId}`,
+        `${baseUrl}/api/shop/shops/${ownerId}`,
         formData,
         {
           headers: {

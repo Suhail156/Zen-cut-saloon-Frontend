@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import SideNavbar from "./SideNavbar";
 
 const ShopEdit = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -30,7 +31,7 @@ const ShopEdit = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/shopowner/ownerviewshop/${id}`
+          `${baseUrl}/api/shopowner/ownerviewshop/${id}`
         );
         const shopData = response.data.data.shopId[0];
         if (shopData) {

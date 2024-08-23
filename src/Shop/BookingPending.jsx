@@ -19,6 +19,7 @@ import toast from "react-hot-toast";
 import SideNavbar from "./SideNavbar";
 
 const BookingPending = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const { id } = useParams();
   const [data, setData] = useState([]);
 
@@ -26,7 +27,7 @@ const BookingPending = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3205/api/shopowner/ownerviewpending/${id}`
+          `${baseUrl}/api/shopowner/ownerviewpending/${id}`
         );
         setData(response.data.data);
       } catch (error) {
@@ -40,7 +41,7 @@ const BookingPending = () => {
   const handleAccept = async (bookingId) => {
     try {
       const response = await axios.patch(
-        `http://localhost:3205/api/shopowner/owneraccept/${bookingId}`
+        `${baseUrl}/api/shopowner/owneraccept/${bookingId}`
       );
       toast.success("Booking accepted successfully!"); 
       setData(
@@ -60,7 +61,7 @@ const BookingPending = () => {
   const handleReject = async (bookingId) => {
     try {
       const response = await axios.patch(
-        `http://localhost:3205/api/shopowner/ownerreject/${bookingId}`
+        `${baseUrl}/api/shopowner/ownerreject/${bookingId}`
       );
       toast.success("Booking rejected successfully!"); // Show success toast
       setData(

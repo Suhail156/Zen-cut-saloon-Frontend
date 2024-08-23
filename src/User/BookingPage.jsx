@@ -5,9 +5,9 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const BookingPage = () => {
+  const baseUrl=import.meta.env.VITE_BASE_URL;
   const location = useLocation();
   const { date, slot, shops } = location.state || {};
-    // console.log(location.state,'time');
     
   const id = localStorage.getItem("id");
   const nav = useNavigate();
@@ -20,7 +20,7 @@ const BookingPage = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:3205/api/userbooking/booking/${id}/shop/${shops._id}/${ownerId}`,
+        `${baseUrl}/api/userbooking/booking/${id}/shop/${shops._id}/${ownerId}`,
         {
           username,
           phone,
