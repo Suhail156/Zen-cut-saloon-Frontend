@@ -35,6 +35,10 @@ const Sidebar = ({ drawerContent }) => {
     navigate(path);
     handleDrawerToggle();
   };
+  const logoutfunction=()=>{
+    localStorage.clear('Admin_token')
+    navigate('/')
+  }
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -126,7 +130,7 @@ const Sidebar = ({ drawerContent }) => {
               <ListItemIcon>
                 <LogoutIcon sx={{ color: "#f39c12" }} />
               </ListItemIcon>
-              <ListItemText primary="Logout" sx={{ color: "#ecf0f1" }} />
+              <ListItemText primary="Logout" onClick={()=>logoutfunction()} sx={{ color: "#ecf0f1" }} />
             </ListItem>
           </List>
         </Drawer>
