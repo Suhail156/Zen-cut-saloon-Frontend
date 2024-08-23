@@ -10,13 +10,14 @@ const Home = () => {
   const [shop, setShop] = useState([]);
   const [search, setSearch] = useState("");
   const nav = useNavigate();
+  const baseUrl=import.meta.process.env.VITE_BASE_URL;
 
   useEffect(() => {
     const fetchShops = async () => {
       try {
         const response = await axios.get(
           // "http://localhost:3205/api/usershop/usershopview"
-          "https://zen-cut-saloon-backend.onrender.com/api/usershop/usershopview"
+          `${baseUrl}/api/usershop/usershopview`
         );
         setShop(response.data.data);
       } catch (error) {
