@@ -16,17 +16,20 @@ const Login = () => {
         .post(`${baseUrl}/api/users/login`, { email, password })
         .then((response) => {
           const token = response.data.data.token;
-          if(token.reponse.status===203){
+           if(token.reponse.status===203){
+            localStorage.setItem("Admin_token", token);
             nav("/adminhome");
+          }else if(token.reponse.status===201){
+            const name = response.data.data.username;
+            const id = response.data.data._id;
+            localStorage.setItem("token", token);
+            localStorage.setItem("name", name);
+            localStorage.setItem("id", id);
+  
+            toast.success(response.data.message);
+            nav("/");
           }
-          const name = response.data.data.username;
-          const id = response.data.data._id;
-          localStorage.setItem("token", token);
-          localStorage.setItem("name", name);
-          localStorage.setItem("id", id);
-
-          toast.success(response.data.message);
-          nav("/");
+        
         })
         .catch((error) => {
           console.log(error);
