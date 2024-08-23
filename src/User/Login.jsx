@@ -15,7 +15,7 @@ const Login = () => {
       await axios
         .post(`${baseUrl}/api/users/login`, { email, password })
         .then((response) => {
-          console.log(response,"tokrn")
+          console.log(response.status,"status")
           const token = response.data.token;
           
            if(token.reponse.status===203){
