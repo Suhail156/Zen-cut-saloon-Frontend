@@ -15,7 +15,7 @@ const Login = () => {
       await axios
         .post(`${baseUrl}/api/users/login`, { email, password })
         .then((response) => {
-          const token = response.data.data.token;
+          const token = response.data.token;
            if(token.reponse.status===203){
             localStorage.setItem("Admin_token", token);
             nav("/adminhome");
