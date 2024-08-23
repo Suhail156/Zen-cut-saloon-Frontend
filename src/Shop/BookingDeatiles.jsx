@@ -30,17 +30,19 @@ const BookingDetailses = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
+        console.log(`${baseUrl}/api/shopowner/ownerviewbookings/${ownerId}`);
         const response = await axios.get(
-          `${baseUrl}api/shopowner/ownerviewbookings/${ownerId}`
+          `${baseUrl}/api/shopowner/ownerviewbookings/${ownerId}`
         );
         setUsers(response.data.data.booking);
         setFilteredUsers(response.data.data.booking);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching booking details:", error);
       }
     };
     fetchUsers();
   }, [ownerId]);
+  
 
   useEffect(() => {
     let filtered = users;

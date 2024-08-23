@@ -40,14 +40,14 @@ const AdminLogin = () => {
   return (
     <Container
       component="main"
-      maxWidth={false} // Makes the container full width
+      maxWidth={false} 
       sx={{
         height: "100vh",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#f0f0f0", // Full-width grey background
-        px: 2, // Padding to avoid content touching edges
+        backgroundColor: "#f0f0f0", 
+        px: 2, 
       }}
     >
       <Paper
@@ -58,8 +58,8 @@ const AdminLogin = () => {
           flexDirection: "column",
           alignItems: "center",
           backgroundColor: "#fff",
-          width: "100%", // Makes Paper component responsive
-          maxWidth: "400px", // Sets a maximum width for the Paper component
+          width: "100%", 
+          maxWidth: "400px", 
         }}
       >
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
