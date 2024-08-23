@@ -16,6 +16,7 @@ const Login = () => {
         .post(`${baseUrl}/api/users/login`, { email, password })
         .then((response) => {
           const token = response.data.token;
+          console.log(token,"tokrn")
            if(token.reponse.status===203){
             localStorage.setItem("Admin_token", token);
             nav("/adminhome");
