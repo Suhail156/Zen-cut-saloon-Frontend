@@ -23,11 +23,13 @@ import "chart.js/auto";
 import Sidebar from "./Sidebar";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";  // Import useNavigate
 
 const drawerWidth = 240;
 
 const AdminHome = () => {
-  const baseUrl=import.meta.env.VITE_BASE_URL;
+  const baseUrl = import.meta.env.VITE_BASE_URL;
+  const navigate = useNavigate();  // Initialize useNavigate
   const [data, setData] = useState({
     totalBookings: 0,
     totalUsers: 0,
@@ -163,7 +165,8 @@ const AdminHome = () => {
       <Button
         startIcon={<LogoutIcon />}
         onClick={() => {
-          navigate("/adminlogin");
+          localStorage.removeItem('Admin_token');
+          navigate("/"); 
           handleDrawerToggle();
         }}
         fullWidth
@@ -299,7 +302,7 @@ const AdminHome = () => {
                       alignItems: "center",
                       justifyContent: "center",
                       borderRadius: "50%",
-                      background: "linear-gradient(45deg, #3f51b5 30%, #ff4081 90%)",
+                      background: "linear-gradient(45deg, #00c853 30%, #b2ff59 90%)",
                       color: "#fff",
                     }}
                   >
@@ -317,16 +320,9 @@ const AdminHome = () => {
               </Card>
             </Grid>
             <Grid item xs={12}>
-              <Paper
-                sx={{
-                  p: 3,
-                  boxShadow: 3,
-                  borderRadius: 3,
-                  backgroundColor: "#fff",
-                }}
-              >
+              <Paper elevation={3} sx={{ p: 3 }}>
                 <Typography variant="h6" gutterBottom>
-                  Monthly Bookings Overview
+                  Bookings Overview
                 </Typography>
                 <Line data={chartData} />
               </Paper>
