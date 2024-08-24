@@ -37,7 +37,6 @@ const BookingPending = () => {
     fetchData();
   }, [id]);
 
-  // Handle accept booking
   const handleAccept = async (bookingId) => {
     try {
       await axios.patch(`${baseUrl}/api/shopowner/owneraccept/${bookingId}`);
@@ -55,7 +54,6 @@ const BookingPending = () => {
     }
   };
 
-  // Handle reject booking
   const handleReject = async (bookingId) => {
     try {
       await axios.patch(`${baseUrl}/api/shopowner/ownerreject/${bookingId}`);
