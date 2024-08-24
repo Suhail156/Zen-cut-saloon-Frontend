@@ -11,15 +11,15 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Button,
+  IconButton,
 } from "@mui/material";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
 import toast from "react-hot-toast";
 import SideNavbar from "./SideNavbar";
 
 const BookingPending = () => {
-  const baseUrl=import.meta.env.VITE_BASE_URL;
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const { id } = useParams();
   const [data, setData] = useState([]);
 
@@ -40,10 +40,8 @@ const BookingPending = () => {
   // Handle accept booking
   const handleAccept = async (bookingId) => {
     try {
-      const response = await axios.patch(
-        `${baseUrl}/api/shopowner/owneraccept/${bookingId}`
-      );
-      toast.success("Booking accepted successfully!"); 
+      await axios.patch(`${baseUrl}/api/shopowner/owneraccept/${bookingId}`);
+      toast.success("Booking accepted successfully!");
       setData(
         data.map((booking) =>
           booking._id === bookingId
@@ -53,17 +51,15 @@ const BookingPending = () => {
       );
     } catch (error) {
       console.log(error);
-      toast.error("Failed to accept booking."); 
+      toast.error("Failed to accept booking.");
     }
   };
 
   // Handle reject booking
   const handleReject = async (bookingId) => {
     try {
-      const response = await axios.patch(
-        `${baseUrl}/api/shopowner/ownerreject/${bookingId}`
-      );
-      toast.success("Booking rejected successfully!"); // Show success toast
+      await axios.patch(`${baseUrl}/api/shopowner/ownerreject/${bookingId}`);
+      toast.success("Booking rejected successfully!");
       setData(
         data.map((booking) =>
           booking._id === bookingId
@@ -73,7 +69,7 @@ const BookingPending = () => {
       );
     } catch (error) {
       console.log(error);
-      toast.error("Failed to reject booking."); 
+      toast.error("Failed to reject booking.");
     }
   };
 
@@ -82,10 +78,9 @@ const BookingPending = () => {
       sx={{
         display: "flex",
         height: "100vh",
-        backgroundColor: "#e0e0e0"
+        backgroundColor: "#e0e0e0",
       }}
     >
-      {" "}
       <SideNavbar />
       <Box className="container mx-auto bg-grey p-4 rounded-lg shadow-lg">
         <Typography variant="h4" component="h1" gutterBottom>
@@ -154,39 +149,29 @@ const BookingPending = () => {
                       <TableCell>
                         {booking.status === "pending" ? (
                           <>
-                            <Button
-                              variant="contained"
-                              startIcon={<CheckIcon />}
+                            <IconButton
                               sx={{
                                 marginRight: 1,
-                                backgroundColor: "green",
-                                color: "white",
+                                color: "green",
                                 "&:hover": {
-                                  backgroundColor: "darkgreen",
+                                  color: "darkgreen",
                                 },
-                                borderRadius: "20px",
-                                padding: "8px 16px",
                               }}
                               onClick={() => handleAccept(booking._id)}
                             >
-                              Accept
-                            </Button>
-                            <Button
-                              variant="contained"
-                              startIcon={<CloseIcon />}
+                              <CheckCircleIcon />
+                            </IconButton>
+                            <IconButton
                               sx={{
-                                backgroundColor: "red",
-                                color: "white",
+                                color: "red",
                                 "&:hover": {
-                                  backgroundColor: "darkred",
+                                  color: "darkred",
                                 },
-                                borderRadius: "20px",
-                                padding: "8px 16px",
                               }}
                               onClick={() => handleReject(booking._id)}
                             >
-                              Reject
-                            </Button>
+                              <CancelIcon />
+                            </IconButton>
                           </>
                         ) : (
                           <Typography variant="subtitle2">
