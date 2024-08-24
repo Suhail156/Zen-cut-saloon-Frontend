@@ -19,7 +19,7 @@ const Login = () => {
           if(response.status===203){
             localStorage.setItem("Admin_token", token);
             nav("/adminhome");
-          }else if(response.status===201){
+          }else if(response.status===200){
             const name = response.data.data.username;
             const id = response.data.data._id;
             localStorage.setItem("token",token);
