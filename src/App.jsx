@@ -28,6 +28,7 @@ import EditOwners from './Shop/EditOwners';
 import EditProfile from './User/EditProfile';
 import BookingPending from './Shop/BookingPending';
 import BookingDetailesUser from './User/BookingDetailesUser';
+import AdminProtect from './AdminProtect';
 
 const App = () => {
   return (
@@ -56,7 +57,7 @@ const App = () => {
 
         
         <Route path='/adminlogin' element={<AdminLogin/>} />
-        <Route path='/adminhome' element={<AdminHome/>}/>
+        <Route path='/adminhome' element={<AdminProtect><AdminHome/></AdminProtect>}/>
         <Route path="/users" element={<User />} />
         <Route path='/owners' element={<Owner/>}/>
         <Route path='/admineditowners/:id' element={<AdminEditOwners/>}/>
