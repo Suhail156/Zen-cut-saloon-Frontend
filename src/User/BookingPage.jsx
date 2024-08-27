@@ -5,10 +5,10 @@ import axios from "axios";
 import toast from "react-hot-toast";
 
 const BookingPage = () => {
-  const baseUrl=import.meta.env.VITE_BASE_URL;
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const location = useLocation();
   const { date, slot, shops } = location.state || {};
-    
+
   const id = localStorage.getItem("id");
   const nav = useNavigate();
   const [username, setUsername] = useState("");
@@ -31,8 +31,7 @@ const BookingPage = () => {
       toast.success(response.data.message);
       nav("/");
       console.log(response);
-      
-      console.log(date)
+      console.log(date);
     } catch (error) {
       console.error("Error booking appointment:", error);
       if (error.response && error.response.status === 400) {
@@ -42,22 +41,20 @@ const BookingPage = () => {
       }
     }
   };
-     
+
   return (
     <>
       <Navbar />
-      <div className="min-h-screen bg-gray-200 flex justify-center items-center">
-        <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl flex">
-          <div className="w-1/2 relative rounded-lg overflow-hidden">
-            <div>
-              <img
-                src={shops.image}
-                alt={shops.shopname}
-                className="absolute top-0 left-0 w-full h-full object-cover"
-              />
-            </div>
+      <div className="min-h-screen bg-gray-200 flex justify-center items-center p-4">
+        <div className="bg-white rounded-lg shadow-lg w-full max-w-4xl flex flex-col md:flex-row">
+          <div className="md:w-1/2 relative rounded-lg overflow-hidden">
+            <img
+              src={shops.image}
+              alt={shops.shopname}
+              className="w-full h-64 md:h-full object-cover"
+            />
           </div>
-          <div className="w-1/2 p-8 flex flex-col justify-center">
+          <div className="w-full md:w-1/2 p-8 flex flex-col justify-center">
             <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
               Booking Details
             </h2>
