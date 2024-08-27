@@ -20,10 +20,11 @@ import axios from "axios";
 import SideNavbar from "./SideNavbar";
 
 const ShopOwnerProfile = () => {
-  const baseUrl=import.meta.env.VITE_BASE_URL;
+  const baseUrl = import.meta.env.VITE_BASE_URL;
   const [owner, setOwner] = useState(null);
   const { id } = useParams();
   const nav = useNavigate();
+
   useEffect(() => {
     const fetchOwner = async () => {
       try {
@@ -43,12 +44,12 @@ const ShopOwnerProfile = () => {
   }
 
   return (
-    <Box sx={{ display: "flex", height: "100vh", backgroundColor: "#F5F5F5" }}>
+    <Box sx={{ display: "flex", minHeight: "100vh", backgroundColor: "#F5F5F5" }}>
       <SideNavbar />
       <Box
         sx={{
           flexGrow: 1,
-          p: 4,
+          p: { xs: 2, md: 4 },
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
@@ -56,12 +57,13 @@ const ShopOwnerProfile = () => {
       >
         <Card
           sx={{
-            width: "80%",
+            width: { xs: "100%", sm: "90%", md: "80%" },
             maxWidth: 1400,
             borderRadius: 8,
             boxShadow: 12,
             backgroundColor: "#FFFFFF",
             overflow: "hidden",
+            p: { xs: 2, sm: 3, md: 4 },
           }}
         >
           <CardContent>
@@ -76,10 +78,9 @@ const ShopOwnerProfile = () => {
                   alt="Profile"
                   src={owner.profilePicture}
                   sx={{
-                    width: 180,
-                    height: 180,
+                    width: { xs: 120, sm: 150, md: 180 },
+                    height: { xs: 120, sm: 150, md: 180 },
                     mb: 2,
-                    ml: 3,
                     border: "4px solid #BDC6D7",
                     boxShadow: 6,
                     transition: "transform 0.3s ease",
@@ -93,7 +94,7 @@ const ShopOwnerProfile = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={8}>
-                <Box textAlign="left">
+                <Box textAlign={{ xs: "center", sm: "left" }}>
                   <Typography
                     variant="h5"
                     gutterBottom
@@ -213,7 +214,7 @@ const ShopOwnerProfile = () => {
               <Button
                 variant="contained"
                 color="primary"
-                sx={{ borderRadius: 8, mt: 2 }}
+                sx={{ borderRadius: 8, mt: 2, px: 4 }}
                 onClick={() => nav(`/editowner/${id}`)}
               >
                 Edit Profile
