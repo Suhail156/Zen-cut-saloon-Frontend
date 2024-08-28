@@ -324,16 +324,18 @@ const AddShop = () => {
               </Grid>
               <Grid item xs={12}>
                 <Button
-                  type="submit"
                   variant="contained"
                   color="primary"
+                  type="submit"
                   fullWidth
                   sx={{
-                    py: { xs: 1.2, sm: 1.5 },
+                    mt: 2,
+                    py: 1.5,
                     fontSize: { xs: "1rem", sm: "1.2rem" },
+                    textTransform: "none",
                   }}
                 >
-                  Submit
+                  Add Shop
                 </Button>
               </Grid>
             </Grid>
