@@ -9,96 +9,49 @@ import Navbar from "../src/Navbar";
 const Home = () => {
   const [shop, setShop] = useState([]);
   const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);  // <-- loading state added
   const nav = useNavigate();
   const baseUrl = import.meta.env.VITE_BASE_URL;
 
-  // Fetch shops for infinite scroll pagination
   useEffect(() => {
-    if (search !== "") return; // Only load paginated shops when not searching
-
     const fetchShops = async () => {
+      setLoading(true); // start loading
       try {
-        setLoading(true);
-        console.log(`Fetching shops for page: ${page}`);
-        const response = await axios.get(`${baseUrl}/api/usershop/usershopview?page=${page}`);
-
-        if (response.data.data.length === 0) {
-          console.log("No more shops to fetch.");
-          setHasMore(false);
-        } else {
-          setShop((prev) => [...prev, ...response.data.data]);
-          setHasMore(true);
-        }
+        const response = await axios.get(`${baseUrl}/api/usershop/usershopview`);
+        setShop(response.data.data);
       } catch (error) {
-        console.log("Error fetching shops:", error);
-      } finally {
-        setLoading(false);
+        console.log("error", error);
       }
+      setLoading(false); // done loading
     };
-
     fetchShops();
-  }, [page, search, baseUrl]);
+  }, []);
 
-  // Search shops by location
   useEffect(() => {
     const fetchLocation = async () => {
+      setLoading(true); // start loading
       try {
-        setLoading(true);
-        if (search.trim() !== "") {
-          console.log(`Searching shops by location: ${search}`);
-          const response = await axios.get(`${baseUrl}/api/usershop/usershopsearch?locations=${search}`);
-          setShop(response.data.shops || []);
-          setHasMore(false);
-        } else {
-          // Reset when search cleared
-          setShop([]);
-          setPage(1);
-          setHasMore(true);
-        }
+        const response = await axios.get(
+          `${baseUrl}/api/usershop/usershopsearch?locations=${search}`
+        );
+        setShop(response.data.shops);
       } catch (error) {
-        console.log("Error searching shops:", error);
-      } finally {
-        setLoading(false);
+        console.log(error);
       }
+      setLoading(false); // done loading
     };
-
     fetchLocation();
-  }, [search, baseUrl]);
+  }, [search]);
 
-  // Infinite scroll with throttling
-  useEffect(() => {
-    let throttleTimer = null;
-
-    const handleScroll = () => {
-      if (throttleTimer) return;
-
-      throttleTimer = setTimeout(() => {
-        throttleTimer = null;
-
-        const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
-        console.log(`Scroll: nearBottom=${nearBottom}, hasMore=${hasMore}, search='${search}'`);
-        if (nearBottom && hasMore && search === "" && !loading) {
-          setPage((prev) => prev + 1);
-        }
-      }, 250);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [hasMore, search, loading]);
-
-  // Divide shops into rows of 4
   const chunkArray = (arr, chunkSize) => {
-    return Array.from({ length: Math.ceil(arr?.length / chunkSize) }, (_, index) =>
-      arr?.slice(index * chunkSize, index * chunkSize + chunkSize)
+    return Array.from(
+      { length: Math.ceil(arr?.length / chunkSize) },
+      (_, index) => arr?.slice(index * chunkSize, index * chunkSize + chunkSize)
     );
   };
+
   const chunkedShops = chunkArray(shop, 4);
 
-  // Barber features list
   const services = [
     {
       icon: <FaCut size={40} className="text-blue-500" />,
@@ -152,8 +105,8 @@ const Home = () => {
         </div>
 
         <div className="relative">
-          <div className="w-2/4 mx-auto mt-5 mb-56 relative flex items-center z-10">
-            <div className="relative flex w-full">
+          <div className="w-2/4 mx-auto  mt-5 mb-56 relative flex items-center z-10">
+            <div className="relative flex w-full  ">
               <span className="absolute inset-y-0 left-0 flex items-center pl-3">
                 <FaSearch className="text-gray-400 mt-8" />
               </span>
@@ -161,65 +114,55 @@ const Home = () => {
                 type="text"
                 onChange={(e) => setSearch(e.target.value)}
                 className="w-full h-10 pl-10 pr-4 border border-solid rounded-l-lg mt-8"
-                placeholder="Search for shops by location..."
-                value={search}
+                placeholder="Search for shops..."
               />
-              <button
-                onClick={() => {
-                  // Trigger search manually on button click (optional)
-                  // Here, input's onChange already updates search state and triggers search useEffect.
-                }}
-                className="bg-black text-white h-10 px-4 rounded-r-lg flex items-center justify-center mt-8"
-              >
+              <button className="bg-black text-white h-10 px-4 rounded-r-lg flex items-center justify-center mt-8">
                 Search
               </button>
             </div>
           </div>
 
-          {/* Loading spinner */}
-          {loading && (
-            <div className="text-center mb-4 text-blue-600 font-semibold">Loading...</div>
-          )}
-
           <div className="container mx-auto -mt-20">
-            {chunkedShops.length === 0 && !loading && (
-              <p className="text-center text-gray-600">No shops found.</p>
-            )}
-
-            {chunkedShops.map((row, rowIndex) => (
-              <div key={rowIndex} className="flex flex-wrap justify-center">
-                {row.map((item) => (
-                  <div
-                    key={item._id}
-                    className="w-full sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-4 px-2 mt-[40px]"
-                  >
-                    <div className="border rounded-lg overflow-hidden shadow-lg bg-white transform transition-transform hover:scale-105 opacity-90 hover:opacity-100 cursor-pointer">
-                      <div className="w-full h-40 overflow-hidden">
-                        <img
-                          src={item.image}
-                          className="w-full h-full object-cover"
-                          alt={item.shopname}
-                          onClick={() => nav(`/singlepage/${item._id}`)}
-                        />
-                      </div>
-                      <div className="p-4 bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 shadow-lg">
-                        <h2 className="text-lg font-bold mb-2">{item.shopname}</h2>
-                        {item.phone && (
-                          <p className="text-sm text-gray-600 flex items-center">
-                            <FaPhoneAlt className="mr-2" /> {item.phone}
-                          </p>
-                        )}
-                        {item.location && (
-                          <p className="text-sm text-gray-600 flex items-center">
-                            <FaMapMarkerAlt className="mr-2" /> {item.location}
-                          </p>
-                        )}
+            {loading ? (
+              <div className="text-center py-10 text-xl font-semibold">
+                Loading shops...
+              </div>
+            ) : (
+              chunkedShops.map((row, rowIndex) => (
+                <div key={rowIndex} className="flex flex-wrap justify-center">
+                  {row.map((item) => (
+                    <div
+                      key={item.id}
+                      className="w-full sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 mb-4 px-2 mt-[40px]"
+                    >
+                      <div className="border rounded-lg overflow-hidden shadow-lg bg-white transform transition-transform hover:scale-105 opacity-90 hover:opacity-100">
+                        <div className="w-full h-40 overflow-hidden">
+                          <img
+                            src={item.image}
+                            className="w-full h-full object-cover cursor-pointer"
+                            alt={item.shopname}
+                            onClick={() => nav(`/singlepage/${item._id}`)}
+                          />
+                        </div>
+                        <div className="p-4 bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 shadow-lg">
+                          <h2 className="text-lg font-bold mb-2">{item.shopname}</h2>
+                          {item.phone && (
+                            <p className="text-sm text-gray-600 flex items-center">
+                              <FaPhoneAlt className="mr-2" /> {item.phone}
+                            </p>
+                          )}
+                          {item.location && (
+                            <p className="text-sm text-gray-600 flex items-center">
+                              <FaMapMarkerAlt className="mr-2" /> {item.location}
+                            </p>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            ))}
+                  ))}
+                </div>
+              ))
+            )}
           </div>
         </div>
 
