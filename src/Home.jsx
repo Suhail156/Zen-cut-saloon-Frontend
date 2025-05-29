@@ -17,7 +17,7 @@ const Home = () => {
   useEffect(() => {
     const fetchShops = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/api/usershop/usershopview?page=${page}`);
+        const response = await axios.get(${baseUrl}/api/usershop/usershopview?page=${page});
         if (response.data.data.length === 0) {
           setHasMore(false);
         } else {
@@ -34,7 +34,7 @@ const Home = () => {
     const fetchLocation = async () => {
       try {
         if (search.trim() !== "") {
-          const response = await axios.get(`${baseUrl}/api/usershop/usershopsearch?locations=${search}`);
+          const response = await axios.get(${baseUrl}/api/usershop/usershopsearch?locations=${search});
           setShop(response.data.shops || []);
         }
       } catch (error) {
@@ -117,11 +117,13 @@ const Home = () => {
     <div>
       <Navbar />
       <div className="min-h-screen bg-gradient-to-r from-blue-200 to-purple-200 mt-[-220px]">
-        <div className="w-3/4 mx-auto text-center pt-[140px]">
-          <h1 className="text-6xl font-extrabold text-black mb-8">Salon Booking Platform</h1>
-          <p className="text-xl text-gray-800 font-medium">
-            Book appointments with the best local salons near you.
-          </p>
+        <div className="w-3/4 mx-auto text-center pt-[120px]">
+          <h1 className="text-5xl font-bold italic text-black mt-32">
+            Transform yourself with the <br />
+            <span className="font-bold italic">best local beauty experts.</span>
+            <br />
+            <span className="font-bold italic">Book now!</span>
+          </h1>
         </div>
 
         <div className="relative">
@@ -156,7 +158,7 @@ const Home = () => {
                           src={item.image}
                           className="w-full h-full object-cover cursor-pointer"
                           alt={item.shopname}
-                          onClick={() => nav(`/singlepage/${item._id}`)}
+                          onClick={() => nav(/singlepage/${item._id})}
                         />
                       </div>
                       <div className="p-4 bg-gradient-to-r from-gray-50 via-gray-100 to-gray-200 shadow-lg">
