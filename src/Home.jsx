@@ -117,8 +117,8 @@ const Home = () => {
     <div>
       <Navbar />
       <div className="min-h-screen bg-gradient-to-r from-blue-200 to-purple-200 mt-[-220px]">
-        <div className="w-3/4 mx-auto text-center pt-[70px]">
-          <h1 className="text-6xl font-extrabold text-black mb-4">Salon Booking Platform</h1>
+        <div className="w-3/4 mx-auto text-center pt-[140px]">
+          <h1 className="text-6xl font-extrabold text-black mb-8">Salon Booking Platform</h1>
           <p className="text-xl text-gray-800 font-medium">
             Book appointments with the best local salons near you.
           </p>
