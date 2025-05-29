@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FaSearch, FaPhoneAlt, FaMapMarkerAlt } from "react-icons/fa";
 import Footer from "./Footer";
 import { FaCut, FaBath, FaMagic, FaBrush, FaUserTie } from "react-icons/fa";
-import Navbar from "../src/Navbar";
+import Navbar from "../src/Navbar"
 
 const Home = () => {
   const [shop, setShop] = useState([]);
