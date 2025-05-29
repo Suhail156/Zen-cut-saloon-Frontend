@@ -117,13 +117,11 @@ const Home = () => {
     <div>
       <Navbar />
       <div className="min-h-screen bg-gradient-to-r from-blue-200 to-purple-200 mt-[-220px]">
-        <div className="w-3/4 mx-auto text-center pt-[120px]">
-          <h1 className="text-5xl font-bold italic text-black mt-32">
-            Transform yourself with the <br />
-            <span className="font-bold italic">best local beauty experts.</span>
-            <br />
-            <span className="font-bold italic">Book now!</span>
-          </h1>
+        <div className="w-3/4 mx-auto text-center pt-[140px]">
+          <h1 className="text-6xl font-extrabold text-black mb-4">Salon Booking Platform</h1>
+          <p className="text-xl text-gray-800 font-medium">
+            Book appointments with the best local salons near you.
+          </p>
         </div>
 
         <div className="relative">
